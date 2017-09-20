@@ -177,7 +177,9 @@ push(@row_consumers, sub
 # preceding ones.
 
 #============================================================================
-# Create list of player names ordered by number of ascensions
+# Create list of player names ordered by number of ascensions. Ties are
+# broken by ascension ratios (ie. players that took less games to achieve
+# same win count are prefered).
 #============================================================================
 
 push(@glb_consumers, sub
