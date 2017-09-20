@@ -1,0 +1,19 @@
+<!doctype html>
+
+<html>
+
+<head>
+<title>Test</title>
+</head>
+
+<body>
+
+<ul>
+[% FOR p IN players.meta.ord_by_ascs %]
+<li>[% p %]</li>
+[% END %]
+</ul>
+
+</body>
+
+</html>
