@@ -15,7 +15,7 @@ use utf8;
 
 use Getopt::Long;
 use JSON;
-
+use Template;
 
 
 #============================================================================
@@ -266,6 +266,34 @@ if($cmd_debug) {
   open(JS, '>', "debug.scoreboard.$$") or die;
   print JS JSON->new->pretty(1)->encode(\%s), "\n";
   close(JS);
+}
+
+#--- find the templates
+
+my @templates;
+my $tpath = $cfg->{'templates'}{'path'} // undef;
+if($tpath && -d $tpath) {
+  opendir(my $dh, $tpath)
+    or die "Could not scan template directory $tpath";
+  @templates = grep {
+    -f "$tpath/$_" && $_ ne $cfg->{'templates'}{'player'}
+  } readdir($dh);
+  closedir($dh);
+}
+
+#--- process the regular templates
+
+my $tt = Template->new(
+  'OUTPUT_PATH' => $cfg->{'templates'}{'html'},
+  'INCLUDE_PATH' => 'templates',
+  'RELATIVE' => 1
+);
+for my $template (@templates) {
+  my $dest_file = $template;
+  $dest_file =~ s/\.tt//;
+  if(!$tt->process($template, \%s, $dest_file . '.html')) {
+    die $tt->error();
+  }
 }
 
 #--- release lock file

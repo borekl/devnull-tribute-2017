@@ -1,0 +1,26 @@
+<!doctype html>
+
+<html>
+
+<head>
+<title>Test</title>
+</head>
+
+<body>
+
+<h1>Major Trophies</h1>
+
+<h2>Most Ascensions</h2>
+
+<b>[% SET plr = players.meta.ord_by_ascs.0; plr %]
+[% players.data.item(plr).cnt_ascensions %]</b><br>
+
+[% SET plr = players.meta.ord_by_ascs.1; plr %]
+[% players.data.item(plr).cnt_ascensions %]<br>
+
+[% SET plr = players.meta.ord_by_ascs.2; plr %]
+[% players.data.item(plr).cnt_ascensions %]<br>
+
+</body>
+
+</html>
