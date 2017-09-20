@@ -128,6 +128,11 @@ sub help
 # being read; they receive the hashref of the parsed xlogfile row as the
 # argument.
 
+{ #<<< start a new scope for row consumers
+
+my $game_id = 0;
+my $game_current_id;
+
 #============================================================================
 # This stores every game from the xlogfile to a list for later reference.
 #============================================================================
@@ -136,7 +141,8 @@ push(@row_consumers, sub
 {
   my $xrow = shift;
 
-  push(@{$s{'games'}{'data'}}, $xrow);
+  $s{'games'}{'data'}[$game_id] = { (%$xrow, '_id', $game_id) };
+  $game_current_id = $game_id++;
 });
 
 #============================================================================
@@ -163,7 +169,7 @@ push(@row_consumers, sub
 
   #--- push new game into the list
 
-  push(@{$s{'players'}{'data'}{$plr_name}{'games'}}, $game_id);
+  push(@{$s{'players'}{'data'}{$plr_name}{'games'}}, $game_current_id);
 
   #--- increment games played counter
 
@@ -177,6 +183,8 @@ push(@row_consumers, sub
   }
 
 });
+
+} #>>> end the scope of row consumers
 
 
 
