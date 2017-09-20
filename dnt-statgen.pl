@@ -5,14 +5,17 @@
 # """""""""""""""""""""""""""""""""""""""""""""""""""
 # (c) 2017 Borek Lupomesky
 #
-# Scoreboard generator for /dev/null/nethack Tribute 2017.
+# Scoreboard generator for /dev/null/nethack Tribute 2017. Please see README
+# for documentation on how this works.
 #============================================================================
 
 use strict;
 use warnings;
 use utf8;
 
+use Getopt::Long;
 use JSON;
+
 
 
 #============================================================================
@@ -22,11 +25,25 @@ use JSON;
 my $lockfile = '/tmp/dnt-statgen.lock';
 
 
+
 #============================================================================
 #=== global variables =======================================================
 #============================================================================
 
-my $cfg;    # configuration, parsed from external file
+# configuration, parsed from external file
+
+my $cfg;
+
+# array of function references that are called for each xlogfile row
+
+my @row_consumers;
+
+# the complete scoreboard data are held in this variable; this is the data
+# that are supplied to Template Toolkit templates for rendering the actual
+# web pages; the structure is described in the README.md
+
+my %s;
+
 
 
 #============================================================================
@@ -45,6 +62,7 @@ BEGIN
   close($fh);
   $cfg = $js->decode($config);
 }
+
 
 
 #============================================================================
@@ -83,6 +101,49 @@ sub parse_log
 }
 
 
+
+#============================================================================
+#=== row consumers ==========================================================
+#============================================================================
+
+#============================================================================
+# Record players' games
+#============================================================================
+
+push(@row_consumers, sub
+{
+  my $xrow = shift;
+  my $plr_name = $xrow->{'name'};
+
+  #--- if player sub-tree or the games list do not exist, instantiate it
+
+  if(
+    !exists $s{'players'}{'data'}{$plr_name}
+    || !exists $s{'players'}{'data'}{$plr_name}{'games'}
+  ) {
+    $s{'players'}{'data'}{$plr_name}{'games'} = [];
+  }
+
+  #--- push new game into the list
+
+  push(@{$s{'players'}{'data'}{$plr_name}{'games'}}, $xrow);
+
+});
+
+
+#============================================================================
+# Display usage summary
+#============================================================================
+
+sub help
+{
+  print "Command-line options:\n";
+  print "  --debug       debug mode\n";
+  print "\n";
+}
+
+
+
 #============================================================================
 #===================  _  ====================================================
 #===  _ __ ___   __ _(_)_ __  ===============================================
@@ -93,6 +154,18 @@ sub parse_log
 #============================================================================
 #============================================================================
 
+#--- process command-line options
+
+my (
+  $cmd_debug
+);
+
+if(!GetOptions(
+  'debug' => \$cmd_debug,
+)) {
+  help();
+  exit(1);
+}
 
 #--- check/create lock file
 
@@ -112,11 +185,20 @@ open(my $xlog, '<', $cfg->{'xlogfile'}) or die "Could not open the xlogfile";
 while(my $l = <$xlog>) {
   chomp($l);
   my $xrow = parse_log($l);
+  for my $consumer (@row_consumers) {
+    $consumer->($xrow);
+  }
   $cnt++;
 }
 close($xlog);
 
-print "Lines read: ", $cnt, "\n";
+#--- debug: save the compiled scoreboard data as JSON
+
+if($cmd_debug) {
+  open(JS, '>', "debug.scoreboard.$$") or die;
+  print JS JSON->new->pretty(1)->encode(\%s), "\n";
+  close(JS);
+}
 
 #--- release lock file
 
