@@ -48,6 +48,7 @@ my @glb_consumers;
 # web pages; the structure is described in the README.md
 
 my %s;
+$s{'games'}{'data'} = [];
 
 
 
@@ -128,6 +129,17 @@ sub help
 # argument.
 
 #============================================================================
+# This stores every game from the xlogfile to a list for later reference.
+#============================================================================
+
+push(@row_consumers, sub
+{
+  my $xrow = shift;
+
+  push(@{$s{'games'}{'data'}}, $xrow);
+});
+
+#============================================================================
 # Record players' games
 #============================================================================
 
@@ -135,6 +147,7 @@ push(@row_consumers, sub
 {
   my $xrow = shift;
   my $plr_name = $xrow->{'name'};
+  my $game_id = scalar(@{$s{'games'}{'data'}}) - 1;
 
   #--- if player sub-tree or the games list do not exist, instantiate it
 
@@ -150,7 +163,7 @@ push(@row_consumers, sub
 
   #--- push new game into the list
 
-  push(@{$s{'players'}{'data'}{$plr_name}{'games'}}, $xrow);
+  push(@{$s{'players'}{'data'}{$plr_name}{'games'}}, $game_id);
 
   #--- increment games played counter
 

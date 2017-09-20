@@ -39,6 +39,13 @@ templates that are used to generate actual static website. The in-memory
 scoreboard is held as a tree with its top level held in the `%s` hash. The
 in-memory data structure is documented below.
 
+### GAMES
+
+%s{**games**}{**data**}
+List of all games in the order they appear in the xlogfile. This list
+is created so that the individual games can be referenced from other
+parts of the scoreboard.
+
 ### PLAYERS
 
 %s{**players**}{**data**}{*playername*}{**games**}  
