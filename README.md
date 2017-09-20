@@ -44,6 +44,18 @@ in-memory data structure is documented below.
 %s{**players**}{**data**}{*playername*}{**games**}  
 Ordered list of all player's games as they appear in the xlogfile.
 
+%s{**players**}{**data**}{*playername*}{**cnt_games**}  
+%s{**players**}{**data**}{*playername*}{**cnt_ascensions**}  
+Counters of total games and ascended games.
+
+%s{**players**}{**data**}{*playername*}{**cnt_asc_turns**}  
+Sum of turns in all ascending games. This may be used to break ties where
+players have the same number of ascending games.
+
+%s{**players**}{**meta**}{**ord_by_ascs**}  
+List of players ordered by number of ascensions (descending), ties are
+broken by ascension ratio.
+
 ### CLANS
 
 ### TROPHIES

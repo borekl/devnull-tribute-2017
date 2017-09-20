@@ -38,6 +38,11 @@ my $cfg;
 
 my @row_consumers;
 
+# array of function references taht are called after the whole xlogfile is
+# read in
+
+my @glb_consumers;
+
 # the complete scoreboard data are held in this variable; this is the data
 # that are supplied to Template Toolkit templates for rendering the actual
 # web pages; the structure is described in the README.md
@@ -101,10 +106,26 @@ sub parse_log
 }
 
 
+#============================================================================
+# Display usage summary
+#============================================================================
+
+sub help
+{
+  print "Command-line options:\n";
+  print "  --debug       debug mode\n";
+  print "\n";
+}
+
+
 
 #============================================================================
 #=== row consumers ==========================================================
 #============================================================================
+
+# These are functions that get to process every line of xlogfile as it's
+# being read; they receive the hashref of the parsed xlogfile row as the
+# argument.
 
 #============================================================================
 # Record players' games
@@ -122,25 +143,68 @@ push(@row_consumers, sub
     || !exists $s{'players'}{'data'}{$plr_name}{'games'}
   ) {
     $s{'players'}{'data'}{$plr_name}{'games'} = [];
+    $s{'players'}{'data'}{$plr_name}{'cnt_games'} = 0;
+    $s{'players'}{'data'}{$plr_name}{'cnt_ascensions'} = 0;
+    $s{'players'}{'data'}{$plr_name}{'cnt_asc_turns'} = 0;
   }
 
   #--- push new game into the list
 
   push(@{$s{'players'}{'data'}{$plr_name}{'games'}}, $xrow);
 
+  #--- increment games played counter
+
+  $s{'players'}{'data'}{$plr_name}{'cnt_games'}++;
+
+  #--- increment games ascended counter
+
+  if($xrow->{'death'} =~ /^ascended/) {
+    $s{'players'}{'data'}{$plr_name}{'cnt_ascensions'}++;
+    $s{'players'}{'data'}{$plr_name}{'cnt_asc_turns'} += $xrow->{'turns'};
+  }
+
 });
 
 
+
 #============================================================================
-# Display usage summary
+#=== global consumers =======================================================
 #============================================================================
 
-sub help
+# These are functions that are called once the whole xlogfile is read in,
+# which also means that the row consumers did their work. Note, that the
+# order of their definition is important as some build on the output of the
+# preceding ones.
+
+#============================================================================
+# Create list of player names ordered by number of ascensions
+#============================================================================
+
+push(@glb_consumers, sub
 {
-  print "Command-line options:\n";
-  print "  --debug       debug mode\n";
-  print "\n";
-}
+  #--- shortcut for players-data subtree
+
+  my $plr = $s{'players'}{'data'};
+
+  #--- get list of ascending players
+
+  my @plr_list = grep { $plr->{$_}{'cnt_ascensions'} > 0 } keys %$plr;
+
+  #--- sort the eligible players by number of ascensions
+
+  my @plr_ordered = sort {
+    if($plr->{$b}{'cnt_ascensions'} == $plr->{$a}{'cnt_ascensions'}) {
+      $plr->{$a}{'cnt_games'} <=> $plr->{$b}{'cnt_games'}
+    } else {
+      $plr->{$b}{'cnt_ascensions'} <=> $plr->{$a}{'cnt_ascensions'}
+    }
+  } @plr_list;
+
+  #--- store the result
+
+  $s{'players'}{'meta'}{'ord_by_ascs'} = \@plr_ordered;
+
+});
 
 
 
@@ -180,7 +244,6 @@ close(F);
 
 #--- read the xlogfile
 
-my $cnt = 0;
 open(my $xlog, '<', $cfg->{'xlogfile'}) or die "Could not open the xlogfile";
 while(my $l = <$xlog>) {
   chomp($l);
@@ -188,9 +251,14 @@ while(my $l = <$xlog>) {
   for my $consumer (@row_consumers) {
     $consumer->($xrow);
   }
-  $cnt++;
 }
 close($xlog);
+
+#--- invoke global consumers
+
+for my $consumer (@glb_consumers) {
+  $consumer->();
+}
 
 #--- debug: save the compiled scoreboard data as JSON
 
