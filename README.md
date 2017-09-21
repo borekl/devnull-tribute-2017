@@ -47,7 +47,13 @@ parts of the scoreboard. This list contains the actual data, all other list
 under `%s{games}{data}` are only lists of row ids.
 
 %s{**games**}{**data**}{**ascended**}
-List of references to ascended games in chronological order.
+List of ascended games in chronological order.
+
+%s{**games**}{**data**}{**asc_by_turns**}
+%s{**games**}{**data**}{**asc_by_duration**}
+%s{**games**}{**data**}{**asc_by_maxscore**}
+%s{**games**}{**data**}{**asc_by_minscore**}
+
 
 ### PLAYERS
 

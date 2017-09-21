@@ -276,6 +276,67 @@ push(@glb_consumers, sub
 
 });
 
+#============================================================================
+# Create list of ascending games ordered by turncount (ascending).
+#============================================================================
+
+push(@glb_consumers, sub
+{
+  my $g = $s{'games'}{'data'}{'all'};
+  my @sorted = sort {
+    $g->[$a]{'turns'} <=> $g->[$b]{'turns'};
+  } @{$s{'games'}{'data'}{'ascended'}};
+  $s{'games'}{'data'}{'asc_by_turns'} = \@sorted;
+});
+
+#============================================================================
+# Create list of ascending games ordered by duration (ascending).
+#============================================================================
+
+push(@glb_consumers, sub
+{
+  my $g = $s{'games'}{'data'}{'all'};
+  my @sorted = sort {
+    $g->[$a]{'realtime'} <=> $g->[$b]{'realtime'};
+  } @{$s{'games'}{'data'}{'ascended'}};
+  $s{'games'}{'data'}{'asc_by_duration'} = \@sorted;
+});
+
+#============================================================================
+# Create list of ascending games ordered by score.
+#============================================================================
+
+push(@glb_consumers, sub
+{
+  my $g = $s{'games'}{'data'}{'all'};
+  my @sorted = sort {
+    $g->[$a]{'points'} <=> $g->[$b]{'points'};
+  } @{$s{'games'}{'data'}{'ascended'}};
+  $s{'games'}{'data'}{'asc_by_minscore'} = \@sorted;
+  $s{'games'}{'data'}{'asc_by_maxscore'} = [ reverse @sorted ];
+});
+
+#============================================================================
+# Create list of ascending games oredered by number of conducts, ties broken
+# by who got there first.
+#============================================================================
+
+push(@glb_consumers, sub
+{
+  my $g = $s{'games'}{'data'}{'all'};
+  my @sorted = sort {
+    my ($cond_a, $cond_b) = (
+      $g->[$a]{'_ncond'},
+      $g->[$b]{'_ncond'}
+    );
+    if($cond_a == $cond_b) {
+      return $g->[$a]{'endtime'} <=> $g->[$b]{'endtime'}
+    }
+    return $cond_b <=> $cond_a;
+  } @{$s{'games'}{'data'}{'ascended'}};
+  $s{'games'}{'data'}{'asc_by_conducts'} = \@sorted;
+});
+
 
 
 #============================================================================

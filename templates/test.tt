@@ -10,6 +10,7 @@
 
 <h1>Major Trophies</h1>
 
+
 <h2>Most Ascensions</h2>
 
 <b>[% SET plr = players.meta.ord_by_ascs.0; plr %]
@@ -20,6 +21,80 @@
 
 [% SET plr = players.meta.ord_by_ascs.2; plr %]
 [% players.data.item(plr).cnt_ascensions %]<br>
+
+
+<h2>Fastest Ascension: Gametime</h2>
+
+[% SET gidx = games.data.all %]
+[% SET g1 = games.data.asc_by_turns.0; %]
+[% SET g2 = games.data.asc_by_turns.1; %]
+[% SET g3 = games.data.asc_by_turns.2; %]
+
+<b>[% gidx.item(g1).name %] [% gidx.item(g1).turns %]</b><br>
+[% gidx.item(g2).name %] [% gidx.item(g2).turns %]<br>
+[% gidx.item(g3).name %] [% gidx.item(g3).turns %]<br>
+
+
+<h2>Fastest Ascension: Realtime</h2>
+
+[% SET g1 = games.data.asc_by_duration.0; %]
+[% SET g2 = games.data.asc_by_duration.1; %]
+[% SET g3 = games.data.asc_by_duration.2; %]
+
+<b>[% gidx.item(g1).name %] [% gidx.item(g1).realtime %]</b><br>
+[% gidx.item(g2).name %] [% gidx.item(g2).realtime %]<br>
+[% gidx.item(g3).name %] [% gidx.item(g3).realtime %]<br>
+
+
+<h2>Lowest Scoring Ascension</h2>
+
+[% SET g1 = games.data.asc_by_minscore.0; %]
+[% SET g2 = games.data.asc_by_minscore.1; %]
+[% SET g3 = games.data.asc_by_minscore.2; %]
+
+<b>[% gidx.item(g1).name %] [% gidx.item(g1).points %]</b><br>
+[% gidx.item(g2).name %] [% gidx.item(g2).points %]<br>
+[% gidx.item(g3).name %] [% gidx.item(g3).points %]<br>
+
+
+<h2>Highest Scoring Ascension</h2>
+
+[% SET g1 = games.data.asc_by_maxscore.0; %]
+[% SET g2 = games.data.asc_by_maxscore.1; %]
+[% SET g3 = games.data.asc_by_maxscore.2; %]
+
+<b>[% gidx.item(g1).name %] [% gidx.item(g1).points %]</b><br>
+[% gidx.item(g2).name %] [% gidx.item(g2).points %]<br>
+[% gidx.item(g3).name %] [% gidx.item(g3).points %]<br>
+
+
+<h2>First Ascension</h2>
+
+[% SET g1 = games.data.ascended.0; %]
+[% SET g2 = games.data.ascended.1; %]
+[% SET g3 = games.data.ascended.2; %]
+
+<b>[% gidx.item(g1).name %] [% gidx.item(g1).deathdate %]</b><br>
+[% gidx.item(g2).name %] [% gidx.item(g2).deathdate %]<br>
+[% gidx.item(g3).name %] [% gidx.item(g3).deathdate %]<br>
+
+
+<h2>Best Behaved Ascension</h2>
+
+[% SET g1 = games.data.asc_by_conducts.0; %]
+[% SET g2 = games.data.asc_by_conducts.1; %]
+[% SET g3 = games.data.asc_by_conducts.2; %]
+
+<b>[% gidx.item(g1).name %] [% gidx.item(g1).item('_ncond') %]
+[% gidx.item(g1).item('_conds') %]
+</b><br>
+
+[% gidx.item(g2).name %] [% gidx.item(g2).item('_ncond') %]
+[% gidx.item(g2).item('_conds') %]<br>
+
+[% gidx.item(g3).name %] [% gidx.item(g3).item('_ncond') %]
+[% gidx.item(g3).item('_conds') %]<br>
+
 
 </body>
 
