@@ -278,17 +278,29 @@ open(F, '>', $lockfile) || die "Failed to create lockfile $lockfile";
 print F $$, "\n";
 close(F);
 
-#--- read the xlogfile
+#--- read all the xlogfiles into memory
 
-open(my $xlog, '<', $cfg->{'xlogfile'}) or die "Could not open the xlogfile";
-while(my $l = <$xlog>) {
-  chomp($l);
-  my $xrow = parse_log($l);
+my @merged_xlog;
+for my $src (keys %{$cfg->{'sources'}}) {
+  open(my $xlog, '<', $cfg->{'sources'}{$src}{'xlogfile'})
+    or die "Could not open the xlogfile";
+  while(my $l = <$xlog>) {
+    chomp($l);
+    my $xrow = parse_log($l);
+    $xrow->{'_src'} = $src;
+    push(@merged_xlog, $xrow);
+  }
+  close($xlog);
+}
+
+#--- invoke row consumers
+
+for my $xrow (sort { $a->{'endtime'} <=> $b->{'endtime'} } @merged_xlog) {
   for my $consumer (@row_consumers) {
     $consumer->($xrow);
   }
 }
-close($xlog);
+undef @merged_xlog;
 
 #--- invoke global consumers
 
