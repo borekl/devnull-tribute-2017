@@ -109,6 +109,40 @@ sub parse_log
 
 
 #============================================================================
+# Return number of conducts or list of conduct abbreviations.
+#============================================================================
+
+sub conduct
+{
+  my $conduct = shift;
+  my @cond_list;
+
+  my @conducts = (
+    [ 1024, "arti" ],
+    [  128, "pile" ],
+    [  256, "self" ],
+    [ 2048, "geno" ],
+    [  512, "wish" ],
+    [    8, "athe" ],
+    [    4, "vegt" ],
+    [    2, "vegn" ],
+    [   16, "weap" ],
+    [   64, "illi" ],
+    [   32, "paci" ],
+    [    1, "food" ],
+  );
+
+  for my $e (@conducts) {
+    if($e->[0] & eval($conduct)) {
+      push(@cond_list, $e->[1]);
+    }
+  }
+
+  return wantarray ? @cond_list : scalar(@cond_list);
+}
+
+
+#============================================================================
 # Display usage summary
 #============================================================================
 
@@ -288,6 +322,8 @@ for my $src (keys %{$cfg->{'sources'}}) {
     chomp($l);
     my $xrow = parse_log($l);
     $xrow->{'_src'} = $src;
+    $xrow->{'_ncond'} = scalar(conduct($xrow->{'conduct'}));
+    $xrow->{'_conds'} = join(' ', conduct($xrow->{'conduct'}));
     push(@merged_xlog, $xrow);
   }
   close($xlog);
