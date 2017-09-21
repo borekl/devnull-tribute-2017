@@ -48,7 +48,8 @@ my @glb_consumers;
 # web pages; the structure is described in the README.md
 
 my %s;
-$s{'games'}{'data'} = [];
+$s{'games'}{'data'}{'all'} = [];
+$s{'games'}{'data'}{'ascended'} = [];
 
 
 
@@ -141,8 +142,21 @@ push(@row_consumers, sub
 {
   my $xrow = shift;
 
-  $s{'games'}{'data'}[$game_id] = { (%$xrow, '_id', $game_id) };
+  $s{'games'}{'data'}{'all'}[$game_id] = { (%$xrow, '_id', $game_id) };
   $game_current_id = $game_id++;
+});
+
+#============================================================================
+# This stores list of references of all winning games in chronological order.
+#============================================================================
+
+push(@row_consumers, sub
+{
+  my $xrow = shift;
+
+  if($xrow->{'death'} =~ /^ascended/) {
+    push(@{$s{'games'}{'data'}{'ascended'}}, $game_current_id);
+  }
 });
 
 #============================================================================
@@ -153,7 +167,6 @@ push(@row_consumers, sub
 {
   my $xrow = shift;
   my $plr_name = $xrow->{'name'};
-  my $game_id = scalar(@{$s{'games'}{'data'}}) - 1;
 
   #--- if player sub-tree or the games list do not exist, instantiate it
 

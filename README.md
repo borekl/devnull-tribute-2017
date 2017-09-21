@@ -41,10 +41,14 @@ in-memory data structure is documented below.
 
 ### GAMES
 
-%s{**games**}{**data**}
+%s{**games**}{**data**}{**all**}
 List of all games in the order they appear in the xlogfile. This list
 is created so that the individual games can be referenced from other
-parts of the scoreboard.
+parts of the scoreboard. This list contains the actual data, all other list
+under `%s{games}{data}` are only lists of row ids.
+
+%s{**games**}{**data**}{**ascended**}
+List of references to ascended games in chronological order.
 
 ### PLAYERS
 
