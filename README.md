@@ -76,9 +76,18 @@ players have the same number of ascending games.
 List of players ordered by number of ascensions (descending), ties are
 broken by ascension ratio.
 
+### TROPHIES
+
+%s{**trophies**}{**recognition**}{*trophy*}
+List of players that achieved given trophy.
+
 ### AUX
 
 This section contains ancillary data for the benefit of templates.
 
 %s{**aux**}{**roles**}  
 List of roles
+
+%s{**aux**}{**trophies**}{**recognition**}{**ord**}  
+%s{**aux**}{**trophies**}{**recognition**}{**data**}  
+Definition of order and names of recognition trophies.

@@ -113,6 +113,19 @@
   [% END %]
 </table>
 
+
+<h1>Recognition Trophies</h1>
+
+<table>
+  [% FOR trophy IN aux.trophies.recognition.ord.reverse %]
+  <tr>
+    <td>[% aux.trophies.recognition.data.item(trophy) %]</td>
+    <td>[% trophies.recognition.item(trophy).join(' ') %]</td>
+  </tr>
+  [% END %]
+</table>
+
+
 </body>
 
 </html>

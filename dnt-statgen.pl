@@ -50,6 +50,7 @@ my @glb_consumers;
 my %s;
 $s{'games'}{'data'}{'all'} = [];
 $s{'games'}{'data'}{'ascended'} = [];
+$s{'trophies'}{'recognition'} = {};
 
 
 
@@ -231,6 +232,46 @@ push(@row_consumers, sub
 
 });
 
+#============================================================================
+# Recognition trophies recording, only single game ones, ie the "star"
+# trophies
+#============================================================================
+
+push(@row_consumers, sub
+{
+  my $xrow = shift;
+  my $plr_name = $xrow->{'name'};
+  my $t = $s{'trophies'}{'recognition'};
+
+  my @trophies = (
+    [    1, 'iron'      ],
+    [    2, 'copper'    ],
+    [    4, 'brass'     ],
+    [    8, 'steel'     ],
+    [   16, 'bronze'    ],
+    [   32, 'silver'    ],
+    [   64, 'gold'      ],
+    [  128, 'platinum'  ],
+    [  256, 'dilithium' ],
+    [  512, 'lead'      ],
+    [ 1024, 'plastic'   ],
+    [ 2048, 'zinc'      ],
+  );
+
+  for my $trophy (@trophies) {
+    if(eval($xrow->{'achieve'}) & $trophy->[0]) {
+      if(!exists($t->{$trophy->[1]})) {
+        $t->{$trophy->[1]} = [ $plr_name ];
+      } else {
+        if(!grep { $_ eq $plr_name } @{$t->{$trophy->[1]}}) {
+          push(@{$t->{$trophy->[1]}}, $plr_name);
+        }
+      }
+    }
+  }
+
+});
+
 } #>>> end the scope of row consumers
 
 
@@ -372,6 +413,41 @@ push(@glb_consumers, sub
     }
   }
 });
+
+#============================================================================
+# This is just emplacing some ancillary info for templates.
+#============================================================================
+
+push(@glb_consumers, sub
+{
+
+  $s{'aux'}{'trophies'}{'recognition'}{'ord'} = [
+    qw(plastic lead iron zinc copper brass steel bronze silver gold platinum
+       dilithium birdie doubletop hattrick grandslam fullmonty)
+  ];
+
+  $s{'aux'}{'trophies'}{'recognition'}{'data'} = {
+    plastic => 'Plastic Star',
+    lead => 'Lead Star',
+    iron  => 'Iron Star',
+    zinc => 'Zinc Star',
+    copper => 'Copper Star',
+    brass => 'Brass Star',
+    steel => 'Steel Star',
+    bronze => 'Bronze Star',
+    silver => 'Silver Star',
+    gold => 'Gold Star',
+    platinum => 'Platinum Star',
+    dilithium => 'Dilithium Star',
+    birdie => 'Birdie',
+    doubletop => 'Double Top',
+    hattrick => 'Hat Trick',
+    grandslam => 'Grand Slam',
+    fullmonty => 'Full Monty'
+  };
+
+});
+
 
 
 #============================================================================
