@@ -49,11 +49,15 @@ under `%s{games}{data}` are only lists of row ids.
 %s{**games**}{**data**}{**ascended**}
 List of ascended games in chronological order.
 
-%s{**games**}{**data**}{**asc_by_turns**}
-%s{**games**}{**data**}{**asc_by_duration**}
-%s{**games**}{**data**}{**asc_by_maxscore**}
-%s{**games**}{**data**}{**asc_by_minscore**}
+%s{**games**}{**data**}{**asc_by_turns**}  
+%s{**games**}{**data**}{**asc_by_duration**}  
+%s{**games**}{**data**}{**asc_by_maxscore**}  
+%s{**games**}{**data**}{**asc_by_minscore**}  
+%s{**games**}{**data**}{**asc_by_conducts**}  
+List of ascended games in different orderings.
 
+%s{**games**}{**data**}{**top_by_roles**}  
+Top scores divided by roles (for the minor trophies).
 
 ### PLAYERS
 
@@ -72,8 +76,9 @@ players have the same number of ascending games.
 List of players ordered by number of ascensions (descending), ties are
 broken by ascension ratio.
 
-### CLANS
+### AUX
 
-### TROPHIES
+This section contains ancillary data for the benefit of templates.
 
-
+%s{**aux**}{**roles**}  
+List of roles

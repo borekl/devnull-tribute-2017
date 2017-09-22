@@ -337,6 +337,41 @@ push(@glb_consumers, sub
   $s{'games'}{'data'}{'asc_by_conducts'} = \@sorted;
 });
 
+#============================================================================
+# Minor trophies, ie. highest scoring ascension for each role.
+#============================================================================
+
+push(@glb_consumers, sub
+{
+  #--- data sources
+
+  my $ascs = $s{'games'}{'data'}{'asc_by_maxscore'};
+  my $idx = $s{'games'}{'data'}{'all'};
+
+  #--- auxiliary data for the templates
+
+  $s{'aux'}{'roles'} = [
+    'Arc', 'Bar', 'Cav', 'Hea', 'Kni', 'Mon', 'Pri',
+    'Ran', 'Rog', 'Sam', 'Tou', 'Val', 'Wiz'
+  ];
+
+  #--- iterate over all roles
+
+  for my $role (@{$s{'aux'}{'roles'}}) {
+
+  #--- find three top scoring ascensions per role
+
+    my $counter = 0;
+    $s{'games'}{'data'}{'top_by_role'}{$role} = [];
+    for my $asc (@$ascs) {
+      if($idx->[$asc]{'role'} eq $role) {
+        push(@{$s{'games'}{'data'}{'top_by_role'}{$role}}, $asc);
+        $counter++;
+      }
+      last if $counter > 2;
+    }
+  }
+});
 
 
 #============================================================================

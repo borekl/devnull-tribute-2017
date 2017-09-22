@@ -96,6 +96,23 @@
 [% gidx.item(g3).item('_conds') %]<br>
 
 
+<h1>Minor Trophies</h1>
+
+<table>
+  [% FOR role IN aux.roles %]
+  [% SET g1 = games.data.top_by_role.item(role).0 %]
+  <tr>
+    <td>[% role %]</td>
+    <td>
+      [% gidx.item(g1).name %]
+    </td>
+    <td>
+      [% gidx.item(g1).points %]
+    </td>
+  </tr>
+  [% END %]
+</table>
+
 </body>
 
 </html>
