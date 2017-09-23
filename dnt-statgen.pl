@@ -532,7 +532,9 @@ if($tpath && -d $tpath) {
   opendir(my $dh, $tpath)
     or die "Could not scan template directory $tpath";
   @templates = grep {
-    -f "$tpath/$_" && $_ ne $cfg->{'templates'}{'player'}
+    /^.*\.tt$/
+    && -f "$tpath/$_"
+    && $_ ne $cfg->{'templates'}{'player'}
   } readdir($dh);
   closedir($dh);
 }
