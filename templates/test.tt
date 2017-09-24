@@ -162,11 +162,13 @@
   [% IF trophies.recognition.item(trophy _ '_wbo') %]
   <tr>
     <td>[% aux.trophies.recognition.data.item(trophy) %] WBO</td>
+    <td>[% trophies.recognition.item(trophy _ '_wbo').size %]</td>
     <td>[% trophies.recognition.item(trophy _ '_wbo').join(' ') %]</td>
   </tr>
   [% END %]
   <tr>
     <td>[% aux.trophies.recognition.data.item(trophy) %]</td>
+    <td>[% trophies.recognition.item(trophy).size %]</td>
     <td>[% trophies.recognition.item(trophy).join(' ') %]</td>
   </tr>
   [% END %]

@@ -13,6 +13,7 @@ use strict;
 use warnings;
 use utf8;
 
+use Carp;
 use Getopt::Long;
 use JSON;
 use Template;
@@ -144,6 +145,219 @@ sub conduct
 
 
 #============================================================================
+# Function to get xlogfile row records for given game indexes. If the passed
+# into arguments are refs, then they are returned without change.
+#============================================================================
+
+sub get_xrows
+{
+  my @result;
+
+  for my $g (@_) {
+    if(!defined $g) { croak('Argument not defined'); }
+    my $r = ref($g) ? $g : $s{'games'}{'data'}{'all'}[$g];
+    push(@result, (ref($g) ? $g : $s{'games'}{'data'}{'all'}[$g]));
+  }
+
+  return scalar(@result) > 1 ? @result : $result[0];
+}
+
+
+#============================================================================
+# Returns whether game is ascended.
+#============================================================================
+
+sub is_ascended
+{
+  my $g = shift;
+
+  #--- validate argument
+
+  if(!defined $g) { croak "Assertion failed, required argument missing"; }
+
+  #--- get the game data
+
+  my $xrow = get_xrows($g);
+  if(!ref($xrow)) { croak 'Assertion failed ($xrow not a ref)'; }
+  if($xrow !~ /^HASH/) { croak 'Assertion failed ($xrow not a hashref)'; }
+
+  #--- return result
+
+  return $xrow->{'death'} =~ /^ascended/;
+}
+
+
+#============================================================================
+# Factory function to generate trophy tracker for a particular trophy. The
+# trophy is selected by using the tracked categories: genders, alignments,
+# races, roles, conducts.
+#
+# /dev/null/nethack Recognition Trophies trackers are obtained by the
+# following invocations:
+#
+# Full Monty ... trophy_state(qw(genders alignments races roles conducts))
+# Grand Slam ... trophy_state(qw(genders alignments races roles))
+# Hat Trick  ... trophy_state(qw(genders alignments races))
+# Double Top ... trophy_state(qw(genders alignments))
+# Birdie     ... trophy_state(qw(genders))
+#
+# If the trophy is to be achieved in consecutive games ("with the bells on")
+# the calling sub can reset the tracker by simply creating a new one.
+#
+# The tracker accepts data as a list of hashrefs, like in following example.
+#
+#    $tracker->({ genders => 'Mal' });
+#    $tracker->({ genders => 'Mal' }, { role = 'Cav' });
+#    $tracker->({ conducts => ['arti','wish','self','pile'] });
+#
+# The tracker returns true/false depending whether the trophy was achieved.
+# Calling the tracker without any arguments is allowed.
+#============================================================================
+
+sub trophy_state
+{
+  #--- the state tracking structure
+
+  my %state = (
+    'genders' => { 'mal' => 0, 'fem' => 0 },
+    'alignments' => { 'law' => 0, 'neu' => 0, 'cha' => 0 },
+    'races' => { 'hum' => 0, 'dwa' => 0, 'elf' => 0, 'orc' => 0, 'gno' => 0 },
+    'roles' => {
+      'arc' => 0, 'bar' => 0, 'cav' => 0, 'hea' => 0, 'kni' => 0, 'mon' => 0,
+      'pri' => 0, 'ran' => 0, 'rog' => 0, 'sam' => 0, 'tou' => 0, 'val' => 0,
+      'wiz' => 0
+     },
+    'conducts' => {
+      'arti' => 0, 'pile' => 0, 'self' => 0, 'geno' => 0, 'wish' => 0,
+      'athe' => 0, 'vegt' => 0, 'vegn' => 0, 'weap' => 0, 'illi', => 0,
+      'food' => 0, 'paci' => 0
+    }
+  );
+
+  #--- tracked trophies
+
+  my @trophies = @_;
+
+  #--- state tracking function
+
+  return sub {
+
+  #--- accept new info
+
+    for my $e (@_) {
+
+      # process arguments
+      if(!ref($e)) { croak "Argument to trophy_state() is not hashref"; }
+      my @ek = (keys %$e);
+
+      for my $ek (@ek) {
+        my $ev = $e->{$ek};
+        if(!ref($ev)) { $ev = [ $ev ]; }
+        if(!exists $state{$ek}) {
+          croak "Argument to trophy_state() key='$ek' is invalid";
+        }
+
+        # perform state update
+        for my $val (@$ev) {
+          if(!exists($state{$ek}{lc($val)})) {
+            croak "Argument to trophy_state() key='$ek' value='$val' is invalid";
+          }
+          $state{$ek}{lc($val)} = 1;
+        }
+      }
+    }
+
+  #--- evaluate state
+
+    my $result = 1;
+    OUTER: for my $t (@trophies) {
+      for my $v (keys %{$state{$t}}) {
+        if(!$state{$t}{$v}) {
+          $result = 0;
+          last OUTER;
+        }
+      }
+    }
+
+    return $result;
+  };
+
+}
+
+
+#============================================================================
+# Factory function for tracking recognition multi-game trophies. It is called
+# as trophy_track(TROPHY, WITH_BELLS_ON) and returns a tracker function.
+#============================================================================
+
+sub trophy_track
+{
+  #--- arguments
+
+  my ($trophy, $with_bells_on) = @_;
+
+  #--- define the trophies
+
+  my %trophies = (
+    'birdie'    => [ 'genders' ],
+    'doubletop' => [ 'genders', 'alignments' ],
+    'hattrick'  => [ 'genders', 'alignments', 'races' ],
+    'grandslam' => [ 'genders', 'alignments', 'races', 'roles' ],
+    'fullmonty' => [ 'genders', 'alignments', 'races', 'roles', 'conducts' ]
+  );
+
+  #--- validate argument
+
+  if(!exists($trophies{$trophy})) {
+    croak "Unknown trophy '$trophy' requested";
+  }
+
+  #--- achieved flag, this turns to aref when the trophy is achieved
+
+  my $achieved;
+
+  #--- tracker function for keeping state of the trophy
+
+  my $tracker = trophy_state(@{$trophies{$trophy}});
+
+  #--- trophy tracker function
+
+  return sub {
+
+    # argument, both index and actual rows accepted
+    my $game = shift;
+    $game = get_xrows($game) if defined $game;
+
+    # just return the status if the trophy is already achieved or the caller
+    # is only requesting current status
+    return $achieved if $achieved || !defined $game;
+
+    # non-ascending games break the trophy WBO
+    if(!is_ascended($game) && $with_bells_on) {
+      $tracker = trophy_state(@{$trophies{$trophy}});
+      return undef;
+    }
+
+    if(is_ascended($game)) {
+      if($tracker->({
+        'genders' => $game->{'gender0'},
+        'alignments' => $game->{'align0'},
+        'races' => $game->{'race'},
+        'roles' => $game->{'role'},
+        'conducts' => [ conduct($game->{'conduct'}) ]
+      })) {
+        $achieved = [ $game->{'_id'} ];
+      };
+    }
+
+  #--- finish
+
+    return $achieved;
+  };
+}
+
+
+#============================================================================
 # Display usage summary
 #============================================================================
 
@@ -189,7 +403,7 @@ push(@row_consumers, sub
 {
   my $xrow = shift;
 
-  if($xrow->{'death'} =~ /^ascended/) {
+  if(is_ascended($xrow)) {
     push(@{$s{'games'}{'data'}{'ascended'}}, $game_current_id);
   }
 });
@@ -225,7 +439,7 @@ push(@row_consumers, sub
 
   #--- increment games ascended counter
 
-  if($xrow->{'death'} =~ /^ascended/) {
+  if(is_ascended($xrow)) {
     $s{'players'}{'data'}{$plr_name}{'cnt_ascensions'}++;
     $s{'players'}{'data'}{$plr_name}{'cnt_asc_turns'} += $xrow->{'turns'};
   }
@@ -448,6 +662,69 @@ push(@glb_consumers, sub
 
 });
 
+#============================================================================
+# This compiles multi-ascension Recognition Trophies.
+#============================================================================
+
+push(@glb_consumers, sub
+{
+  my @players = keys %{$s{'players'}{'data'}};
+  my @trophies = (qw(birdie doubletop hattrick grandslam fullmonty));
+  my %track;
+  my %temp;
+
+  #--- iterate over all players
+
+  for my $plr (@players) {
+
+  #--- iterate over trophies
+
+    for my $tr (@trophies) {
+
+  #--- get trophies trackers
+
+      $track{$tr} = trophy_track($tr, 0);
+      $track{"${tr}_wbo"} = trophy_track($tr, 1);
+
+  #--- iterate over player's games
+
+      for my $g (@{$s{'players'}{'data'}{$plr}{'games'}}) {
+        $track{$tr}->($g);
+        $track{"${tr}_wbo"}->($g);
+      }
+
+  #--- save result
+
+      if(my $g = $track{$tr}->()) {
+        push(@{$temp{$tr}}, { name => $plr, ord => $g->[0]});
+      }
+      if(my $g = $track{"${tr}_wbo"}->()) {
+        push(@{$temp{"${tr}_wbo"}}, { name => $plr, ord => $g->[0]});
+      }
+    }
+  }
+
+  #--- sort the resulting data
+
+  for my $tr (@trophies) {
+
+    if($temp{$tr}) {
+      $s{'trophies'}{'recognition'}{$tr} = [
+        map { $_->{'name'} }
+        sort { $a->{'ord'} <=> $b->{'ord'} } @{$temp{$tr}}
+      ];
+    }
+
+    if($temp{"${tr}_wbo"}) {
+      $s{'trophies'}{'recognition'}{"${tr}_wbo"} = [
+        map { $_->{'name'} }
+        sort { $a->{'ord'} <=> $b->{'ord'} } @{$temp{"${tr}_wbo"}}
+      ];
+    }
+
+  }
+
+});
 
 
 #============================================================================
