@@ -25,8 +25,9 @@
     [% i + 1 %].
     [% IF i == 0 %]<b>[% END %]
     [% SET plr = players.meta.ord_by_ascs.item(i); plr %]
-    [% players.data.item(plr).cnt_ascensions %]<br>
+    [% players.data.item(plr).cnt_ascensions %]
     [% IF i == 0 %]</b>[% END %]
+    <br>
   [% END %]
   [% SET i = i + 1 %]
 [% END %]
