@@ -1,0 +1,204 @@
+.* (called|named) .*
+.*\(with the Amulet\)
+.*\(with a fake Amulet\)
+.*\(in celestial disgrace\)
+trickery|a trickery
+eaten by a Grue
+committed suicide
+unwisely ate the body of Death
+quit while already on Charon's boat
+went to heaven prematurely
+teleported out of the dungeon and fell to (his|her) death
+died of starvation
+fell into a pit
+fell into a pit of iron spikes
+fell into a chasm
+fell onto a sink
+crunched in the head by an iron ball
+dragged downstairs by an iron ball
+crushed to death by a closing drawbridge
+crushed to death by a falling drawbridge
+crushed to death by a collapsing drawbridge
+crushed to death by an exploding drawbridge
+squished under a boulder
+slipped while mounting a saddled (pony|warhorse)
+zapped (him|her)self with a (spell|wand)
+shot (him|her)self with a death ray
+caught (him|her)self in (his|her) own burning oil
+caught (him|her)self in (his|her) own death field
+caught (him|her)self in (his|her) own (fireball|magical blast|ball of lightning|ball of cold)
+burned by a tower of flame
+burned by molten lava
+dissolved in molten lava
+drowned in a drowning
+drowned in a (moat|pool of water)
+drowned in a (moat|pool of water) by (a|an) ([\w]* eel|couatl|kraken)
+poisoned by Pestilence
+poisoned by (Juiblex|Scorpius|Demogorgon)
+poisoned by a unicorn horn
+poisoned by a rotten lump of royal jelly
+poisoned by a rotted [\w\-\ ]* corpse
+poisoned by (a|an) (little dart|dart|arrow|orcish arrow|crossbow bolt|worthless piece of yellow glass)
+poisoned by (a|an) (killer bee|queen bee|giant spider|centipede|soldier ant|scorpion)
+poisoned by (a|an) (water moccasin|snake|pit viper)
+poisoned by (a|an) (rabid rat|vampire bat)
+poisoned by (a|an) (couatl)
+poisoned by (a|an) (quasit)
+petrified by Medusa
+petrified by elementary physics
+petrified by a (co|chi)ckatrice
+petrified by a (co|chi)ckatrice egg
+petrified by a (co|chi)ckatrice corpse
+petrified by tasting Medusa meat
+petrified by tasting (co|chi)ckatrice meat
+petrified by kicking a (co|chi)ckatrice corpse without boots
+petrified by trying to tin a (co|chi)ckatrice without gloves
+petrified by swallowing a (co|chi)ckatrice whole
+petrified by attempting to saddle a cockatrice
+petrified by trying to help a (co|chi)ckatrice out of a pit
+petrified by deliberately meeting Medusa's gaze
+petrified by( a | an | )(invisible|hallucinogen-distorted) .*
+petrified by (a|an) (watchman|lieutenant|captain|soldier|ogre|ogre king|watch captain)
+turned into green slime
+turned to slime by a green slime
+turned to slime by genocidal confusion
+turned to slime by a scroll of genocide
+turned to slime by a cockatrice egg
+choked on a tripe ration
+choked on a ([\w\-\ ]* ration|[\w\-\ ]*-ration|gunyoki|tin of [\w\-\ ]*|candied tin of [\w\-\ ]*|fortune cookie|lembas wafer|lump of royal jelly).*
+choked on (a|an) (slime mold|apple|orange|egg|pancake|huge chunk of meat|pear|carrot|fatty)
+choked on a (candy bar|cream pie)
+choked on a (clove of garlic|sprig of wolfsbane)
+choked on a knife
+choked on (a|an) [\w\-\ ]* corpse
+killed while stuck in creature form
+killed by (his|her) own (axe|pick-axe|battle-axe|dwarvish mattock|cue stick)
+killed (him|her)self with (his|her) bullwhip
+killed by using a magical horn on (him|her)self
+killed by .*, while helpless
+killed by elementary chemistry
+killed by dangerous winds
+killed by brainlessness
+killed by overexertion
+killed by exhaustion
+killed by falling downstairs
+killed by crashing into iron bars
+killed by wedging into a narrow crevice
+killed by jumping out of a bear trap
+killed by sitting (on|in) lava
+killed by sitting on an iron spike
+killed by sipping boiling water
+killed by an unrefrigerated sip of juice
+killed by kicking a heavy iron ball \(chained to you\)
+killed by kicking a [\w\-\ ]* corpse
+killed by kicking (a|an|the) (wall|stairs|fountain|tree|headstone|drawbridge|sink|door|altar|statue of (a|an) [\w]+)
+killed by kicking (a|[\d]*)[\w\ ]* (boulder|rock|rocks|stone|stones)
+killed by kicking (a|an|the|[\d]*)[\w\d\+\ ]*(blindfold|apron|spellbook [\w\ ]*|[\w\ ]* spellbook|scroll|bronze plate mail|crested helmet|gem|[\w]* gem|a gold piece|[\d]+ gold pieces|heavy iron ball[\(chained\ to\ you\)]*|leash|key|bell|towel|robe|fortune cookie|stethoscope|fedora|lance|quarterstaff|scalpel|dagger|broadsword|Grimtooth|Sting|pick-axe|shield|skull cap|credit card|wooden harp|iron chain|corpse|ration|apple|sprig of wolfsbane|carrot[s]*|figurine of [\w ]+|ring|ring of [\w ]+|wand of [\w]+|oil lamp|tinning kit \([\d]+\_[\d]+\))[named\ \w\d\!]*[labeled\ \w\d]*[\(\d\_\d\)]*
+killed by touching (Sting|The Staff of Aesculapius|Excalibur|The Longbow of Diana|Giantslayer|Stormbringer|Sunsword|Grayswandir|The Eyes of the Overworld|The Platinum Yendorian Express Card|Demonbane|Grimtooth|The Sceptre of Might|The Eye of the Aethiopica|The Orb of Fate|Cleaver|Mjollnir|Vorpal Blade|The Master Key of Thievery)
+killed by bumping into a boulder
+killed by bumping into a (wall|door)
+killed by colliding with the ceiling
+killed by leg damage from being pulled out of a bear trap
+killed by an iron ball collision
+killed by contaminated water
+killed by self-genocide
+killed by genocidal confusion
+killed by life drainage
+killed by strangulation
+killed by an imperious order
+killed by a tower of flame
+killed by an explosion
+killed by a magical explosion
+killed by a gas spore's explosion
+killed by an exploding rune
+killed by an exploding ring
+killed by an exploding wand
+killed by an exploding crystal ball
+killed by an exploding (large box|chest)
+killed by an unsuccessful polymorph
+killed by a residual undead turning effect
+killed by an acidic corpse
+killed by a boulder
+killed by a cue boulder
+killed by a land mine
+killed by a cursed throne
+killed by an electric chair
+killed by a riding accident
+killed by a fall onto poison spikes
+killed by a falling (object|rock)
+killed by a poisonous corpse
+killed by a wand
+killed by a potion of (holy|unholy) water
+killed by a potion of acid
+killed by a shattered potion
+killed by (a boiling potion|boiling potions)
+killed by a burning potion of oil
+killed by( a | )burning (scroll|scrolls|book)
+killed by a scroll of genocide
+killed by a scroll of (earth|fire)
+killed by a (contaminated|mildly contaminated) potion
+killed by a poisoned needle
+killed by a contact-poisoned spellbook
+killed by a cloud of poison gas
+killed by (Mjollnir|a war hammer named Mjollnir)
+killed by (a|an) (boomerang|arrow|elven arrow|orcish arrow|dwarvish spear|dagger|orcish dagger|elven dagger|knife|little dart|dart|crossbow bolt|grappling hook|spear|elven spear|orcish spear|halberd|spetum|lucern hammer|shuriken|worthless piece of [\w]+ glass)
+killed by a carnivorous bag
+killed by a psychic blast
+killed by an alchemic blast
+killed by an electric shock
+killed by a system shock
+killed by a finger of death
+killed by a touch of death
+killed by a magic missile
+killed by a death ray
+killed by a poisoned blast
+killed by a blast of (fire|frost|disintegration|lightning|missiles|acid)
+killed by a bolt of (fire|cold|lightning)
+killed by a thrown .*
+killed by the wrath of (Odin|Anhur|Thoth|Loki|Amaterasu Omikami|Offler|Set|Crom|Manannan Mac Lir|Ptah|Camaxtli|Lugh|Brigit|Huhetotl|Ishtar|Chih Sung-tzu|Shan Lai Ching|The Lady|Tyr|Issek|Quetzalcoatl|Hermes|Susanowo|Kos|Raijin|Mars|Huan Ti|Poseidon|Venus|Anu|Mog)
+killed by the wrath of Moloch
+killed by axing a hard object
+killed (him|her)self by breaking a wand
+killed by the ghost of .*
+killed by( the | an | )invisible .*
+killed by a were[\w]*
+killed by( a | )hallucinogen-distorted .*
+killed by the Wizard of Yendor
+killed by Croesus
+killed by Medusa
+killed by the Oracle
+killed by Vlad the Impaler
+killed by the Norn
+killed by the Cyclops
+killed by (Lord Surtur|Master Kaen|Nalzok|Ashikaga Takauji|Ixoth)
+killed by (Mr|Ms).*, the shopkeeper
+killed by (Juiblex|Demogorgon|Yeenoghu|Orcus|Asmodeus)
+killed by (Death|Famine|Pestilence)
+killed by (a|an) (priest|priestess) of Moloch
+killed by the high (priest|priestess) of Moloch
+killed by (a|an) (priest|priestess) of (Odin|Anhur|Thoth|Loki|Amaterasu Omikami|Offler|Set|Crom|Manannan Mac Lir|Ptah|Camaxtli|Lugh|Brigit|Huhetotl|Ishtar|Chih Sung-tzu|Shan Lai Ching|The Lady|Tyr|Issek|Quetzalcoatl|Hermes|Susanowo|Kos|Raijin|Mars|Huan Ti|Poseidon|Venus|Mitra|Anshar|Mercury)
+killed by the high (priest|priestess) of Anhur
+killed by (a|an) [\w\-\ ]* of (Odin|Anhur|Thoth|Loki|Amaterasu Omikami|Offler|Set|Crom|Manannan Mac Lir|Ptah|Camaxtli|Lugh|Brigit|Huhetotl|Ishtar|Chih Sung-tzu|Shan Lai Ching|The Lady|Tyr|Issek|Quetzalcoatl|Hermes|Susanowo|Kos|Raijin|Mars|Huan Ti|Poseidon|Venus|Anu|Huhetotl)
+killed by the Minion of Huhetotl
+killed by (a|an) [\w\-\ ]* of Moloch
+killed by a (caveman|tourist|valkyrie|knight|samurai|barbarian)
+killed by a (grid bug|wumpus|Keystone Kop|Kop Sergeant|Kop Lieutenant|Kop Kaptain|nurse)
+killed by (a|an) (acolyte|student|guard|soldier|warrior|sergeant|lieutenant|captain|watchman|watch captain)
+killed by a (newt|garter snake|woodchuck)
+killed by a (titanothere|mastodon|baluchitherium)
+killed by (a|an) (bat|giant bat|giant rat|rabid rat|sewer rat|kitten|tiger|coyote|dingo|jackal|panther|jaguar|large cat|housecat|lynx|dog|little dog|large dog|wolf|winter wolf|winter wolf cub|fox|horse|pony|warhorse|rock mole|ape|carnivorous ape|monkey)
+killed by (a|an) (baby crocodile|crocodile|snake|water moccasin|iguana|gecko|lizard|pit viper|cobra)
+killed by a raven
+killed by a salamander
+killed by a (shark|piranha|giant eel)
+killed by a ([\w]* ant|giant beetle|killer bee|queen bee|centipede)
+killed by a ([\w]* spider|scorpion)
+killed by (a|an) ([\w]* mold|black pudding|gray ooze|[\w]* jelly|acid blob|[\w]* cloud|[\w]* vortex|[\w]* sphere|quivering blob|violet fungus)
+killed by (a|an) (gnome|gnome lord|gnome king|gnomish wizard|[\w]* golem|[\w]* elemental|yeti|ogre|ogre lord|ogre king|homunculus|hell hound|pyrolisk|ettin)
+killed by (a|an) (tengu|gremlin|gargoyle|winged gargoyle|baby [\w]* dragon|[\w]* dragon|[\w]* unicorn|goblin|hobgoblin|minotaur|[\w]* centaur|troll|[\w]* troll|leprechaun|[\w]* giant|xan|sasquatch)
+killed by (a|an) (hobbit|dwarf|dwarf lord|dwarf king|[\w]*-elf|elf-lord|Elvenking|warg|hill orc|mumak|Uruk\-hai|Olog\-hai|Mordor orc|orc shaman|orc\-captain|barrow wight|jabberwock|balrog)
+killed by (a|an) (vampire bat|vampire|vampire lord|[\w]* mummy|[\w]* zombie|cadaver|skeleton|lich|master lich|arch-lich|wraith|ghoul)
+killed by (a|an) (bugbear|owlbear|mimic|small mimic|large mimic|giant mimic|kobold|large kobold|kobold shaman|kobold lord|mind flayer|master mind flayer|[\w]* worm|baby [\w]* worm|rock piercer|iron piercer|trapper|quasit|xorn|umber hulk|gelatinous cube)
+killed by (a|an) (Angel|Archon|Aleax|[\w]* naga hatchling|[\w]* naga|couatl|ki-rin|titan)
+killed by (a|an) (imp|succubus|incubus|djinni|[\w]* demon|[\w]* devil|manes|nalfeshnee|pit fiend|vrock|hezrou|marilith)
+killed by a (leocrotta|rothe|disenchanter|zruty)
