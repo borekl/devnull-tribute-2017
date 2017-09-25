@@ -188,6 +188,75 @@ sub is_ascended
 
 
 #============================================================================
+# Get a string representation of a game combination (such as
+# Wiz-Elf-Mal-Cha). Both game index and row hashref are accepted.
+#============================================================================
+
+sub str_combo
+{
+  my $g = shift;
+
+  #--- validate argument
+
+  if(!defined $g) { croak 'Assertion failed, required argument missing'; }
+
+  #--- get the game data
+
+  my $xrow = ref($g) ? $g : get_xrows($g);
+  if(!ref($xrow)) { croak 'Assertion failed, $xrow is not a ref'; }
+  if($xrow !~ /^HASH/) { croak 'Assertion failed, $xrow is not a hashref'; }
+
+  #--- return result
+
+  return sprintf(
+    '%s-%s-%s-%s',
+    @{$xrow}{'role', 'race', 'gender0', 'align0'}
+  );
+}
+
+
+#============================================================================
+# Gets list of games as an argument and returns hashref with following keys:
+#  - cnt   ... number of non-repeating ascensions
+#  - games ... list of games that achieved this result
+#  - when  ... endtime of the last game
+#============================================================================
+
+sub combo_ascends_nrepeat
+{
+  my %result = (cnt => 0);
+
+  #--- list of ascending games
+
+  my @games = grep { is_ascended($_) } @_;
+  if(!@games) { return \%result; }
+
+  #--- perform the count
+
+  my %seen;
+  my @games_nrepeat;
+  for my $g (@games) {
+    my $c = str_combo($g);
+    if(!exists $seen{$c}) {
+      $seen{$c} = 1;
+      push(@games_nrepeat, $g);
+    }
+  }
+
+  #--- get results
+
+  my $last_game = get_xrows($games_nrepeat[-1]);
+  $result{'cnt'} = scalar(@games_nrepeat);
+  $result{'games'} = \@games_nrepeat;
+  $result{'when'} = $last_game->{'endtime'};
+
+  #--- finish
+
+  return \%result;
+}
+
+
+#============================================================================
 # Factory function to generate trophy tracker for a particular trophy. The
 # trophy is selected by using the tracked categories: genders, alignments,
 # races, roles, conducts.
@@ -766,6 +835,62 @@ push(@glb_consumers, sub
   }
 
 });
+
+
+#============================================================================
+# Best of 13
+#============================================================================
+
+push(@glb_consumers, sub
+{
+  #--- sortcut for players data subtree
+
+  my $plr_data = $s{'players'}{'data'};
+
+  #--- get list of ascending players (no need to bother with non-ascenders)
+
+  my @plr_list = grep {
+    $plr_data->{$_}{'cnt_ascensions'} > 0
+  } keys %$plr_data;
+
+  #--- iterate over players
+
+  for my $plr (sort @plr_list) {
+    my $games = $plr_data->{$plr}{'games'};
+
+  #--- if player has 13 games or less, there's no need for sequential scan
+
+    if(scalar(@$games) <= 13) {
+      $plr_data->{$plr}{'best13'} = combo_ascends_nrepeat(@$games);
+      next;
+    }
+
+  #--- otherwise we need to iterate
+
+    my $best_of_13 = { cnt => 0, games => [], when => undef };
+    for(my $i = 0; $i < scalar(@$games)-13; $i++) {
+      my $cur_13 = combo_ascends_nrepeat(@$games[$i..$i+13]);
+      if($cur_13->{'cnt'} > $best_of_13->{'cnt'}) {
+        $best_of_13 = $cur_13;
+      }
+    }
+    $plr_data->{$plr}{'best13'} = $best_of_13;
+
+  }
+
+  #--- compile the best of 13 list
+
+  $s{'trophies'}{'best13'} = [ sort {
+    my $pa = $plr_data->{$a}{'best13'};
+    my $pb = $plr_data->{$b}{'best13'};
+
+    if($pa->{'cnt'} == $pb->{'cnt'}) {
+      return $pa->{'when'} <=> $pb->{'when'}
+    }
+    $pb->{'cnt'} <=> $pa->{'cnt'}
+  } @plr_list ];
+});
+
 
 
 #============================================================================
