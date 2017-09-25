@@ -177,7 +177,7 @@ sub is_ascended
 
   #--- get the game data
 
-  my $xrow = get_xrows($g);
+  my $xrow = ref($g) ? $g : get_xrows($g);
   if(!ref($xrow)) { croak 'Assertion failed ($xrow not a ref)'; }
   if($xrow !~ /^HASH/) { croak 'Assertion failed ($xrow not a hashref)'; }
 
