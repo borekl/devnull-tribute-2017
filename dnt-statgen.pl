@@ -927,6 +927,20 @@ open(F, '>', $lockfile) || die "Failed to create lockfile $lockfile";
 print F $$, "\n";
 close(F);
 
+#--- read the unique deaths filter lists
+
+for my $list (qw(no yes)) {
+  if(exists $cfg->{'unique'}{"deaths_$list"}) {
+    open(F, '<', $cfg->{'unique'}{"deaths_$list"})
+      or die "Cannot open filter file (deaths_$list)";
+    while(my $l = <F>) {
+      chomp $l;
+      push(@{$cfg->{'unique'}{"deaths_${list}_list"}}, $l);
+    }
+    close(F);
+  }
+}
+
 #--- read all the xlogfiles into memory
 
 my @merged_xlog;
