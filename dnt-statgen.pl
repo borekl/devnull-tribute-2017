@@ -496,6 +496,8 @@ push(@row_consumers, sub
     $s{'players'}{'data'}{$plr_name}{'cnt_games'} = 0;
     $s{'players'}{'data'}{$plr_name}{'cnt_ascensions'} = 0;
     $s{'players'}{'data'}{$plr_name}{'cnt_asc_turns'} = 0;
+    $s{'players'}{'data'}{$plr_name}{'unique'}{'list'} = [];
+    $s{'players'}{'data'}{$plr_name}{'unique'}{'when'} = undef;
   }
 
   #--- push new game into the list
@@ -550,6 +552,43 @@ push(@row_consumers, sub
           push(@{$t->{$trophy->[1]}}, $plr_name);
         }
       }
+    }
+  }
+
+});
+
+#============================================================================
+# Unique Deaths.
+#============================================================================
+
+push(@row_consumers, sub
+{
+  my $xrow = shift;
+  my $plr_name = $xrow->{'name'};
+  my $plr_data = $s{'players'}{'data'}{$plr_name};
+
+  #--- iterate over rejection regexes, immediately exit on match
+
+  for my $re (@{$cfg->{'unique'}{'death_no_list'}}) {
+    return if $xrow->{'death'} =~ /$re/;
+  }
+
+  #--- iterate over accept regexes
+
+  for(my $i = 0; $i < scalar(@{$cfg->{'unique'}{'death_yes_list'}}); $i++) {
+    my $re = $cfg->{'unique'}{'death_yes_list'}[$i];
+    if($xrow->{'death'} =~ /$re/) {
+
+  #--- match found, see if we already have this recorded, if not, insert it
+
+      if(!grep { $_ == $i } @{$plr_data->{'unique'}{'list'}}) {
+        push(@{$plr_data->{'unique'}{'list'}}, $i);
+        $plr_data->{'unique'}{'when'} = $xrow->{'endtime'};
+      }
+
+  #--- end the iteration
+
+      last;
     }
   }
 
@@ -891,6 +930,26 @@ push(@glb_consumers, sub
   } @plr_list ];
 });
 
+#============================================================================
+# Unique Deaths (compiling final list, the data collection is already done
+# by a row consumer).
+#============================================================================
+
+push(@glb_consumers, sub
+{
+  my $plr_data = $s{'players'}{'data'};
+
+  $s{'trophies'}{'unique'} = [ sort {
+
+    my $na = scalar(@{$plr_data->{$a}{'unique'}{'list'}});
+    my $nb = scalar(@{$plr_data->{$b}{'unique'}{'list'}});
+    if($na == $nb) {
+      return $plr_data->{$a}{'unique'}{'when'} <=> $plr_data->{$b}{'unique'}{'when'};
+    }
+    $nb <=> $na;
+  } grep { $plr_data->{$_}{'unique'}{'when'} } keys %$plr_data ];
+});
+
 
 
 #============================================================================
@@ -930,12 +989,12 @@ close(F);
 #--- read the unique deaths filter lists
 
 for my $list (qw(no yes)) {
-  if(exists $cfg->{'unique'}{"deaths_$list"}) {
-    open(F, '<', $cfg->{'unique'}{"deaths_$list"})
-      or die "Cannot open filter file (deaths_$list)";
+  if(exists $cfg->{'unique'}{"death_$list"}) {
+    open(F, '<', $cfg->{'unique'}{"death_$list"})
+      || die "Cannot open filter file (death_$list)";
     while(my $l = <F>) {
       chomp $l;
-      push(@{$cfg->{'unique'}{"deaths_${list}_list"}}, $l);
+      push(@{$cfg->{'unique'}{"death_${list}_list"}}, qr/^$l/);
     }
     close(F);
   }
