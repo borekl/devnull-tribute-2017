@@ -235,7 +235,7 @@
 
 <h2>Who Wants To Be A Killionaire?</h2>
 
-[% SET i =0; WHILE i < 3 %]
+[% SET i = 0; WHILE i < 3 %]
   [% IF games.data.games_by_kills.item(i).defined %]
     [% i + 1 %].
     [% IF i == 0 %]<b>[% END %]
@@ -246,6 +246,28 @@
   [% END %]
   [% SET i = i + 1 %]
 [% END %]
+
+[%# ======================================================================
+    ======================================================================
+    ====================================================================== %]
+
+<h1>Challenge Trophies</h1>
+
+<table>
+[% FOREACH trophy IN aux.trophies.challenges.ord %]
+  <tr>
+  <td>[% aux.trophies.challenges.data.item(trophy) %]</td>
+  <td>
+    [% IF trophies.challenges.item(trophy) %]
+      <b>[% trophies.challenges.item(trophy).shift %]</b>
+      [% IF trophies.challenges.item(trophy).size > 0 %]
+        [% trophies.challenges.item(trophy).join(' ') %]
+      [% END %]
+    [% END %]
+  </td>
+  </tr>
+[% END %]
+</table>
 
 </body>
 

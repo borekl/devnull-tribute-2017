@@ -621,7 +621,7 @@ push(@glb_consumers, sub
 
   #--- get list of ascending players
 
-  my @plr_list = grep { $plr->{$_}{'cnt_ascensions'} > 0 } keys %$plr;
+  my @plr_list = grep { ($plr->{$_}{'cnt_ascensions'} // 0) > 0 } keys %$plr;
 
   #--- sort the eligible players by number of ascensions
 
@@ -889,7 +889,7 @@ push(@glb_consumers, sub
   #--- get list of ascending players (no need to bother with non-ascenders)
 
   my @plr_list = grep {
-    $plr_data->{$_}{'cnt_ascensions'} > 0
+    ($plr_data->{$_}{'cnt_ascensions'} // 0) > 0
   } keys %$plr_data;
 
   #--- iterate over players
@@ -950,6 +950,62 @@ push(@glb_consumers, sub
   } grep { $plr_data->{$_}{'unique'}{'when'} } keys %$plr_data ];
 });
 
+#============================================================================
+# Challenge Trophies. Please note, that only players who completed at least
+# one game are considered, this is for technical reasons -- it's fairly
+# awkward to implement provisions for players with no games.
+#============================================================================
+
+push(@glb_consumers, sub
+{
+  my $p = $s{'players'}{'data'};
+
+  #--- exit if no challenge list is configured
+
+  return if !exists $cfg->{'challenges'}{'list'};
+
+  #--- save ancillary data for templates
+
+  $s{'aux'}{'trophies'}{'challenges'}{'ord'} = [
+    sort keys %{$cfg->{'challenges'}{'list'}}
+  ];
+  $s{'aux'}{'trophies'}{'challenges'}{'data'} = $cfg->{'challenges'}{'list'};
+
+  #--- get list of eligible players
+
+  my @players = grep {
+    exists $s{'players'}{'data'}{$_}{'games'}
+    && $s{'players'}{'data'}{$_}{'challenges'}
+  } keys %{$s{'players'}{'data'}};
+
+  #--- exit if no eligible players
+
+  return if !@players;
+
+  #--- compile challenges data
+
+  return if !exists $cfg->{'challenges'}{'list'};
+  for my $chal (keys %{$cfg->{'challenges'}{'list'}}) {
+
+    # find players who completed the challenge
+    my @lst = grep {
+      exists $p->{$_}{'challenges'}{$chal}
+      && $p->{$_}{'challenges'}{$chal}{'status'} eq 'success'
+    } @players;
+
+    # go to next challenge if no successful players found
+    next if !@lst;
+
+    # sort the successful players by completion date
+    $s{'trophies'}{'challenges'}{$chal} = [ sort {
+      $p->{$a}{'challenges'}{$chal}{'when'}
+      <=>
+      $p->{$b}{'challenges'}{$chal}{'when'}
+    } @lst ];
+  }
+
+});
+
 
 
 #============================================================================
@@ -998,6 +1054,22 @@ for my $list (qw(no yes)) {
     }
     close(F);
   }
+}
+
+#--- read challenge status
+
+if($cfg->{'challenges'}{'status'}) {
+  open(F, '<', $cfg->{'challenges'}{'status'})
+    or die "Could not open challenge status file";
+  while(my $l = <F>) {
+    chomp($l);
+    my @chal = split(/:/, $l);
+    $s{'players'}{'data'}{$chal[2]}{'challenges'}{lc($chal[1])} = {
+      'when' => $chal[0],
+      'status' => lc($chal[3])
+    }
+  }
+  close(F);
 }
 
 #--- read all the xlogfiles into memory
