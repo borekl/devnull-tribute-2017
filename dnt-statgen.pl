@@ -17,6 +17,7 @@ use Carp;
 use Getopt::Long;
 use JSON;
 use Template;
+use DBI;
 
 
 #============================================================================
@@ -1053,6 +1054,31 @@ for my $list (qw(no yes)) {
       push(@{$cfg->{'unique'}{"death_${list}_list"}}, qr/^$l/);
     }
     close(F);
+  }
+}
+
+#--- read the clan information
+
+if(exists $cfg->{'clandb'} && -f $cfg->{'clandb'}) {
+  my $dbh = DBI->connect(
+    'dbi:SQLite:dbname=' . $cfg->{'clandb'},
+    undef, undef
+  );
+  if(!ref($dbh)) {
+    die "Failed to open clan database at " . $cfg->{'clandb'};
+  }
+  my $sth = $dbh->prepare(
+    'SELECT players.name AS name, clans.name AS clan, clan_admin ' .
+    'FROM players JOIN clans USING (clans_i)'
+  );
+  my $r = $sth->execute();
+  if(!$r) {
+    die sprintf('Failed to query clan database (%s)', $sth->errstr());
+  }
+  while(my $h = $sth->fetchrow_hashref) {
+    push(@{$s{'clans'}{ $h->{'clan'} }{'members'}}, $h->{'name'});
+    push(@{$s{'clans'}{ $h->{'clan'} }{'admins'}}, $h->{'name'})
+      if $h->{'clan_admin'};
   }
 }
 
