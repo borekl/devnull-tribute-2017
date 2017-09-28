@@ -269,6 +269,28 @@
 [% END %]
 </table>
 
+[%# ======================================================================
+    ======================================================================
+    ====================================================================== %]
+
+[% IF trophies.bestinshow %]
+<h1>Clan Trophies</h2>
+
+<h2>Best In Show</h2>
+
+[% SET i = 0; WHILE i < 3 %]
+  [% LAST IF !trophies.bestinshow.item(i) %]
+  [% i+1 %]
+  [% SET c = trophies.bestinshow.item(i) %][% c %]
+  [% clans.item(c).bestinshow.score %]
+  [% SET i = i + 1 %]
+  <br>
+[% END %]
+
+[% END %]
+
+
+
 </body>
 
 </html>

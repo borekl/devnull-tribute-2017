@@ -1267,6 +1267,12 @@ push(@glb_consumers, sub
       } @breakdown ]
     };
   }
+
+  $s{'trophies'}{'bestinshow'} = [ sort {
+    $s{'clans'}{$b}{'bestinshow'}{'score'}
+    <=>
+    $s{'clans'}{$a}{'bestinshow'}{'score'}
+  } keys %{$s{'clans'}} ];
 });
 
 
