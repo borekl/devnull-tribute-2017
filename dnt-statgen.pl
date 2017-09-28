@@ -1007,6 +1007,51 @@ push(@glb_consumers, sub
 
 });
 
+#============================================================================
+# This section goes over Recognition Trophies and for each player removes all
+# but the highest trophy. This is done separately for non-WBO and WBO
+# trophies
+#============================================================================
+
+push(@glb_consumers, sub
+{
+  #--- get list of players that have at least the Plastic Star
+
+  my @players = keys %{$s{'players'}{'data'}};
+
+  #--- get list of Recognition Trophies, in descending order
+
+  my $f = 1;
+  my @trophies = reverse @{$s{'aux'}{'trophies'}{'recognition'}{'ord'}};
+  my @trophies_wbo = map { $_ . '_wbo' } grep {
+    if($_ eq 'dilithium') { $f = 0; }
+    $f;
+  } @trophies;
+
+  #--- iterate over players
+
+  for my $plr (@players) {
+
+  #--- find the highest trophy and then remove all the lower ones;
+
+    for my $trophies_lst (\@trophies, \@trophies_wbo) {
+      my $remove = 0;
+      for my $trophy (@$trophies_lst) {
+        if($remove) {
+          $s{'trophies'}{'recognition'}{$trophy} = [ grep {
+            $_ ne $plr
+          } @{$s{'trophies'}{'recognition'}{$trophy}} ];
+          next;
+        }
+        if(grep { $_ eq $plr } @{$s{'trophies'}{'recognition'}{$trophy}}) {
+          $remove = 1;
+        }
+      }
+    }
+  }
+
+});
+
 
 
 #============================================================================
