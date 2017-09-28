@@ -1052,6 +1052,223 @@ push(@glb_consumers, sub
 
 });
 
+#============================================================================
+# Player scoring for use in the Best In Show trophy
+#============================================================================
+
+push(@glb_consumers, sub
+{
+  #--- prepare utility function for pushing scoring info
+
+  my $score = sub {
+    my ($plr, $trophy, $data, $adj) = @_;
+    my $sc_trophy = $trophy;
+    $sc_trophy =~ s/_wbo$//;
+
+    #--- adjustment for the score, this is here so that challenge can
+    #--- give different amount of points the first players and the rest
+
+    if(!defined($adj)) { $adj = 1; }
+
+    #--- verify necessary config and data exist
+
+    if(
+      !exists $cfg->{'scoring'}{$sc_trophy}
+      || !exists $s{'players'}{'data'}{$plr}
+    ) {
+      die "Scoring info not found for trophy '$trophy' or non-existing player '$plr'";
+    }
+
+    #--- insert the scoring entry
+
+    push(
+      @{$s{'players'}{'data'}{$plr}{'scoring'}},
+      [ $trophy, $cfg->{'scoring'}{$sc_trophy} * $adj, $data ]
+    );
+  };
+
+  #--- ensure the config exists
+
+  if(!exists $cfg->{'scoring'}) { die 'No config for scoring'; }
+
+  #--- list of players
+
+  my @players = keys %{$s{'players'}{'data'}};
+
+  #--- Best Of 13
+
+  if(
+    exists $s{'trophies'}{'best13'}
+    && @{$s{'trophies'}{'best13'}}
+  ) {
+    my $plr = $s{'trophies'}{'best13'}[0];
+    $score->($plr, 'best13');
+  }
+
+  #--- Most Ascensions
+
+  if(
+    exists $s{'players'}{'meta'}{'ord_by_ascs'}
+    && @{$s{'players'}{'meta'}{'ord_by_ascs'}}
+  ) {
+    $score->($s{'players'}{'meta'}{'ord_by_ascs'}[0], 'mostascs');
+  }
+
+  #--- Fastest Ascension: Gametime
+
+  if(
+    exists $s{'games'}{'data'}{'asc_by_turns'}
+    && @{$s{'games'}{'data'}{'asc_by_turns'}}
+  ) {
+    my $g = get_xrows($s{'games'}{'data'}{'asc_by_turns'}[0]);
+    $score->($g->{'name'}, 'mingametime');
+  }
+
+  #--- Fastest Ascension: Realtime
+
+  if(
+    exists $s{'games'}{'data'}{'asc_by_duration'}
+    && @{$s{'games'}{'data'}{'asc_by_duration'}}
+  ) {
+    my $g = get_xrows($s{'games'}{'data'}{'asc_by_duration'}[0]);
+    $score->($g->{'name'}, 'minrealtime');
+  }
+
+  #--- Lowest Scoring Ascension
+
+  if(
+    exists $s{'games'}{'data'}{'asc_by_minscore'}
+    && @{$s{'games'}{'data'}{'asc_by_minscore'}}
+  ) {
+    my $g = get_xrows($s{'games'}{'data'}{'asc_by_minscore'}[0]);
+    $score->($g->{'name'}, 'minscore');
+  }
+
+  #--- First Ascension
+
+  if(
+    exists $s{'games'}{'data'}{'ascended'}
+    && @{$s{'games'}{'data'}{'ascended'}}
+  ) {
+    my $g = get_xrows($s{'games'}{'data'}{'ascended'}[0]);
+    $score->($g->{'name'}, 'firstasc');
+  }
+
+  #--- Best Behaved Ascension
+
+  if(
+    exists $s{'games'}{'data'}{'asc_by_conducts'}
+    && @{$s{'games'}{'data'}{'asc_by_conducts'}}
+  ) {
+    my $g = get_xrows($s{'games'}{'data'}{'asc_by_conducts'}[0]);
+    $score->($g->{'name'}, 'bestconduct');
+  }
+
+  #--- Most Unique Deaths
+
+  if(
+    exists $s{'trophies'}{'unique'}
+    && @{$s{'trophies'}{'unique'}}
+  ) {
+    $score->($s{'trophies'}{'unique'}[0], 'unique');
+  }
+
+  #--- Recognition Trophies
+
+  my @trophies = @{$s{'aux'}{'trophies'}{'recognition'}{'ord'}};
+
+  for my $plr (@players) {
+    for my $trophy (@trophies) {
+      # without bells on
+      if(
+        grep { $_ eq $plr } @{$s{'trophies'}{'recognition'}{$trophy}}
+      ) {
+        $score->($plr, $trophy);
+      }
+      # with bells on
+      if(
+        exists $s{'trophies'}{'recognition'}{$trophy . '_wbo'}
+        && grep { $_ eq $plr } @{$s{'trophies'}{'recognition'}{$trophy . '_wbo'}}
+      ) {
+        $score->($plr, $trophy . '_wbo');
+      }
+    }
+  }
+
+  #--- Minor Trophies (per-role maxscores)
+
+  my $roles = $s{'aux'}{'roles'};
+
+  for my $role (@$roles) {
+    if(@{$s{'games'}{'data'}{'top_by_role'}{$role}}) {
+      my $g = get_xrows($s{'games'}{'data'}{'top_by_role'}{$role}[0]);
+      $score->($g->{'name'}, 'minor', { 'role' => $role });
+    }
+  }
+
+  #--- Who Wants To Be A Killionaire?
+
+  if(
+    exists $s{'games'}{'data'}{'games_by_kills'}
+    && @{$s{'games'}{'data'}{'games_by_kills'}}
+  ) {
+    my $g = get_xrows($s{'games'}{'data'}{'games_by_kills'}[0]);
+    $score->($g->{'name'}, 'killionaire');
+  }
+
+  #--- Basic Extinct
+
+  if(
+    exists $s{'games'}{'data'}{'games_by_exts'}
+    && @{$s{'games'}{'data'}{'games_by_exts'}}
+  ) {
+    my $g = get_xrows($s{'games'}{'data'}{'games_by_exts'}[0]);
+    $score->($g->{'name'}, 'extinct');
+  }
+
+  #--- Challenge Trophies (only the first player gets full score,
+  #--- the rest gets only half)
+
+  for my $chal (keys %{$s{'trophies'}{'challenges'}}) {
+    if(@{$s{'trophies'}{'challenges'}{$chal}}) {
+      my $adj = 1;
+      for my $plr (@{$s{'trophies'}{'challenges'}{$chal}}) {
+        $score->($plr, 'challenge', undef, $adj);
+        $adj = 0.5;
+      }
+    }
+  }
+});
+
+#============================================================================
+# Compile the Best In Show summary scores.
+#============================================================================
+
+push(@glb_consumers, sub
+{
+  for my $clan (keys %{$s{'clans'}}) {
+    my $score = 0;
+    my @breakdown;
+    for my $plr (@{$s{'clans'}{$clan}{'members'}}) {
+      if(exists $s{'players'}{'data'}{$plr}{'scoring'}) {
+        for my $e (@{$s{'players'}{'data'}{$plr}{'scoring'}}) {
+          $score += $e->[1];
+          push(@breakdown, [ $plr, @$e ]);
+        }
+      }
+    }
+    $s{'clans'}{$clan}{'bestinshow'} = {
+      'score' => $score,
+      'breakdown' => [ sort {
+        if($a->[0] eq $b->[0]) {
+          return $b->[2] <=> $a->[2];
+        }
+        $a->[0] cmp $b->[0];
+      } @breakdown ]
+    };
+  }
+});
+
 
 
 #============================================================================
