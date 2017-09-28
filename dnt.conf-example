@@ -1,0 +1,81 @@
+{
+
+  #=== per-server data sources definition
+
+  "sources" : {
+     "tst" : {
+       "xlogfile" : "xlogfile",
+     },
+  },
+
+  #=== challenges file
+
+  "challenges" : {
+    "status" : "challenge",
+    "list" : {
+      "digdug" : "Dig Dug",
+      "grue"   : "Grue",
+      "joust"  : "Joust",
+      "pacman" : "Pac-Man",
+      "pool"   : "Pool",
+      "waldo"  : "Waldo",
+      "zapm"   : "ZAPM",
+    }
+  },
+
+  #=== path to clans database (in SQLite format)
+
+  "clandb" : "clandb-test.sqlite",
+
+  #=== unique deaths filter lists
+
+  "unique" : {
+    "death_no" : "other/death_no.txt",
+    "death_yes" : "other/death_yes.txt"
+  },
+
+  #=== templates config
+
+  "templates" : {
+    "path"   : "templates",
+    "player" : "player",
+    "html"   : "www",
+  },
+
+  #=== Best In Show scoring config
+
+  "scoring" : {
+
+    "plastic"     : 0.03,
+    "lead"        : 0.05,
+    "iron"        : 0.1,
+    "zinc"        : 0.2,
+    "copper"      : 0.3,
+    "brass"       : 0.4,
+    "steel"       : 0.5,
+    "bronze"      : 0.6,
+    "silver"      : 0.7,
+    "gold"        : 0.8,
+    "platinum"    : 0.9,
+    "dilithium"   : 1,
+    "birdie"      : 3,
+    "doubletop"   : 4,
+    "hattrick"    : 5,
+    "granslam"    : 6,
+    "fullmonty"   : 7,
+
+    "minor"       : 2,
+    "killionaire" : 5,
+    "extinct"     : 5,
+    "maxscore"    : 5,
+    "unique"      : 6,
+    "firstasc"    : 6,
+    "bestconduct" : 7,
+    "minscore"    : 7,
+    "maxrealtime" : 8,
+    "maxgametime" : 8,
+    "mostascs"    : 9,
+    "best13"      : 10
+  }
+
+}
