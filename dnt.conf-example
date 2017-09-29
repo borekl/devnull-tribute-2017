@@ -61,9 +61,10 @@
     "birdie"      : 3,
     "doubletop"   : 4,
     "hattrick"    : 5,
-    "granslam"    : 6,
+    "grandslam"   : 6,
     "fullmonty"   : 7,
 
+    "challenge"   : 1,
     "minor"       : 2,
     "killionaire" : 5,
     "extinct"     : 5,
@@ -72,8 +73,8 @@
     "firstasc"    : 6,
     "bestconduct" : 7,
     "minscore"    : 7,
-    "maxrealtime" : 8,
-    "maxgametime" : 8,
+    "minrealtime" : 8,
+    "mingametime" : 8,
     "mostascs"    : 9,
     "best13"      : 10
   }
