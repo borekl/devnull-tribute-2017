@@ -1,0 +1,15 @@
+<!doctype html>
+
+<html>
+
+<head>
+<title>Clan [% clan %] page</title>
+</head>
+
+<body>
+
+<h1>Clan [% clan %]</h1>
+
+</body>
+
+</html>

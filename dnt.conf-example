@@ -37,8 +37,25 @@
   #=== templates config
 
   "templates" : {
+
+    # path for Template Toolkit templates ending with .tt suffix; the path
+    # can be both absolute and relative
+
     "path"   : "templates",
-    "player" : "player",
+
+    # this is directory under above path, it contains templates that are
+    # iterated for each known player and saved in corresponding directory
+    # within the "html" path
+
+    "players" : "players",
+
+    # like "players", but iterated for each clan
+
+    "clans" : "clans",
+
+    # target directory where compiled templates are saved, can be both
+    # absolute and relative
+
     "html"   : "www",
   },
 

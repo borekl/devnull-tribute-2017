@@ -1,0 +1,15 @@
+<!doctype html>
+
+<html>
+
+<head>
+<title>Player [% player %] page</title>
+</head>
+
+<body>
+
+<h1>Player [% player %]</h1>
+
+</body>
+
+</html>

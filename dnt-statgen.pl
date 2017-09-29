@@ -428,6 +428,100 @@ sub trophy_track
 
 
 #============================================================================
+# Template processing.
+#============================================================================
+
+sub process_templates
+{
+  #--- arguments
+
+  my (
+    $subdir,     # 1. source directory with templates (relative to base)
+    $data,       # 2. hashref to templates data
+    $iter_var,   # 3. (optional) iteration variable
+    $iter_vals   # 4. (optional) iteration values
+  ) = @_;
+
+  #--- if no iteration over different values is required, we create dummy
+  #--- list with one undefined element (so that the loop gets executed once)
+
+  if(!defined $iter_vals) { $iter_vals = [ undef ]; }
+
+  #--- initialize Template Toolkit
+
+  my $src_path = $cfg->{'templates'}{'path'} . '/' . ($subdir // '');
+  my $dst_path = $cfg->{'templates'}{'html'} . '/' . ($subdir // '');
+
+  my $tt = Template->new(
+    'OUTPUT_PATH' => $dst_path,
+    'INCLUDE_PATH' => $src_path,
+    'RELATIVE' => 1
+  );
+  if(!ref($tt)) { die 'Failed to initialize Template Toolkit'; }
+
+  #--- find the templates
+
+  my @templates;
+  if(! -d $src_path) { croak 'Non-existent path'; }
+  opendir(my $dh, $src_path)
+    or die "Could not open template directory '$src_path'";
+  @templates = grep {
+    /^.*\.tt$/
+    && -f "$src_path/$_"
+  } readdir($dh);
+  closedir($dh);
+  return if !@templates;
+
+  #--- iterate over template files
+
+  for my $template (@templates) {
+
+  #--- iterate over supplied iteration values
+
+    for my $val (@$iter_vals) {
+      my $dest_file = $template;
+      $dest_file =~ s/\.tt$//;
+
+      # if the iteration values are defined, ie. not from the dummy list
+      # then temporarily insert them into the user data
+
+      if(defined $iter_var && defined $val) {
+        $data->{$iter_var} = $val;
+      }
+
+      # if the iteration variable and template filename (without suffix)
+      # match, then make the output filename be the iteration variable _value_,
+      # For example if the template file is 'player.tt' and the iteration
+      # variable is player = [ 'adeon', 'stth', 'raisse' ... ] then the
+      # generated pages will be adeon.html, stth.html, raisse.html ...
+
+      if(defined $iter_var && $dest_file eq $iter_var) {
+        $dest_file = $val;
+      }
+
+      # otherwise, the output file will be named "value-template.html"
+
+      elsif(defined $val) {
+        $dest_file = "$val-$dest_file";
+      }
+
+      # now perform the template processing
+
+      if(!$tt->process($template, $data, $dest_file . '.html')) {
+        die $tt->error();
+      }
+
+      # remove temporary data
+
+      if(defined $iter_var && defined $val) {
+        delete $data->{$iter_var};
+      }
+    }
+  }
+}
+
+
+#============================================================================
 # Display usage summary
 #============================================================================
 
@@ -1406,35 +1500,11 @@ if($cmd_debug) {
   close(JS);
 }
 
-#--- find the templates
+#--- template processing
 
-my @templates;
-my $tpath = $cfg->{'templates'}{'path'} // undef;
-if($tpath && -d $tpath) {
-  opendir(my $dh, $tpath)
-    or die "Could not scan template directory $tpath";
-  @templates = grep {
-    /^.*\.tt$/
-    && -f "$tpath/$_"
-    && $_ ne $cfg->{'templates'}{'player'}
-  } readdir($dh);
-  closedir($dh);
-}
-
-#--- process the regular templates
-
-my $tt = Template->new(
-  'OUTPUT_PATH' => $cfg->{'templates'}{'html'},
-  'INCLUDE_PATH' => 'templates',
-  'RELATIVE' => 1
-);
-for my $template (@templates) {
-  my $dest_file = $template;
-  $dest_file =~ s/\.tt//;
-  if(!$tt->process($template, \%s, $dest_file . '.html')) {
-    die $tt->error();
-  }
-}
+process_templates(undef, \%s);
+process_templates('clans', \%s, 'clan', [ keys %{$s{'clans'}} ]);
+process_templates('players', \%s, 'player', [ keys %{$s{'players'}{'data'}} ]);
 
 #--- release lock file
 
