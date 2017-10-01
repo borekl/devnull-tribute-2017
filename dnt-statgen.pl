@@ -12,6 +12,7 @@
 use strict;
 use warnings;
 use utf8;
+use integer;
 
 use Carp;
 use Getopt::Long;
@@ -522,6 +523,49 @@ sub process_templates
 
 
 #============================================================================
+# Format the "realtime" xlogfile field
+#============================================================================
+
+sub format_duration
+{
+  my $realtime = shift;
+  my ($d, $h, $m, $s) = (0,0,0,0);
+  my $duration;
+
+  $d = $realtime / 86400;
+  $realtime %= 86400;
+
+  $h = $realtime / 3600;
+  $realtime %= 3600;
+
+  $m = $realtime / 60;
+  $realtime %= 60;
+
+  $s = $realtime;
+
+  $duration = sprintf("%s:%02s:%02s", $h, $m, $s);
+  if($d) {
+    $duration = sprintf("%s, %s:%02s:%02s", $d, $h, $m, $s);
+  }
+
+  return $duration;
+}
+
+
+#============================================================================
+# Format the starttime/endtime xlogfile fileds.
+#============================================================================
+
+sub format_datetime
+{
+  my $time = shift;
+
+  my @t = localtime($time);
+  return sprintf("%04d-%02d-%02d %02d:%02d:%02d", $t[5]+1900, $t[4]+1, $t[3], $t[2], $t[1], $t[0]);
+}
+
+
+#============================================================================
 # Display usage summary
 #============================================================================
 
@@ -554,6 +598,15 @@ my $game_current_id;
 push(@row_consumers, sub
 {
   my $xrow = shift;
+
+  #--- insert additional computed fields
+
+  $xrow->{'_ncond'} = scalar(conduct($xrow->{'conduct'}));
+  $xrow->{'_conds'} = join(' ', conduct($xrow->{'conduct'}));
+  $xrow->{'_realtime'} = format_duration($xrow->{'realtime'});
+  $xrow->{'_endtime'} = format_datetime($xrow->{'endtime'});
+
+  #--- insert games into master list of all games
 
   $s{'games'}{'data'}{'all'}[$game_id] = { (%$xrow, '_id', $game_id) };
   $game_current_id = $game_id++;
@@ -1470,8 +1523,6 @@ for my $src (keys %{$cfg->{'sources'}}) {
     chomp($l);
     my $xrow = parse_log($l);
     $xrow->{'_src'} = $src;
-    $xrow->{'_ncond'} = scalar(conduct($xrow->{'conduct'}));
-    $xrow->{'_conds'} = join(' ', conduct($xrow->{'conduct'}));
     push(@merged_xlog, $xrow);
   }
   close($xlog);
