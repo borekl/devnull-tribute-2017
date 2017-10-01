@@ -1205,6 +1205,8 @@ push(@glb_consumers, sub
 
 push(@glb_consumers, sub
 {
+  no integer;
+
   #--- prepare utility function for pushing scoring info
 
   my $score = sub {
@@ -1393,6 +1395,8 @@ push(@glb_consumers, sub
 
 push(@glb_consumers, sub
 {
+  no integer;
+
   for my $clan (keys %{$s{'clans'}}) {
     my $score = 0;
     my @breakdown;
