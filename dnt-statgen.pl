@@ -455,7 +455,7 @@ sub process_templates
 
   my $tt = Template->new(
     'OUTPUT_PATH' => $dst_path,
-    'INCLUDE_PATH' => $src_path,
+    'INCLUDE_PATH' => [ $src_path, $cfg->{'templates'}{'include'} ],
     'RELATIVE' => 1
   );
   if(!ref($tt)) { die 'Failed to initialize Template Toolkit'; }

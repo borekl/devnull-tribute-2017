@@ -38,6 +38,10 @@
 
   "templates" : {
 
+    # include path for template snippets, relative to the current directory
+
+    "include" : "templates/include",
+
     # path for Template Toolkit templates ending with .tt suffix; the path
     # can be both absolute and relative
 
