@@ -1,0 +1,32 @@
+[% IF head %]
+  <tr class="[% class %]">
+  <th>&nbsp;</th>
+  <th>name</th>
+  <th>character</th>
+  <th>turns</th>
+  <th>exts</th>
+  <th>score</th>
+  <th>duration</th>
+  <th>hp</th>
+  <th>time</th>
+  <th colspan=2>conduct</th>
+  </tr>
+[% ELSE %]
+  [% row = games.data.all.item(game) %]
+
+  [% IF class %]<tr class="[% class %]">[% ELSE %]<tr>[% END %]
+  [% IF games.data.asc_by_turns.item(i).defined %]
+    <td>[% i + 1 %]</td>
+    <td>[% row.name %]</td>
+    <td>[% row.role %]-[% row.race %]-[% row.gender0 %]-[% row.align0 %]</td>
+    <td class="num">[% number(row.turns) %]</td>
+    <td class="num">[% number(row.extinctions) %]</td>
+    <td class="num">[% number(row.points) %]</td>
+    <td class="num">[% row.item('_realtime') %]</td>
+    <td class="num">[% row.hp %]/[% row.maxhp %]</td>
+    <td class="num">[% row.item('_endtime') %]</td>
+    <td class="num">[% row.item('_ncond') %]</td>
+    <td>[% row.item('_conds') %]</td>
+  [% END %]
+  </tr>
+[% END %]

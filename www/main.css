@@ -1,0 +1,149 @@
+/*===========================================================================*/
+/*=== GENERIC SETTINGS ======================================================*/
+/*===========================================================================*/
+
+body {
+  background : black;
+  color : #0f0;
+  font-family: 'Trebuchet MS', sans-serif;
+}
+
+/*--- class for numeric table cells */
+
+td.num {
+  text-align: right;
+}
+
+/*--- the big devnull logo at the top */
+
+.bighead {
+  font-family: 'Russo One', sans-serif;
+  font-weight: bold;
+  margin : 0;
+  padding : 0.4em;
+  text-shadow : 0.1em 0.1em black;
+  font-size : 200%;
+  text-align : center;
+  letter-spacing : 0.05em;
+}
+
+div.graybox {
+  background : #333;
+}
+
+hr {
+  border : 0;
+  background: #0f0;
+  height : 2px;
+  margin : 0;
+}
+
+/*===========================================================================*/
+/*=== MENU ==================================================================*/
+/*===========================================================================*/
+
+/*--- menu-encompassing DIV */
+
+div.menu {
+  background : #333;
+  font-family: 'Russo One', sans-serif;
+  margin : 0;
+  padding : 0.2em;
+  text-align: center;
+}
+
+/*--- menu items */
+
+a.menu {
+  color : inherit;
+  text-decoration : inherit;
+  padding-left: 0.8em;
+  padding-right: 0.8em;
+  text-shadow : 0.1em 0.1em black;
+  letter-spacing: 0.1em;
+  margin : 0;
+}
+
+/*--- selected menu items */
+
+a.menusel {
+  color : #ff0;
+  margin : 0;
+}
+
+/*--- hovered menu items */
+
+a.menu:hover {
+  color : #ff0;
+}
+
+/*--- trophy section (grand, major, minor etc. */
+
+h1 {
+  font-family: 'Russo One', sans-serif;
+  text-transform: uppercase;
+  font-size: 133%;
+  letter-spacing: 0.4em;
+  text-align: center;
+  margin-top: 2em;
+  font-weight: normal;
+}
+
+/*--- major trophies */
+
+table {
+  margin: 0px auto;
+  margin-bottom: 1em;
+  border: 2px solid #0f0;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 2px solid #0a0;
+  /*padding: 0.5em 2em;*/
+  padding: 10pt 20pt;
+  font-size: 166%;
+}
+
+/*--- low height rows, such as those used to list individual games */
+
+tr.low td {
+  padding: 0.4em 0.3em;
+  font-size: 100%;
+}
+
+tr.low th {
+  padding: 0.4em 0.3em;
+  font-weight: bold;
+  font-size: 100%;
+}
+
+/*--- recognition trophies table */
+
+table.recog td {
+  padding: 10pt 14pt;
+}
+
+table.recog td:first-child {
+  min-width: 8em;
+  max-width: 8em;
+}
+
+table.recog td:nth-child(3) {
+  max-width: 400pt;
+}
+
+table.recog td.small {
+  font-size: 133%;
+}
+
+/*--- table cell with a trophy title in it */
+
+td.trophy {
+  /*font-family: 'Wendy One', sans-serif;*/
+  /*font-family: 'Yeseva One', sans-serif;*/
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-align: center;
+}
