@@ -605,10 +605,11 @@ push(@row_consumers, sub
   $xrow->{'_conds'} = join(' ', conduct($xrow->{'conduct'}));
   $xrow->{'_realtime'} = format_duration($xrow->{'realtime'});
   $xrow->{'_endtime'} = format_datetime($xrow->{'endtime'});
+  $xrow->{'_asc'} = is_ascended($xrow) ? JSON::true : JSON::false;
+  $xrow->{'_id'} = $game_id;
 
   #--- insert games into master list of all games
 
-  $xrow->{'_id'} = $game_id;
   $s{'games'}{'data'}{'all'}[$game_id] = $xrow;
   $game_current_id = $game_id++;
 });
