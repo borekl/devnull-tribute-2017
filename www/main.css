@@ -149,3 +149,18 @@ td.trophy {
   letter-spacing: 0.2em;
   text-align: center;
 }
+
+/*--- table cell indicating no content */
+
+td.noasc {
+  font-size: 100%;
+  letter-spacing: 0.5em;
+  color: #070;
+  text-align: center;
+}
+
+/*--- simple centering */
+
+td.center {
+  text-align: center;
+}

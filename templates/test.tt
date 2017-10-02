@@ -41,16 +41,20 @@
 
 <tr><td colspan=3 class="trophy">Best Of 13</td></tr>
 
-[% SET i = 0; WHILE i < 3 %]
-  <tr>
-  [% IF trophies.best13.item(i) %]
-    [% plr = trophies.best13.item(i) %]
-    <td>[% i + 1 %]</td>
-    <td>[% plr %]</td>
-    <td class="num">[% players.data.item(plr).best13.cnt %]</td>
+[% IF trophies.best13.size > 0 %]
+  [% SET i = 0; WHILE i < 3 %]
+    <tr>
+    [% IF trophies.best13.item(i) %]
+      [% plr = trophies.best13.item(i) %]
+      <td>[% i + 1 %]</td>
+      <td>[% plr %]</td>
+      <td class="num">[% players.data.item(plr).best13.cnt %]</td>
+    [% END %]
+    [% SET i = i + 1 %]
+    </tr>
   [% END %]
-  [% SET i = i + 1 %]
-  </tr>
+[% ELSE %]
+  <tr><td colspan=3 class="noasc">No ascensions yet</td></tr>
 [% END %]
 </table>
 
@@ -66,76 +70,109 @@
 
 <tr><td colspan=3 class="trophy">Most Ascensions</td></tr>
 
-[% SET i = 0; WHILE i < 3 %]
-  <tr>
-  [% IF players.meta.ord_by_ascs.item(i) %]
-    <td>[% i + 1 %]</td>
-    <td>[% SET plr = players.meta.ord_by_ascs.item(i); plr %]</td>
-    <td class="num">[% players.data.item(plr).cnt_ascensions %]</td>
+[% IF players.meta.ord_by_ascs.size > 0 %]
+  [% SET i = 0; WHILE i < 3 %]
+    <tr>
+    [% IF players.meta.ord_by_ascs.item(i) %]
+      <td>[% i + 1 %]</td>
+      <td>[% SET plr = players.meta.ord_by_ascs.item(i); plr %]</td>
+      <td class="num">[% players.data.item(plr).cnt_ascensions %]</td>
+    [% END %]
+    [% SET i = i + 1 %]
+    </tr>
   [% END %]
-  [% SET i = i + 1 %]
-  </tr>
-[% END %]
-
-</table>
-
-[%# ---------------------------------------------------------------------- %]
-
-<table>
-<tr><td colspan=10 class="trophy">Fastest Ascension: Gametime</td></tr>
-[% SET i = 0; WHILE i < 3 %]
-  [% INCLUDE game.tt game=games.data.asc_by_turns.item(i) class="low" %]
-  [% SET i = i + 1 %]
+[% ELSE %]
+  <tr><td colspan=3 class="noasc">No ascensions yet</td></tr>
 [% END %]
 </table>
 
 [%# ---------------------------------------------------------------------- %]
 
 <table>
-<tr><td colspan=10 class="trophy">Fastest Ascension: Realtime</td></tr>
-[% SET i = 0; WHILE i < 3 %]
-  [% INCLUDE game.tt game=games.data.asc_by_duration.item(i) class="low" %]
-  [% SET i = i + 1 %]
+<tr><td colspan=9 class="trophy">Fastest Ascension: Gametime</td></tr>
+[% INCLUDE game.tt head=1 class="low" %]
+[% IF games.data.ascended.size > 0 %]
+  [% SET i = 0; FOREACH game IN games.data.asc_by_turns %]
+    [% INCLUDE game.tt class="low" %]
+    [% SET i = i + 1; LAST IF i > 2 %]
+  [% END %]
+[% ELSE %]
+  <tr><td colspan=3 class="noasc">No ascensions yet</td></tr>
 [% END %]
 </table>
 
 [%# ---------------------------------------------------------------------- %]
 
 <table>
-<tr><td colspan=10 class="trophy">Lowest Scoring Ascension</td></tr>
-[% SET i =0; WHILE i < 3 %]
-  [% INCLUDE game.tt game=games.data.asc_by_minscore.item(i) class="low" %]
-  [% SET i = i + 1 %]
+<tr><td colspan=9 class="trophy">Fastest Ascension: Realtime</td></tr>
+[% INCLUDE game.tt head=1 class="low" %]
+[% IF games.data.ascended.size > 0 %]
+  [% SET i = 0; FOREACH game IN games.data.asc_by_duration %]
+    [% INCLUDE game.tt class="low" %]
+    [% SET i = i + 1; LAST IF i > 2 %]
+  [% END %]
+[% ELSE %]
+  <tr><td colspan=3 class="noasc">No ascensions yet</td></tr>
 [% END %]
 </table>
 
 [%# ---------------------------------------------------------------------- %]
 
 <table>
-<tr><td colspan=10 class="trophy">Highest Scoring Ascension</td></tr>
-[% SET i =0; WHILE i < 3 %]
-  [% INCLUDE game.tt game=games.data.asc_by_maxscore.item(i) class="low" %]
-  [% SET i = i + 1 %]
+<tr><td colspan=9 class="trophy">Lowest Scoring Ascension</td></tr>
+[% INCLUDE game.tt head=1 class="low" %]
+[% IF games.data.ascended.size > 0 %]
+  [% SET i =0; FOREACH game IN games.data.asc_by_minscore %]
+    [% INCLUDE game.tt class="low" %]
+    [% SET i = i + 1; LAST IF i > 2 %]
+  [% END %]
+[% ELSE %]
+  <tr><td colspan=3 class="noasc">No ascensions yet</td></tr>
 [% END %]
 </table>
 
 [%# ---------------------------------------------------------------------- %]
 
 <table>
-<tr><td colspan=10 class="trophy">First Ascension</td></tr>
-[% SET i =0; WHILE i < 3 %]
-  [% INCLUDE game.tt game=games.data.ascended.item(i) class="low" %]
-  [% SET i = i + 1 %]
+<tr><td colspan=9 class="trophy">Highest Scoring Ascension</td></tr>
+[% INCLUDE game.tt head=1 class="low" %]
+[% IF games.data.ascended.size > 0 %]
+  [% SET i =0; FOREACH game IN games.data.asc_by_maxscore %]
+    [% INCLUDE game.tt class="low" %]
+    [% SET i = i + 1; LAST IF i > 2 %]
+  [% END %]
+[% ELSE %]
+  <tr><td colspan=3 class="noasc">No ascensions yet</td></tr>
 [% END %]
 </table>
 
 [%# ---------------------------------------------------------------------- %]
 
 <table>
-<tr><td colspan=10 class="trophy">Best Behaved Ascension</td></tr>
-[% SET i =0; WHILE i < 3 %]
-  [% INCLUDE game.tt game=games.data.asc_by_conducts.item(i) class="low" %]
-  [% SET i = i + 1 %]
+<tr><td colspan=9 class="trophy">First Ascension</td></tr>
+[% INCLUDE game.tt head=1 class="low" %]
+[% IF games.data.ascended.size > 0 %]
+  [% SET i =0; FOREACH game IN games.data.ascended %]
+    [% INCLUDE game.tt class="low" %]
+    [% SET i = i + 1; LAST IF i > 2 %]
+  [% END %]
+[% ELSE %]
+  <tr><td colspan=3 class="noasc">No ascensions yet</td></tr>
+[% END %]
+</table>
+
+[%# ---------------------------------------------------------------------- %]
+
+<table>
+<tr><td colspan=9 class="trophy">Best Behaved Ascension</td></tr>
+[% INCLUDE game.tt head=1 class="low" %]
+[% IF games.data.ascended.size > 0 %]
+  [% SET i =0; FOREACH game IN games.data.asc_by_conducts %]
+    [% INCLUDE game.tt class="low" %]
+    [% SET i = i + 1; LAST IF i > 2 %]
+  [% END %]
+[% ELSE %]
+  <tr><td colspan=3 class="noasc">No ascensions yet</td></tr>
 [% END %]
 </table>
 
@@ -145,16 +182,20 @@
 
 <tr><td colspan=3 class="trophy">Most Unique Deaths</td></tr>
 
-[% SET i=0; WHILE i < 3 %]
-  [% IF trophies.unique.item(i) %]
-    <tr>
-    <td class="num">[% i + 1 %]</td>
-    [% SET plr = trophies.unique.item(i) %]
-    <td>[% plr %]</td>
-    <td class="num">[% players.data.item(plr).unique.list.size %]</td>
-    </tr>
+[% IF games.data.all.size > 0 %]
+  [% SET i=0; WHILE i < 3 %]
+    [% IF trophies.unique.item(i) %]
+      <tr>
+      <td class="num">[% i + 1 %]</td>
+      [% SET plr = trophies.unique.item(i) %]
+      <td>[% plr %]</td>
+      <td class="num">[% players.data.item(plr).unique.list.size %]</td>
+      </tr>
+    [% END %]
+    [% SET i = i + 1 %]
   [% END %]
-  [% SET i = i + 1 %]
+[% ELSE %]
+  <tr><td colspan=3 class="noasc">No deaths yet</td></tr>
 [% END %]
 </table>
 
@@ -166,12 +207,20 @@
 <h1>Minor Trophies</h1>
 
 <table>
-<tr><td colspan=10 class="trophy">Highest Score For Each Role</tr></td>
+<tr><td colspan=9 class="trophy">Highest Score For Each Role</tr></td>
+  [% INCLUDE game.tt head=1 class="low" %]
 
   [% SET i = 0 %]
   [% FOR role IN aux.roles %]
   [% SET g = games.data.top_by_role.item(role).0 %]
-  [% INCLUDE game.tt game=games.data.top_by_role.item(role).0 class="low" %]
+  [% IF games.data.top_by_role.item(role).size > 0 %]
+    [% INCLUDE game.tt game=games.data.top_by_role.item(role).0 class="low" %]
+  [% ELSE %]
+    <tr class="low">
+    <td class="center">[% role %]</td>
+    <td colspan=9 class="noasc">No ascensions yet</td>
+    </tr>
+  [% END %]
   [% SET i = i + 1 %]
   [% END %]
 </table>
@@ -209,26 +258,40 @@
 
 <h1>Theme Trophies</h1>
 
+[%# ---------------------------------------------------------------------- %]
+
 <table>
-<tr><td colspan=11 class="trophy">Basic Extinct</td></tr>
+<tr><td colspan=10 class="trophy">Basic Extinct</td></tr>
 
-[% INCLUDE "game-ext.tt" head=1 class="low" %]
+[% IF games.data.games_by_exts.size > 0 %]
+  [% INCLUDE "game-ext.tt" head=1 class="low" %]
 
-[% SET i =0; WHILE i < 3 %]
-  [% INCLUDE "game-ext.tt" game=games.data.games_by_exts.item(i) class="low" %]
-  [% SET i = i + 1 %]
+  [% SET i = 0; FOREACH game IN games.data.games_by_exts %]
+    [% INCLUDE "game-ext.tt" class="low" %]
+    [% SET i = i + 1 %]
+  [% END %]
+[% ELSE %]
+  <tr><td colspan=11 class="noasc">No deaths yet</td></tr>
 [% END %]
+
 </table>
 
+[%# ---------------------------------------------------------------------- %]
+
 <table>
-<tr><td colspan=11 class="trophy">Who Wants To Be A Killionaire?</td></tr>
+<tr><td colspan=10 class="trophy">Who Wants To Be A Killionaire?</td></tr>
 
-[% INCLUDE "game-kil.tt" head=1 class="low" %]
+[% IF games.data.games_by_kills.size > 0 %]
+  [% INCLUDE "game-kil.tt" head=1 class="low" %]
 
-[% SET i = 0; WHILE i < 3 %]
-  [% INCLUDE "game-kil.tt" game=games.data.games_by_kills.item(i) class="low" %]
-  [% SET i = i + 1 %]
+  [% SET i = 0; FOREACH game IN games.data.games_by_kills %]
+    [% INCLUDE "game-kil.tt" class="low" %]
+    [% SET i = i + 1 %]
+  [% END %]
+[% ELSE %]
+  <tr><td colspan=11 class="noasc">No deaths yet</td></tr>
 [% END %]
+
 </table>
 
 [%# ======================================================================
