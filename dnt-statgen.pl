@@ -561,7 +561,7 @@ sub format_datetime
   my $time = shift;
 
   my @t = localtime($time);
-  return sprintf("%04d-%02d-%02d %02d:%02d:%02d", $t[5]+1900, $t[4]+1, $t[3], $t[2], $t[1], $t[0]);
+  return sprintf("%04d-%02d-%02d %02d:%02d", $t[5]+1900, $t[4]+1, $t[3], $t[2], $t[1]);
 }
 
 
