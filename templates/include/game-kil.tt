@@ -9,24 +9,33 @@
   <th>duration</th>
   <th>hp</th>
   <th>time</th>
-  <th colspan=2>conduct</th>
+  <th>death reason</th>
   </tr>
 [% ELSE %]
   [% row = games.data.all.item(game) %]
 
   [% IF class %]<tr class="[% class %]">[% ELSE %]<tr>[% END %]
-  [% IF games.data.asc_by_turns.item(i).defined %]
-    <td>[% i + 1 %]</td>
-    <td>[% row.name %]</td>
-    <td>[% row.role %]-[% row.race %]-[% row.gender0 %]-[% row.align0 %]</td>
-    <td class="num">[% number(row.turns) %]</td>
-    <td class="num">[% number(row.kills120) %]</td>
-    <td class="num">[% number(row.points) %]</td>
-    <td class="num">[% row.item('_realtime') %]</td>
-    <td class="num">[% row.hp %]/[% row.maxhp %]</td>
-    <td class="num">[% row.item('_endtime') %]</td>
-    <td class="num">[% row.item('_ncond') %]</td>
-    <td>[% row.item('_conds') %]</td>
+  <td>[% i + 1 %]</td>
+  <td>[% row.name %]</td>
+  <td>[% row.role %]-[% row.race %]-[% row.gender0 %]-[% row.align0 %]</td>
+  <td class="num">[% number(row.turns) %]</td>
+  <td class="num">[% number(row.kills120) %]</td>
+  <td class="num">[% number(row.points) %]</td>
+  <td class="num">[% row.item('_realtime') %]</td>
+  <td class="num">[% row.hp %]/[% row.maxhp %]</td>
+  <td class="num">[% row.item('_endtime') %]</td>
+  <td>
+  [% IF row.item('_asc') %]
+    [% IF row.item('_ncond') == 0 %]
+      ascended with all conducts broken
+    [% ELSE %]
+      ascended with [% row.item('_ncond') %]
+      conduct[% IF row.item('_ncond') > 1 %]s[% END %]
+      ([% row.item('_conds') %])
+    [% END %]
+  [% ELSE %]
+    [% row.death %]
   [% END %]
+  </td>
   </tr>
 [% END %]
