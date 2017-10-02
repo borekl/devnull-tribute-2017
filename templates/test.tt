@@ -226,7 +226,7 @@
 [% INCLUDE "game-kil.tt" head=1 class="low" %]
 
 [% SET i = 0; WHILE i < 3 %]
-  [% INCLUDE "game-ext.tt" game=games.data.games_by_kills.item(i) class="low" %]
+  [% INCLUDE "game-kil.tt" game=games.data.games_by_kills.item(i) class="low" %]
   [% SET i = i + 1 %]
 [% END %]
 </table>
