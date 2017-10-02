@@ -876,14 +876,22 @@ push(@glb_consumers, sub
 
 push(@glb_consumers, sub
 {
-  my $g = $s{'games'}{'data'}{'all'};
-  my @sorted = sort {
+  my @sorted =
+  grep { $_->{'extinctions'} > 0 }  # only games with actual extinctions
+  sort {
     $a->{'extinctions'} == $b->{'extinctions'} ?
     $a->{'endtime'} <=> $b->{'endtime'} :
     $b->{'extinctions'} <=> $a->{'extinctions'};
-  } @$g;
+  } @{$s{'games'}{'data'}{'all'}};
+
+  # store only game ids, not actual rows; remove any undefined elements
+  # that may arise from the array slice, that only preserves top three
+  # results
+
   $s{'games'}{'data'}{'games_by_exts'} = [
-    map { $_->{'_id'} } @sorted[0..2]
+    map {
+      defined $_ ? $_->{'_id'} : ()
+    } @sorted[0..2]
   ];
 });
 
@@ -895,14 +903,25 @@ push(@glb_consumers, sub
 
 push(@glb_consumers, sub
 {
-  my @sorted = sort {
+  my @sorted =
+  grep { $_->{'kills120'} > 0 }  # only games with actual kills
+  sort {
     $a->{'kills120'} == $b->{'kills120'} ?
     $a->{'endtime'} <=> $b->{'endtime'} :
     $b->{'kills120'} <=> $a->{'kills120'};
   } @{$s{'games'}{'data'}{'all'}};
-  $s{'games'}{'data'}{'games_by_kills'} = [
-    map { $_->{'_id'} } @sorted[0..2]
-  ];
+
+  # store only game ids, not actual rows; remove any undefined elements
+  # that may arise from the array slice, that only preserves top three
+  # results
+
+  if(@sorted) {
+    $s{'games'}{'data'}{'games_by_kills'} = [
+      map {
+        defined $_ ? $_->{'_id'} : ()
+      } @sorted[0..2]
+    ];
+  }
 });
 
 
