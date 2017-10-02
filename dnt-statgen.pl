@@ -608,7 +608,8 @@ push(@row_consumers, sub
 
   #--- insert games into master list of all games
 
-  $s{'games'}{'data'}{'all'}[$game_id] = { (%$xrow, '_id', $game_id) };
+  $xrow->{'_id'} = $game_id;
+  $s{'games'}{'data'}{'all'}[$game_id] = $xrow;
   $game_current_id = $game_id++;
 });
 
@@ -646,6 +647,7 @@ push(@row_consumers, sub
     $s{'players'}{'data'}{$plr_name}{'cnt_asc_turns'} = 0;
     $s{'players'}{'data'}{$plr_name}{'unique'}{'list'} = [];
     $s{'players'}{'data'}{$plr_name}{'unique'}{'when'} = undef;
+    $s{'players'}{'data'}{$plr_name}{'last_asc'} = undef;
   }
 
   #--- push new game into the list
@@ -656,11 +658,12 @@ push(@row_consumers, sub
 
   $s{'players'}{'data'}{$plr_name}{'cnt_games'}++;
 
-  #--- increment games ascended counter
+  #--- increment games ascended counter, store last ascension
 
   if(is_ascended($xrow)) {
     $s{'players'}{'data'}{$plr_name}{'cnt_ascensions'}++;
     $s{'players'}{'data'}{$plr_name}{'cnt_asc_turns'} += $xrow->{'turns'};
+    $s{'players'}{'data'}{$plr_name}{'last_asc'} = $xrow->{'_id'};
   }
 
 });
@@ -757,8 +760,7 @@ push(@row_consumers, sub
 
 #============================================================================
 # Create list of player names ordered by number of ascensions. Ties are
-# broken by ascension ratios (ie. players that took less games to achieve
-# same win count are prefered).
+# broken by endtime (ie. "who got there first").
 #============================================================================
 
 push(@glb_consumers, sub
@@ -775,7 +777,9 @@ push(@glb_consumers, sub
 
   my @plr_ordered = sort {
     if($plr->{$b}{'cnt_ascensions'} == $plr->{$a}{'cnt_ascensions'}) {
-      $plr->{$a}{'cnt_games'} <=> $plr->{$b}{'cnt_games'}
+      get_xrows($plr->{$a}{'last_asc'})->{'endtime'}
+      <=>
+      get_xrows($plr->{$b}{'last_asc'})->{'endtime'}
     } else {
       $plr->{$b}{'cnt_ascensions'} <=> $plr->{$a}{'cnt_ascensions'}
     }
@@ -795,7 +799,9 @@ push(@glb_consumers, sub
 {
   my $g = $s{'games'}{'data'}{'all'};
   my @sorted = sort {
-    $g->[$a]{'turns'} <=> $g->[$b]{'turns'};
+    $g->[$a]{'turns'} == $g->[$b]{'turns'} ?
+    $g->[$a]{'endtime'} <=> $g->[$b]{'endtime'} :
+    $g->[$a]{'turns'} <=> $g->[$b]{'turns'}
   } @{$s{'games'}{'data'}{'ascended'}};
   $s{'games'}{'data'}{'asc_by_turns'} = \@sorted;
 });
@@ -807,9 +813,13 @@ push(@glb_consumers, sub
 push(@glb_consumers, sub
 {
   my $g = $s{'games'}{'data'}{'all'};
+
   my @sorted = sort {
-    $g->[$a]{'realtime'} <=> $g->[$b]{'realtime'};
+    $g->[$a]{'realtime'} == $g->[$b]{'realtime'} ?
+    $g->[$a]{'endtime'} <=> $g->[$b]{'endtime'} :
+    $g->[$a]{'realtime'} <=> $g->[$b]{'realtime'}
   } @{$s{'games'}{'data'}{'ascended'}};
+
   $s{'games'}{'data'}{'asc_by_duration'} = \@sorted;
 });
 
@@ -820,11 +830,21 @@ push(@glb_consumers, sub
 push(@glb_consumers, sub
 {
   my $g = $s{'games'}{'data'}{'all'};
-  my @sorted = sort {
-    $g->[$a]{'points'} <=> $g->[$b]{'points'};
+
+  my @sorted_min = sort {
+    $g->[$a]{'points'} == $g->[$b]{'points'} ?
+    $g->[$a]{'endtime'} == $g->[$b]{'endtime'} :
+    $g->[$a]{'points'} <=> $g->[$b]{'points'}
   } @{$s{'games'}{'data'}{'ascended'}};
-  $s{'games'}{'data'}{'asc_by_minscore'} = \@sorted;
-  $s{'games'}{'data'}{'asc_by_maxscore'} = [ reverse @sorted ];
+
+  my @sorted_max = sort {
+    $g->[$a]{'points'} == $g->[$b]{'points'} ?
+    $g->[$a]{'endtime'} == $g->[$b]{'endtime'} :
+    $g->[$b]{'points'} <=> $g->[$a]{'points'}
+  } @{$s{'games'}{'data'}{'ascended'}};
+
+  $s{'games'}{'data'}{'asc_by_minscore'} = \@sorted_min;
+  $s{'games'}{'data'}{'asc_by_maxscore'} = \@sorted_max;
 });
 
 #============================================================================
