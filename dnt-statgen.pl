@@ -858,10 +858,9 @@ push(@glb_consumers, sub
 {
   my $g = $s{'games'}{'data'}{'all'};
   my @sorted = sort {
-    if($b->{'extinctions'} == $a->{'extinctions'}) {
-      return $a->{'endtime'} <=> $b->{'endtime'};
-    }
-    $b->{'extinctions'} <=> $a->{'extinctions'}
+    $a->{'extinctions'} == $b->{'extinctions'} ?
+    $a->{'endtime'} <=> $b->{'endtime'} :
+    $b->{'extinctions'} <=> $a->{'extinctions'};
   } @$g;
   $s{'games'}{'data'}{'games_by_exts'} = [
     map { $_->{'_id'} } @sorted[0..2]
@@ -876,13 +875,11 @@ push(@glb_consumers, sub
 
 push(@glb_consumers, sub
 {
-  my $g = $s{'games'}{'data'}{'all'};
   my @sorted = sort {
-    if($b->{'kills120'} == $a->{'kills120'}) {
-      return $a->{'endtime'} <=> $b->{'endtime'};
-    }
-    $b->{'kills120'} <=> $a->{'kills120'}
-  } @$g;
+    $a->{'kills120'} == $b->{'kills120'} ?
+    $a->{'endtime'} <=> $b->{'endtime'} :
+    $b->{'kills120'} <=> $a->{'kills120'};
+  } @{$s{'games'}{'data'}{'all'}};
   $s{'games'}{'data'}{'games_by_kills'} = [
     map { $_->{'_id'} } @sorted[0..2]
   ];
