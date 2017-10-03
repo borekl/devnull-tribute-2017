@@ -649,6 +649,8 @@ push(@row_consumers, sub
     $s{'players'}{'data'}{$plr_name}{'unique'}{'list'} = [];
     $s{'players'}{'data'}{$plr_name}{'unique'}{'when'} = undef;
     $s{'players'}{'data'}{$plr_name}{'last_asc'} = undef;
+    $s{'players'}{'data'}{$plr_name}{'maxlvl'} = 0;
+    $s{'players'}{'data'}{$plr_name}{'maxlvl_game'} = undef;
   }
 
   #--- push new game into the list
@@ -665,6 +667,13 @@ push(@row_consumers, sub
     $s{'players'}{'data'}{$plr_name}{'cnt_ascensions'}++;
     $s{'players'}{'data'}{$plr_name}{'cnt_asc_turns'} += $xrow->{'turns'};
     $s{'players'}{'data'}{$plr_name}{'last_asc'} = $xrow->{'_id'};
+  }
+
+  #--- update per-player maxlvl
+
+  if($s{'players'}{'data'}{$plr_name}{'maxlvl'} < $xrow->{'maxlvl'}) {
+    $s{'players'}{'data'}{$plr_name}{'maxlvl'} = $xrow->{'maxlvl'};
+    $s{'players'}{'data'}{$plr_name}{'maxlvl_game'} = $game_current_id;
   }
 
 });
@@ -770,25 +779,62 @@ push(@glb_consumers, sub
 
   my $plr = $s{'players'}{'data'};
 
-  #--- get list of ascending players
+  #--- get list of all players; we are excluding players that do not have
+  #--- any completed games; these players are not properly instantiated and
+  #--- arise as being created by reading challenges status file
 
-  my @plr_list = grep { ($plr->{$_}{'cnt_ascensions'} // 0) > 0 } keys %$plr;
+  my @plr_list = grep {
+    exists $plr->{$_}{'cnt_ascensions'}
+  } keys %{$s{'players'}{'data'}};
 
-  #--- sort the eligible players by number of ascensions
+  #--- sort the eligible players by number of ascensions (with endtime
+  #--- as a tie breaker); non-ascending players are sorted by maxlvl with
+  #--- ties broken by endtime of the game achieving the maxlvl
 
   my @plr_ordered = sort {
-    if($plr->{$b}{'cnt_ascensions'} == $plr->{$a}{'cnt_ascensions'}) {
-      get_xrows($plr->{$a}{'last_asc'})->{'endtime'}
-      <=>
-      get_xrows($plr->{$b}{'last_asc'})->{'endtime'}
+
+    # both players have the same number of ascensions; this can also mean that
+    # neither player has ascended
+
+    if($plr->{$a}{'cnt_ascensions'} == $plr->{$b}{'cnt_ascensions'}) {
+
+    # if both players have the same number of ascensions (one or more), then
+    # break ties by endttime of the last ascension
+
+      if($plr->{$a}{'cnt_ascensions'}) {
+        return
+          get_xrows($plr->{$a}{'last_asc'})->{'endtime'}
+          <=>
+          get_xrows($plr->{$b}{'last_asc'})->{'endtime'};
+      }
+
+    # if both players have no ascensions, then try to break the tie with
+    # their maximum achieved level (from the "maxlvl" xlogfile field);
+    # if it is tied too, then use endtime of the game it was achieved with
+
+      elsif($plr->{$a}{'maxlvl'} == $plr->{$b}{'maxlvl'}) {
+        return
+          get_xrows($plr->{$a}{'maxlvl_game'})->{'endtime'}
+          <=>
+          get_xrows($plr->{$b}{'maxlvl_game'})->{'endtime'}
+      } else {
+        return $plr->{$b}{'maxlvl'} <=> $plr->{$a}{'maxlvl'};
+      }
+
+    # the players have different number of ascensions, so sort by them only
+
     } else {
-      $plr->{$b}{'cnt_ascensions'} <=> $plr->{$a}{'cnt_ascensions'}
+      $plr->{$b}{'cnt_ascensions'} <=> $plr->{$a}{'cnt_ascensions'};
     }
+
   } @plr_list;
 
-  #--- store the result
+  #--- store the results
 
-  $s{'players'}{'meta'}{'ord_by_ascs'} = \@plr_ordered;
+  $s{'players'}{'meta'}{'ord_by_ascs_all'} = \@plr_ordered;
+  $s{'players'}{'meta'}{'ord_by_ascs'} = [
+    grep { $plr->{$_}{'cnt_ascensions'} } @plr_ordered
+  ];
 
 });
 
