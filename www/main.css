@@ -164,3 +164,9 @@ td.noasc {
 td.center {
   text-align: center;
 }
+
+/*--- player with ascension hilite */
+
+td.plrasc {
+  font-weight: bold;
+}

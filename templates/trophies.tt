@@ -21,9 +21,9 @@
 
 <div class="menu">
   <a href="#" class="menu">OVERVIEW</a>
-  <a href="#" class="menu menusel">TROPHIES</a>
+  <a href="trophies.html" class="menu menusel">TROPHIES</a>
   <a href="#" class="menu">CLANS</a>
-  <a href="#" class="menu">PLAYERS</a>
+  <a href="players.html" class="menu">PLAYERS</a>
   <a href="#" class="menu">ABOUT</a>
 </div>
 

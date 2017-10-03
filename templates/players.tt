@@ -1,0 +1,64 @@
+[%- MACRO number(n) GET n.chunk(-3).join(',') -%]
+[%- USE percent = format("%0.1f%%") -%]
+
+<!doctype html>
+
+<html>
+
+<head>
+  <title>Players</title>
+  <link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Yeseva+One" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+
+<div class="graybox">
+<h1 class="bighead">/DEV/NULL/NETHACK TRIBUTE TOURNAMENT 2017</h1>
+</div>
+
+<hr>
+
+<div class="menu">
+  <a href="#" class="menu">OVERVIEW</a>
+  <a href="trophies.html" class="menu">TROPHIES</a>
+  <a href="#" class="menu">CLANS</a>
+  <a href="players.html" class="menu menusel">PLAYERS</a>
+  <a href="#" class="menu">ABOUT</a>
+</div>
+
+<hr>
+
+<h1>Players</h1>
+
+<table>
+  <tr class="low">
+    <th></th>
+    <th>player</th>
+    <th>won</th>
+    <th>played</th>
+    <th>ratio</th>
+    <th>score</th>
+    <th>cond</th>
+    <th>maxlvl</th>
+  </tr>
+[% SET i = 1; FOREACH plr IN players.meta.ord_by_ascs_all %]
+  [% SET pdata = players.data.item(plr) %]
+  <tr class="low">
+    <td class="num">[% i %]</td>
+    <td[% IF pdata.cnt_ascensions %] class="plrasc"[% END %]>[% plr %]</td>
+    <td class="num">[% pdata.cnt_ascensions %]</td>
+    <td class="num">[% pdata.games.size %]</td>
+    <td class="num">[% percent(pdata.cnt_ascensions / pdata.games.size * 100) %]</td>
+    <td class="num">[% number(pdata.score) %]</td>
+    <td class="num">[% pdata.maxconducts %]</td>
+    <td class="num">[% pdata.maxlvl %]</td>
+  </tr>
+  [% SET i = i + 1 %]
+[% END %]
+</table>
+
+</body>
+
+</html>
