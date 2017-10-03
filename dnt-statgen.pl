@@ -651,6 +651,8 @@ push(@row_consumers, sub
     $s{'players'}{'data'}{$plr_name}{'last_asc'} = undef;
     $s{'players'}{'data'}{$plr_name}{'maxlvl'} = 0;
     $s{'players'}{'data'}{$plr_name}{'maxlvl_game'} = undef;
+    $s{'players'}{'data'}{$plr_name}{'maxconduct'} = undef;
+    $s{'players'}{'data'}{$plr_name}{'score'} = 0;
   }
 
   #--- push new game into the list
@@ -667,6 +669,15 @@ push(@row_consumers, sub
     $s{'players'}{'data'}{$plr_name}{'cnt_ascensions'}++;
     $s{'players'}{'data'}{$plr_name}{'cnt_asc_turns'} += $xrow->{'turns'};
     $s{'players'}{'data'}{$plr_name}{'last_asc'} = $xrow->{'_id'};
+
+  #--- update per-player maxconducts
+
+    if(!defined $s{'players'}{'data'}{$plr_name}{'maxconducts'}) {
+      $s{'players'}{'data'}{$plr_name}{'maxconducts'} = 0;
+    }
+    if(($s{'players'}{'data'}{$plr_name}{'maxconducts'} // 0) < $xrow->{'_ncond'}) {
+      $s{'players'}{'data'}{$plr_name}{'maxconducts'} = $xrow->{'_ncond'};
+    }
   }
 
   #--- update per-player maxlvl
@@ -676,7 +687,12 @@ push(@row_consumers, sub
     $s{'players'}{'data'}{$plr_name}{'maxlvl_game'} = $game_current_id;
   }
 
+  #--- update player's total score
+
+  $s{'players'}{'data'}{$plr_name}{'score'} += $xrow->{'points'};
+
 });
+
 
 #============================================================================
 # Recognition trophies recording, only single game ones, ie the "star"
