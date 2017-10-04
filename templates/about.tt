@@ -1,0 +1,33 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <title>About</title>
+  [% INSERT fonts.tt %]
+  <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+
+<div class="graybox">
+<h1 class="bighead">/DEV/NULL/NETHACK TRIBUTE TOURNAMENT 2017</h1>
+</div>
+
+<hr>
+
+<div class="menu">
+  <a href="./" class="menu">OVERVIEW</a>
+  <a href="trophies.html" class="menu">TROPHIES</a>
+  <a href="clans.html" class="menu">CLANS</a>
+  <a href="players.html" class="menu">PLAYERS</a>
+  <a href="about.html" class="menu menusel">ABOUT</a>
+</div>
+
+<hr>
+
+<h1>About</h1>
+
+</body>
+
+</html>

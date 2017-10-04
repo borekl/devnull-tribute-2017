@@ -6,8 +6,7 @@
 
 <head>
   <title>Test</title>
-  <link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Yeseva+One" rel="stylesheet">
+  [% INSERT fonts.tt %]
   <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 
@@ -20,11 +19,11 @@
 <hr>
 
 <div class="menu">
-  <a href="#" class="menu">OVERVIEW</a>
+  <a href="./" class="menu">OVERVIEW</a>
   <a href="trophies.html" class="menu menusel">TROPHIES</a>
-  <a href="#" class="menu">CLANS</a>
+  <a href="clans.html" class="menu">CLANS</a>
   <a href="players.html" class="menu">PLAYERS</a>
-  <a href="#" class="menu">ABOUT</a>
+  <a href="about.html" class="menu">ABOUT</a>
 </div>
 
 <hr>
