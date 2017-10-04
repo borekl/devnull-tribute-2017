@@ -28,6 +28,26 @@
 
 <h1>Clans</h1>
 
+<table>
+  <tr class="low">
+    <th>clan</th>
+    <th>members</th>
+    <th>points</th>
+  <tr>
+  [% IF clans.size == 0 %]
+  <tr><td colspan=3 class="noasc">No clans exist at this moment</td></tr>
+  [% ELSE %]
+    [% FOREACH clan IN clans.keys.sort %]
+      <tr>
+        <td><a href="clans/[% clan %].html">[% clan %]</a></td>
+        <td class="num">[% clans.item(clan).members.size %]</td>
+        <td class="num">[% clans.item(clan).bestinshow.score %]
+      </tr>
+    [% END %]
+  [% END %]
+</table>
+
+
 </body>
 
 </html>
