@@ -14,7 +14,7 @@
   [% row = games.data.all.item(game) %]
 
   [% IF class %]<tr class="[% class %]">[% ELSE %]<tr>[% END %]
-  <td>[% i + 1 %]</td>
+  <td class="num">[% i + 1 %]</td>
   <td>[% row.name %]</td>
   <td>[% row.role %]-[% row.race %]-[% row.gender0 %]-[% row.align0 %]</td>
   <td class="num">[% number(row.turns) %]</td>

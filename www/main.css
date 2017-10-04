@@ -9,6 +9,19 @@ body {
   margin: 0;
 }
 
+a:link {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:link:hover {
+  text-decoration: underline;
+}
+
+a:visited {
+  color: inherit;
+}
+
 /*--- class for numeric table cells */
 
 td.num {
@@ -76,6 +89,7 @@ a.menusel {
 
 a.menu:hover {
   color : #ff0;
+  text-decoration: none;
 }
 
 /*--- trophy section (grand, major, minor etc. */

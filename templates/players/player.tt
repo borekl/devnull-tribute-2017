@@ -1,14 +1,56 @@
+[%- MACRO number(n) GET n.chunk(-3).join(',') -%]
+[%- MACRO row(g) GET games.data.all.item(g) %]
+
 <!doctype html>
 
 <html>
 
 <head>
-<title>Player [% player %] page</title>
+  <base href="../">
+  <title>Player :: [% player %]</title>
+  <link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Yeseva+One" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 
 <body>
 
-<h1>Player [% player %]</h1>
+<div class="graybox">
+<h1 class="bighead">/DEV/NULL/NETHACK TRIBUTE TOURNAMENT 2017</h1>
+</div>
+
+<hr>
+
+<div class="menu">
+  <a href="#" class="menu">OVERVIEW</a>
+  <a href="trophies.html" class="menu">TROPHIES</a>
+  <a href="#" class="menu">CLANS</a>
+  <a href="players.html" class="menu">PLAYERS</a>
+  <a href="#" class="menu">ABOUT</a>
+</div>
+
+<hr>
+
+<h1>PLAYER: [% player %]</h1>
+
+<table>
+  <tr><td colspan=9>ASCENDED GAMES</td></tr>
+  [% INCLUDE game.tt head=1 class="low" %]
+  [% SET i = 0; FOREACH game IN players.data.item(player).games %]
+    [% NEXT IF !games.data.all.item(game).item('_asc') %]
+    [% INCLUDE game.tt class="low" %]
+    [% SET i = i + 1 %]
+  [% END %]
+</table>
+
+<table>
+  <tr><td colspan=9>ALL GAMES</td></tr>
+  [% INCLUDE game.tt head=1 class="low" %]
+  [% SET i = 0; FOREACH game IN players.data.item(player).games %]
+    [% INCLUDE game.tt class="low" %]
+    [% SET i = i + 1 %]
+  [% END %]
+</table>
 
 </body>
 

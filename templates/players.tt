@@ -47,7 +47,7 @@
   [% SET pdata = players.data.item(plr) %]
   <tr class="low">
     <td class="num">[% i %]</td>
-    <td[% IF pdata.cnt_ascensions %] class="plrasc"[% END %]>[% plr %]</td>
+    <td[% IF pdata.cnt_ascensions %] class="plrasc"[% END %]><a href="players/[% plr %].html">[% plr %]</a></td>
     <td class="num">[% pdata.cnt_ascensions %]</td>
     <td class="num">[% pdata.games.size %]</td>
     <td class="num">[% percent(pdata.cnt_ascensions / pdata.games.size * 100) %]</td>
