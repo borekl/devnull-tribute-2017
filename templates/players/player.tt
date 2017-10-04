@@ -32,15 +32,17 @@
 
 <h1>PLAYER: [% player %]</h1>
 
-<table>
-  <tr><td colspan=9>ASCENDED GAMES</td></tr>
-  [% INCLUDE game.tt head=1 class="low" %]
-  [% SET i = 0; FOREACH game IN players.data.item(player).games %]
-    [% NEXT IF !games.data.all.item(game).item('_asc') %]
-    [% INCLUDE game.tt class="low" %]
-    [% SET i = i + 1 %]
-  [% END %]
-</table>
+[% IF players.data.item(player).cnt_ascensions %]
+  <table>
+    <tr><td colspan=9>ASCENDED GAMES</td></tr>
+    [% INCLUDE game.tt head=1 class="low" %]
+    [% SET i = 0; FOREACH game IN players.data.item(player).games %]
+      [% NEXT IF !games.data.all.item(game).item('_asc') %]
+      [% INCLUDE game.tt class="low" %]
+      [% SET i = i + 1 %]
+    [% END %]
+  </table>
+[% END %]
 
 <table>
   <tr><td colspan=9>ALL GAMES</td></tr>
