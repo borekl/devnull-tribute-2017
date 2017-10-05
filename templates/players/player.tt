@@ -34,11 +34,11 @@
 
 [% IF players.data.item(player).cnt_ascensions %]
   <table>
-    <tr><td colspan=9>ASCENDED GAMES</td></tr>
-    [% INCLUDE game.tt head=1 class="low" %]
+    <tr><td colspan=10>ASCENDED GAMES</td></tr>
+    [% INCLUDE game.tt head=1 aswon=1 class="low" %]
     [% SET i = 0; FOREACH game IN players.data.item(player).games %]
       [% NEXT IF !games.data.all.item(game).item('_asc') %]
-      [% INCLUDE game.tt class="low" %]
+      [% INCLUDE game.tt aswon=1 class="low" %]
       [% SET i = i + 1 %]
     [% END %]
   </table>

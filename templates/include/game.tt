@@ -8,7 +8,11 @@
   <th>duration</th>
   <th>hp</th>
   <th>time</th>
-  <th>death reason</th>
+  [% IF aswon %]
+    <th colspan=2>conducts</th>
+  [% ELSE %]
+    <th>death reason</th>
+  [% END %]
   </tr>
 [% ELSE %]
   [% row = games.data.all.item(game) %]
@@ -22,18 +26,23 @@
   <td class="num">[% row.item('_realtime') %]</td>
   <td class="num">[% row.hp %]/[% row.maxhp %]</td>
   <td class="num">[% row.item('_endtime') %]</td>
-  <td>
-  [% IF row.item('_asc') %]
-    [% IF row.item('_ncond') == 0 %]
-      ascended with all conducts broken
-    [% ELSE %]
-      ascended with [% row.item('_ncond') %]
-      conduct[% IF row.item('_ncond') > 1 %]s[% END %]
-      ([% row.item('_conds') %])
-    [% END %]
+  [% IF aswon %]
+    <td class="num">[% row.item('_ncond') %]</td>
+    <td>[% row.item('_conds') %]</td>
   [% ELSE %]
-    [% row.death %]
+    <td>
+    [% IF row.item('_asc') %]
+      [% IF row.item('_ncond') == 0 %]
+        ascended with all conducts broken
+      [% ELSE %]
+        ascended with [% row.item('_ncond') %]
+        conduct[% IF row.item('_ncond') > 1 %]s[% END %]
+        ([% row.item('_conds') %])
+      [% END %]
+    [% ELSE %]
+      [% row.death %]
+    [% END %]
+    </td>
   [% END %]
-  </td>
   </tr>
 [% END %]

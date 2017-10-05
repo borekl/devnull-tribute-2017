@@ -46,12 +46,12 @@
 </table>
 
 <table>
-  <tr><td colspan=9>ASCENDED GAMES</td></tr>
+  <tr><td colspan=10>ASCENDED GAMES</td></tr>
   [% IF clans.item(clan).ascensions.size %]
-    [% INCLUDE game.tt head=1 class="low" %]
+    [% INCLUDE game.tt head=1 aswon=1 class="low" %]
     [% SET i = clans.item(clan).ascensions.size %]
     [% FOREACH game IN clans.item(clan).ascensions %]
-      [% INCLUDE game.tt class="low" %]
+      [% INCLUDE game.tt aswon=1 class="low" %]
       [% SET i = i - 1 %]
     [% END %]
   [% ELSE %]

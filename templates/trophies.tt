@@ -88,11 +88,11 @@
 [%# ---------------------------------------------------------------------- %]
 
 <table>
-<tr><td colspan=9 class="trophy">Fastest Ascension: Gametime</td></tr>
-[% INCLUDE game.tt head=1 class="low" %]
+<tr><td colspan=10 class="trophy">Fastest Ascension: Gametime</td></tr>
+[% INCLUDE game.tt head=1 aswon=1 class="low" %]
 [% IF games.data.ascended.size > 0 %]
   [% SET i = 1; FOREACH game IN games.data.asc_by_turns %]
-    [% INCLUDE game.tt class="low" %]
+    [% INCLUDE game.tt aswon=1 class="low" %]
     [% SET i = i + 1; LAST IF i > 3 %]
   [% END %]
 [% ELSE %]
@@ -103,11 +103,11 @@
 [%# ---------------------------------------------------------------------- %]
 
 <table>
-<tr><td colspan=9 class="trophy">Fastest Ascension: Realtime</td></tr>
-[% INCLUDE game.tt head=1 class="low" %]
+<tr><td colspan=10 class="trophy">Fastest Ascension: Realtime</td></tr>
+[% INCLUDE game.tt head=1 aswon=1 class="low" %]
 [% IF games.data.ascended.size > 0 %]
   [% SET i = 1; FOREACH game IN games.data.asc_by_duration %]
-    [% INCLUDE game.tt class="low" %]
+    [% INCLUDE game.tt aswon=1 class="low" %]
     [% SET i = i + 1; LAST IF i > 3 %]
   [% END %]
 [% ELSE %]
@@ -118,11 +118,11 @@
 [%# ---------------------------------------------------------------------- %]
 
 <table>
-<tr><td colspan=9 class="trophy">Lowest Scoring Ascension</td></tr>
-[% INCLUDE game.tt head=1 class="low" %]
+<tr><td colspan=10 class="trophy">Lowest Scoring Ascension</td></tr>
+[% INCLUDE game.tt head=1 aswon=1 class="low" %]
 [% IF games.data.ascended.size > 0 %]
   [% SET i = 1; FOREACH game IN games.data.asc_by_minscore %]
-    [% INCLUDE game.tt class="low" %]
+    [% INCLUDE game.tt aswon=1 class="low" %]
     [% SET i = i + 1; LAST IF i > 3 %]
   [% END %]
 [% ELSE %]
@@ -133,11 +133,11 @@
 [%# ---------------------------------------------------------------------- %]
 
 <table>
-<tr><td colspan=9 class="trophy">Highest Scoring Ascension</td></tr>
-[% INCLUDE game.tt head=1 class="low" %]
+<tr><td colspan=10 class="trophy">Highest Scoring Ascension</td></tr>
+[% INCLUDE game.tt head=1 aswon=1 class="low" %]
 [% IF games.data.ascended.size > 0 %]
   [% SET i = 1; FOREACH game IN games.data.asc_by_maxscore %]
-    [% INCLUDE game.tt class="low" %]
+    [% INCLUDE game.tt aswon=1 class="low" %]
     [% SET i = i + 1; LAST IF i > 3 %]
   [% END %]
 [% ELSE %]
@@ -148,11 +148,11 @@
 [%# ---------------------------------------------------------------------- %]
 
 <table>
-<tr><td colspan=9 class="trophy">First Ascension</td></tr>
-[% INCLUDE game.tt head=1 class="low" %]
+<tr><td colspan=10 class="trophy">First Ascension</td></tr>
+[% INCLUDE game.tt head=1 aswon=1 class="low" %]
 [% IF games.data.ascended.size > 0 %]
   [% SET i = 1; FOREACH game IN games.data.ascended %]
-    [% INCLUDE game.tt class="low" %]
+    [% INCLUDE game.tt aswon=1 class="low" %]
     [% SET i = i + 1; LAST IF i > 3 %]
   [% END %]
 [% ELSE %]
@@ -163,11 +163,11 @@
 [%# ---------------------------------------------------------------------- %]
 
 <table>
-<tr><td colspan=9 class="trophy">Best Behaved Ascension</td></tr>
-[% INCLUDE game.tt head=1 class="low" %]
+<tr><td colspan=10 class="trophy">Best Behaved Ascension</td></tr>
+[% INCLUDE game.tt head=1 aswon=1 class="low" %]
 [% IF games.data.ascended.size > 0 %]
   [% SET i = 1; FOREACH game IN games.data.asc_by_conducts %]
-    [% INCLUDE game.tt class="low" %]
+    [% INCLUDE game.tt aswon=1 class="low" %]
     [% SET i = i + 1; LAST IF i > 3 %]
   [% END %]
 [% ELSE %]
@@ -206,14 +206,14 @@
 <h1>Minor Trophies</h1>
 
 <table>
-<tr><td colspan=9 class="trophy">Highest Score For Each Role</tr></td>
-  [% INCLUDE game.tt head=1 class="low" %]
+  <tr><td colspan=10 class="trophy">Highest Score For Each Role</tr></td>
+  [% INCLUDE game.tt head=1 aswon=1 class="low" %]
 
   [% SET i = 1 %]
   [% FOR role IN aux.roles %]
   [% SET g = games.data.top_by_role.item(role).0 %]
   [% IF games.data.top_by_role.item(role).size > 0 %]
-    [% INCLUDE game.tt game=games.data.top_by_role.item(role).0 class="low" %]
+    [% INCLUDE game.tt game=games.data.top_by_role.item(role).0 aswon=1 class="low" %]
   [% ELSE %]
     <tr class="low">
     <td class="center">[% role %]</td>
