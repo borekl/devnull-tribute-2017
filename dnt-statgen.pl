@@ -1525,6 +1525,37 @@ push(@glb_consumers, sub
   } keys %{$s{'clans'}} ];
 });
 
+#============================================================================
+# Store last 10 clan games under ${clans}{}{games} in reverse chronological
+# order.
+#============================================================================
+
+push(@glb_consumers, sub
+{
+  #--- iterate over clans
+
+  for my $clan (keys %{$s{'clans'}}) {
+    my @games;
+
+  #--- iterate over clan members and collect their games into @games
+
+    for my $plr (@{$s{'clans'}{$clan}{'members'}}) {
+      next if !exists $s{'players'}{'data'}{$plr}{'cnt_ascensions'};
+      push(@games, @{$s{'players'}{'data'}{$plr}{'games'}});
+    }
+
+  #--- sort the list by 'endtime' and keep only first 10 entries
+
+    if(@games) {
+      @games = sort {
+        get_xrows($b)->{'endtime'} <=> get_xrows($a)->{'endtime'}
+      } @games;
+      splice(@games, 10);
+    }
+
+    $s{'clans'}{$clan}{'games'} = \@games;
+  }
+});
 
 
 #============================================================================
