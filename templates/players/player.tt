@@ -32,6 +32,23 @@
 
 <h1>PLAYER: [% player %]</h1>
 
+[%# === table of challenge statuses ======================================= %]
+
+[% IF players.data.item(player).challenges %]
+  <table id="plr-challstat">
+    <tr><td colspan=2>CHALLENGES<br>STATUS</td><tr>
+    [% FOREACH chal IN players.data.item(player).challenges.keys.sort %]
+      <tr class="low">
+        <td>[% aux.trophies.challenges.data.item(chal) %]</td>
+        [% SET challstat = players.data.item(player).challenges.item(chal).status %]
+        <td class="status [% challstat %]">[% challstat %]</td>
+      </tr>
+    [% END %]
+  </table>
+[% END %]
+
+[%# === table of ascensions =============================================== %]
+
 [% IF players.data.item(player).cnt_ascensions %]
   <table>
     <tr><td colspan=10>ASCENDED GAMES</td></tr>
@@ -43,6 +60,8 @@
     [% END %]
   </table>
 [% END %]
+
+[%# === table of all games ================================================ %]
 
 <table>
   <tr><td colspan=9>ALL GAMES</td></tr>

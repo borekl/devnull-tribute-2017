@@ -184,3 +184,19 @@ td.center {
 td.plrasc {
   font-weight: bold;
 }
+
+/*--- player :: challenge status table */
+
+table#plr-challstat td.status {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+table#plr-challstat td.success {
+  color: #7f4;
+  font-weight: bold;
+}
+
+table#plr-challstat td.ignore {
+  color: #070;
+}
