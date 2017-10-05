@@ -1602,6 +1602,11 @@ if(exists $cfg->{'clandb'} && -f $cfg->{'clandb'}) {
 
 #--- read challenge status
 
+# Note: This code partially instantiates the players in the $s{players}{data}
+# tree; this instantiation does not contain many important keys so care must
+# be taken when processing players to exclude these partially instantiated
+# ones; otherwise warnings about undefined data will be raised.
+
 if($cfg->{'challenges'}{'status'}) {
   open(F, '<', $cfg->{'challenges'}{'status'})
     or die "Could not open challenge status file";
