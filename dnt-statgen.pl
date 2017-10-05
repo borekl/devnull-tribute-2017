@@ -1536,6 +1536,7 @@ push(@glb_consumers, sub
 
   for my $clan (keys %{$s{'clans'}}) {
     my @games;
+    my @ascs;
 
   #--- iterate over clan members and collect their games into @games
 
@@ -1544,7 +1545,21 @@ push(@glb_consumers, sub
       push(@games, @{$s{'players'}{'data'}{$plr}{'games'}});
     }
 
-  #--- sort the list by 'endtime' and keep only first 10 entries
+  #--- save number of clan games
+
+    $s{'clans'}{$clan}{'cnt_games'} = scalar(@games);
+
+  #--- select and sort ascended games
+
+    @ascs = sort {
+      get_xrows($b)->{'endtime'} <=> get_xrows($a)->{'endtime'}
+    } grep {
+      is_ascended($_);
+    } @games;
+
+    $s{'clans'}{$clan}{'ascensions'} = \@ascs;
+
+  #--- sort the games list by 'endtime' and keep only first 10 entries
 
     if(@games) {
       @games = sort {

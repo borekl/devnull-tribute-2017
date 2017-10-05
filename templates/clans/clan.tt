@@ -36,12 +36,26 @@
   <tr><td colspan=9>LAST 10 GAMES</td></tr>
   [% IF clans.item(clan).games.size %]
     [% INCLUDE game.tt head=1 class="low" %]
-    [% SET i = 0; FOREACH game IN clans.item(clan).games %]
+    [% SET i = clans.item(clan).cnt_games; FOREACH game IN clans.item(clan).games %]
       [% INCLUDE game.tt class="low" %]
-      [% SET i = i + 1 %]
+      [% SET i = i - 1 %]
     [% END %]
   [% ELSE %]
     <tr><td colspan=9 class="noasc">No games yet</tr>
+  [% END %]
+</table>
+
+<table>
+  <tr><td colspan=9>ASCENDED GAMES</td></tr>
+  [% IF clans.item(clan).ascensions.size %]
+    [% INCLUDE game.tt head=1 class="low" %]
+    [% SET i = clans.item(clan).ascensions.size %]
+    [% FOREACH game IN clans.item(clan).ascensions %]
+      [% INCLUDE game.tt class="low" %]
+      [% SET i = i - 1 %]
+    [% END %]
+  [% ELSE %]
+    <tr><td colspan=9 class="noasc">No ascended games yet</tr>
   [% END %]
 </table>
 
