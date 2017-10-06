@@ -1428,7 +1428,7 @@ push(@glb_consumers, sub
     if(@{$s{'trophies'}{'challenges'}{$chal}}) {
       my $adj = 1;
       for my $plr (@{$s{'trophies'}{'challenges'}{$chal}}) {
-        $score->($plr, 'challenge', undef, $adj);
+        $score->($plr, 'challenge', { challenge => $chal }, $adj);
         $adj = 0.5;
       }
     }
