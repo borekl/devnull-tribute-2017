@@ -1433,6 +1433,28 @@ push(@glb_consumers, sub
       }
     }
   }
+
+  #--- sort the scoring list by points, get per-player totals
+
+  for my $plr (keys %{$s{'players'}{'data'}}) {
+
+    # initialize scoring total
+    $s{'players'}{'data'}{$plr}{'clanpts'} = 0;
+
+    # exclude players with no scoring entries
+    next if !exists $s{'players'}{'data'}{$plr}{'scoring'};
+
+    # generate totals
+    for my $scentry (@{$s{'players'}{'data'}{$plr}{'scoring'}}) {
+      $s{'players'}{'data'}{$plr}{'clanpts'} += $scentry->[1];
+    }
+
+    # do the sorting
+    next if scalar(@{$s{'players'}{'data'}{$plr}{'scoring'}}) < 2;
+    $s{'players'}{'data'}{$plr}{'scoring'} = [
+      sort { $b->[1] <=> $a->[1] } @{$s{'players'}{'data'}{$plr}{'scoring'}}
+    ];
+  }
 });
 
 #============================================================================
