@@ -39,7 +39,7 @@
     <tr><td colspan=2>CHALLENGES<br>STATUS</td><tr>
     [% FOREACH chal IN players.data.item(player).challenges.keys.sort %]
       <tr class="low">
-        <td>[% aux.trophies.challenges.data.item(chal) %]</td>
+        <td>[% cfg.trophies.display.item(chal) %]</td>
         [% SET challstat = players.data.item(player).challenges.item(chal).status %]
         <td class="status [% challstat %]">[% challstat %]</td>
       </tr>

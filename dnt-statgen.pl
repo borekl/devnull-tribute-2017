@@ -999,16 +999,9 @@ push(@glb_consumers, sub
   my $ascs = $s{'games'}{'data'}{'asc_by_maxscore'};
   my $idx = $s{'games'}{'data'}{'all'};
 
-  #--- auxiliary data for the templates
-
-  $s{'aux'}{'roles'} = [
-    'Arc', 'Bar', 'Cav', 'Hea', 'Kni', 'Mon', 'Pri',
-    'Ran', 'Rog', 'Sam', 'Tou', 'Val', 'Wiz'
-  ];
-
   #--- iterate over all roles
 
-  for my $role (@{$s{'aux'}{'roles'}}) {
+  for my $role (@{$cfg->{'roles'}}) {
 
   #--- find three top scoring ascensions per role
 
@@ -1022,40 +1015,6 @@ push(@glb_consumers, sub
       last if $counter > 2;
     }
   }
-});
-
-#============================================================================
-# This is just emplacing some ancillary info for templates.
-#============================================================================
-
-push(@glb_consumers, sub
-{
-
-  $s{'aux'}{'trophies'}{'recognition'}{'ord'} = [
-    qw(plastic lead iron zinc copper brass steel bronze silver gold platinum
-       dilithium birdie doubletop hattrick grandslam fullmonty)
-  ];
-
-  $s{'aux'}{'trophies'}{'recognition'}{'data'} = {
-    plastic => 'Plastic Star',
-    lead => 'Lead Star',
-    iron  => 'Iron Star',
-    zinc => 'Zinc Star',
-    copper => 'Copper Star',
-    brass => 'Brass Star',
-    steel => 'Steel Star',
-    bronze => 'Bronze Star',
-    silver => 'Silver Star',
-    gold => 'Gold Star',
-    platinum => 'Platinum Star',
-    dilithium => 'Dilithium Star',
-    birdie => 'Birdie',
-    doubletop => 'Double Top',
-    hattrick => 'Hat Trick',
-    grandslam => 'Grand Slam',
-    fullmonty => 'Full Monty'
-  };
-
 });
 
 #============================================================================
@@ -1207,17 +1166,6 @@ push(@glb_consumers, sub
 {
   my $p = $s{'players'}{'data'};
 
-  #--- exit if no challenge list is configured
-
-  return if !exists $cfg->{'challenges'}{'list'};
-
-  #--- save ancillary data for templates
-
-  $s{'aux'}{'trophies'}{'challenges'}{'ord'} = [
-    sort keys %{$cfg->{'challenges'}{'list'}}
-  ];
-  $s{'aux'}{'trophies'}{'challenges'}{'data'} = $cfg->{'challenges'}{'list'};
-
   #--- get list of eligible players
 
   my @players = grep {
@@ -1231,8 +1179,7 @@ push(@glb_consumers, sub
 
   #--- compile challenges data
 
-  return if !exists $cfg->{'challenges'}{'list'};
-  for my $chal (keys %{$cfg->{'challenges'}{'list'}}) {
+  for my $chal (@{$cfg->{'trophies'}{'ord'}{'challenges'}}) {
 
     # find players who completed the challenge
     my @lst = grep {
@@ -1268,7 +1215,7 @@ push(@glb_consumers, sub
   #--- get list of Recognition Trophies, in descending order
 
   my $f = 1;
-  my @trophies = reverse @{$s{'aux'}{'trophies'}{'recognition'}{'ord'}};
+  my @trophies = reverse @{$cfg->{'trophies'}{'ord'}{'recognition'}};
   my @trophies_wbo = map { $_ . '_wbo' } grep {
     if($_ eq 'dilithium') { $f = 0; }
     $f;
@@ -1423,7 +1370,7 @@ push(@glb_consumers, sub
 
   #--- Recognition Trophies
 
-  my @trophies = @{$s{'aux'}{'trophies'}{'recognition'}{'ord'}};
+  my @trophies = @{$cfg->{'trophies'}{'ord'}{'recognition'}};
 
   for my $plr (@players) {
     for my $trophy (@trophies) {
@@ -1445,7 +1392,7 @@ push(@glb_consumers, sub
 
   #--- Minor Trophies (per-role maxscores)
 
-  my $roles = $s{'aux'}{'roles'};
+  my $roles = $cfg->{'roles'};
 
   for my $role (@$roles) {
     if(@{$s{'games'}{'data'}{'top_by_role'}{$role}}) {
@@ -1615,7 +1562,7 @@ for my $list (qw(no yes)) {
       || die "Cannot open filter file (death_$list)";
     while(my $l = <F>) {
       chomp $l;
-      push(@{$cfg->{'unique'}{"death_${list}_list"}}, qr/^$l/);
+      push(@{$cfg->{'unique'}{"death_${list}_list"}}, qr/'^$l/);
     }
     close(F);
   }
@@ -1696,6 +1643,11 @@ undef @merged_xlog;
 for my $consumer (@glb_consumers) {
   $consumer->();
 }
+
+#--- make configuration available to templates
+
+delete $cfg->{'unique'};
+$s{'cfg'} = $cfg;
 
 #--- debug: save the compiled scoreboard data as JSON
 

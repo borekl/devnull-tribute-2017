@@ -12,20 +12,11 @@
 
   "challenges" : {
     "status" : "challenge",
-    "list" : {
-      "digdug" : "Dig Dug",
-      "grue"   : "Grue",
-      "joust"  : "Joust",
-      "pacman" : "Pac-Man",
-      "pool"   : "Pool",
-      "waldo"  : "Waldo",
-      "zapm"   : "ZAPM",
-    }
   },
 
   #=== path to clans database (in SQLite format)
 
-  "clandb" : "clandb-test.sqlite",
+  "clandb" : "clandb.sqlite",
 
   #=== unique deaths filter lists
 
@@ -38,7 +29,7 @@
 
   "templates" : {
 
-    # include path for template snippets, relative to the current directory
+    # include path
 
     "include" : "templates/include",
 
@@ -98,6 +89,65 @@
     "mingametime" : 8,
     "mostascs"    : 9,
     "best13"      : 10
-  }
+  },
 
+  #=== trophy display names
+
+  "trophies" : {
+    "display" : {
+      "plastic"     : "Plastic Star",
+      "lead"        : "Lead Star",
+      "iron"        : "Iron Star",
+      "zinc"        : "Zinc Star",
+      "copper"      : "Copper Star",
+      "brass"       : "Brass Star",
+      "steel"       : "Steel Star",
+      "bronze"      : "Bronze Star",
+      "silver"      : "Silver Star",
+      "gold"        : "Gold Star",
+      "platinum"    : "Platinum Star",
+      "dilithium"   : "Dilithium Star",
+      "birdie"      : "Birdie",
+      "doubletop"   : "Double Top",
+      "hattrick"    : "Hat Trick",
+      "grandslam"   : "Grand Slam",
+      "fullmonty"   : "Full Monty",
+      "minor"       : "Best Score",
+      "killionaire" : "Killionaire",
+      "extinct"     : "Basic Extinct",
+      "maxscore"    : "Best Score",
+      "unique"      : "Most Unique Deaths",
+      "firstasc"    : "First Ascension",
+      "bestconduct" : "Best Behaved Ascension",
+      "minscore"    : "Lowest Score",
+      "minrealtime" : "Fastest Ascension: Realtime",
+      "mingametime" : "Fastest Ascension: Gametime",
+      "mostascs"    : "Most Ascensions",
+      "best13"      : "Best of 13",
+      "digdug"      : "Dig Dug",
+      "grue"        : "Grue",
+      "joust"       : "Joust",
+      "pacman"      : "Pac-Man",
+      "pool"        : "Pool",
+      "waldo"       : "Waldo",
+      "zapm"        : "ZAPM",
+    },
+    "ord" : {
+      "challenges" : [
+        "digdug", "grue", "joust", "pacman", "pool", "waldo", "zapm",
+      ],
+      "recognition": [
+        "plastic", "lead", "iron", "zinc", "copper", "brass", "steel",
+        "bronze", "silver", "gold", "platinum", "dilithium", "birdie",
+        "doubletop", "hattrick", "grandslam", "fullmonty",
+      ],
+    },
+  },
+
+  #=== list of roles
+
+  "roles" : [
+    "Arc", "Bar", "Cav", "Hea", "Kni", "Mon", "Pri", "Ran", "Rog", "Pri",
+    "Tou", "Val", "Wiz"
+  ],
 }

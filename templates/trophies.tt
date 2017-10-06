@@ -210,7 +210,7 @@
   [% INCLUDE game.tt head=1 aswon=1 class="low" %]
 
   [% SET i = 1 %]
-  [% FOR role IN aux.roles %]
+  [% FOR role IN cfg.roles %]
   [% SET g = games.data.top_by_role.item(role).0 %]
   [% IF games.data.top_by_role.item(role).size > 0 %]
     [% INCLUDE game.tt game=games.data.top_by_role.item(role).0 aswon=1 class="low" %]
@@ -231,10 +231,10 @@
 <h1>Recognition Trophies</h1>
 
 <table class="recog">
-  [% FOR trophy IN aux.trophies.recognition.ord.reverse %]
-  [% IF trophies.recognition.item(trophy _ '_wbo') %]
+  [% FOR trophy IN cfg.trophies.ord.recognition.reverse %]
+  [% IF trophies.recognition.item(trophy _ '_wbo').size %]
   <tr>
-    <td>[% aux.trophies.recognition.data.item(trophy) %] WBO</td>
+    <td>[% cfg.trophies.display.item(trophy) %] WBO</td>
     <td class="num">[% trophies.recognition.item(trophy _ '_wbo').size %]</td>
     <td[% IF trophies.recognition.item(trophy _ '_wbo').size > 3 %] class="small"[% END %]> 
       [% trophies.recognition.item(trophy _ '_wbo').join(' ') %]
@@ -242,7 +242,7 @@
   </tr>
   [% END %]
   <tr>
-    <td>[% aux.trophies.recognition.data.item(trophy) %]</td>
+    <td>[% cfg.trophies.display.item(trophy) %]</td>
     <td class="num">[% trophies.recognition.item(trophy).size %]</td>
     <td[% IF trophies.recognition.item(trophy).size > 3 %] class="small"[% END %]> 
       [% trophies.recognition.item(trophy).join(' ') %]
@@ -300,9 +300,9 @@
 <h1>Challenge Trophies</h1>
 
 <table>
-[% FOREACH trophy IN aux.trophies.challenges.ord %]
+[% FOREACH trophy IN cfg.trophies.ord.challenges %]
   <tr>
-  <td>[% aux.trophies.challenges.data.item(trophy) %]</td>
+  <td>[% cfg.trophies.display.item(trophy) %]</td>
   <td>
     [% IF trophies.challenges.item(trophy) %]
       <b>[% trophies.challenges.item(trophy).shift %]</b>
