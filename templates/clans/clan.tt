@@ -33,6 +33,21 @@
 <h1>CLAN: [% clan %]</h1>
 
 <table>
+  <tr><td colspan=3>MEMBERS</td></tr>
+  [% FOREACH member IN clans.item(clan).members.sort %]
+  <tr class="low">
+    <td><a href="players/[% member %].html">[% member %]</a></td>
+    <td>[% IF clans.item(clan).admins.grep('^' _ member _ '$').size; 'admin'; END %]</td>
+    <td class="num">[% players.data.item(member).clanpts %]</td>
+  </tr>
+  [% END %]
+  <tr class="low">
+    <td colspan=2>[% clans.item(clan).members.size %] member[% IF clans.item(clan).members.size != 1; 's'; END %]</td>
+    <td class="num">[% clans.item(clan).bestinshow.score %]</td>
+  </tr>
+</table>
+
+<table>
   <tr><td colspan=9>LAST 10 GAMES</td></tr>
   [% IF clans.item(clan).games.size %]
     [% INCLUDE game.tt head=1 class="low" %]
