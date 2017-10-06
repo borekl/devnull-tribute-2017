@@ -47,6 +47,37 @@
   </table>
 [% END %]
 
+[%# === breakdown of clan scorings ======================================== %]
+
+[% IF players.data.item(player).scoring %]
+  <table id="plr-scoring">
+    <tr><td colspan=2>CLAN POINTS</td></td>
+    [% FOREACH scentry IN players.data.item(player).scoring %]
+      <tr class="low">
+        <td>
+          [% IF (base = scentry.0.match('^(.*)_wbo$'));
+               base = base.0;
+               wbo = 1;
+             ELSE;
+               base = scentry.0; wbo = 0;
+          END %]
+          [% cfg.trophies.display.item(base) %]
+          [% IF wbo; 'WBO'; END %]
+          [% IF scentry.0 == 'minor'; '(' _ scentry.2.role  _ ')'; END %]
+          [% IF scentry.0 == 'challenge';
+            cfg.trophies.display.item(scentry.2.challenge);
+            ' Challenge';
+          END %]
+        </td>
+        <td class="num">[% scentry.1 %]</td>
+    [% END %]
+    <tr class="low">
+      <td>TOTAL</td>
+      <td class="num">[% players.data.item(player).clanpts %]</td>
+    </tr>
+  </table>
+[% END %]
+
 [%# === table of ascensions =============================================== %]
 
 [% IF players.data.item(player).cnt_ascensions %]
