@@ -200,3 +200,9 @@ table#plr-challstat td.success {
 table#plr-challstat td.ignore {
   color: #070;
 }
+
+/*--- table row with a winning game in it */
+
+table.gamelist tr.won {
+  color: #ff0;
+}

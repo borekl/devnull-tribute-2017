@@ -17,7 +17,16 @@
 [% ELSE %]
   [% row = games.data.all.item(game) %]
 
-  [% IF class %]<tr class="[% class %]">[% ELSE %]<tr>[% END %]
+  [% # --- if the game is ascended, add class "won", otherwise lost
+     classarr = class.split(' ');
+     IF row.item('_asc');
+       classarr.push('won');
+     ELSE;
+       classarr.push('lost');
+     END
+  %]
+
+  [% IF classarr.size %]<tr class="[% classarr.join(' ') %]">[% ELSE %]<tr>[% END %]
   <td class="num">[% i %]</td>
   <td>[% row.name %]</td>
   <td>[% row.role %]-[% row.race %]-[% row.gender0 %]-[% row.align0 %]</td>

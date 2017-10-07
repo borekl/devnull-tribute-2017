@@ -81,7 +81,7 @@
 [%# === table of ascensions =============================================== %]
 
 [% IF players.data.item(player).cnt_ascensions %]
-  <table>
+  <table class="gamelist">
     <tr><td colspan=10>ASCENDED GAMES</td></tr>
     [% INCLUDE game.tt head=1 aswon=1 class="low" %]
     [% SET i = 1; FOREACH game IN players.data.item(player).games %]
@@ -94,7 +94,7 @@
 
 [%# === table of all games ================================================ %]
 
-<table>
+<table class="gamelist">
   <tr><td colspan=9>ALL GAMES</td></tr>
   [% INCLUDE game.tt head=1 class="low" %]
   [% SET i = 1; FOREACH game IN players.data.item(player).games %]

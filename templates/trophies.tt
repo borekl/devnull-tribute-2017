@@ -87,7 +87,7 @@
 
 [%# ---------------------------------------------------------------------- %]
 
-<table>
+<table class="gamelist">
 <tr><td colspan=10 class="trophy">Fastest Ascension: Gametime</td></tr>
 [% INCLUDE game.tt head=1 aswon=1 class="low" %]
 [% IF games.data.ascended.size > 0 %]
@@ -102,7 +102,7 @@
 
 [%# ---------------------------------------------------------------------- %]
 
-<table>
+<table class="gamelist">
 <tr><td colspan=10 class="trophy">Fastest Ascension: Realtime</td></tr>
 [% INCLUDE game.tt head=1 aswon=1 class="low" %]
 [% IF games.data.ascended.size > 0 %]
@@ -117,7 +117,7 @@
 
 [%# ---------------------------------------------------------------------- %]
 
-<table>
+<table class="gamelist">
 <tr><td colspan=10 class="trophy">Lowest Scoring Ascension</td></tr>
 [% INCLUDE game.tt head=1 aswon=1 class="low" %]
 [% IF games.data.ascended.size > 0 %]
@@ -132,7 +132,7 @@
 
 [%# ---------------------------------------------------------------------- %]
 
-<table>
+<table class="gamelist">
 <tr><td colspan=10 class="trophy">Highest Scoring Ascension</td></tr>
 [% INCLUDE game.tt head=1 aswon=1 class="low" %]
 [% IF games.data.ascended.size > 0 %]
@@ -147,7 +147,7 @@
 
 [%# ---------------------------------------------------------------------- %]
 
-<table>
+<table class="gamelist">
 <tr><td colspan=10 class="trophy">First Ascension</td></tr>
 [% INCLUDE game.tt head=1 aswon=1 class="low" %]
 [% IF games.data.ascended.size > 0 %]
@@ -162,7 +162,7 @@
 
 [%# ---------------------------------------------------------------------- %]
 
-<table>
+<table class="gamelist">
 <tr><td colspan=10 class="trophy">Best Behaved Ascension</td></tr>
 [% INCLUDE game.tt head=1 aswon=1 class="low" %]
 [% IF games.data.ascended.size > 0 %]
@@ -205,7 +205,7 @@
 
 <h1>Minor Trophies</h1>
 
-<table>
+<table class="gamelist">
   <tr><td colspan=10 class="trophy">Highest Score For Each Role</tr></td>
   [% INCLUDE game.tt head=1 aswon=1 class="low" %]
 
@@ -259,7 +259,7 @@
 
 [%# ---------------------------------------------------------------------- %]
 
-<table>
+<table class="gamelist">
 <tr><td colspan=10 class="trophy">Basic Extinct</td></tr>
 
 [% IF games.data.games_by_exts.size > 0 %]
@@ -277,7 +277,7 @@
 
 [%# ---------------------------------------------------------------------- %]
 
-<table>
+<table class="gamelist">
 <tr><td colspan=10 class="trophy">Who Wants To Be A Killionaire?</td></tr>
 
 [% IF games.data.games_by_kills.size > 0 %]
