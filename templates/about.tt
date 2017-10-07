@@ -3,6 +3,7 @@
 <html>
 
 <head>
+  <meta charset="utf-8">
   <title>About</title>
   [% INSERT fonts.tt %]
   <link rel="stylesheet" type="text/css" href="main.css">
@@ -26,7 +27,169 @@
 
 <hr>
 
-<h1>About</h1>
+<h1>ABOUT</h1>
+
+<p>On September 14, 2017, mere six weeks before this year's /dev/null/nethack
+tournament was supposed to commence, its organizer Krystal
+<a href="https://twitter.com/devnull_nethack/status/908441635746279424">let
+it be known</a> that he is retiring it—for good.</p>
+
+<p>To fill the void, a group of players from Team Splat came up with an idea
+to organize a one off <em>Tribute</em> tournament to conclude the long
+lasting tradition. Some work was already done, but there was so much more
+to do as the original /dev/null/nethack code was only partially available.
+Keep this in mind when things break or something is not perfect. There was
+extremely short lead time and many things had to be written from complete
+scratch.</p>
+
+<p>The <em>Tribute</em> tournament will use the old /dev/null/nethack game
+code ported to NetHack 3.6.0. That means all the Challenges will be
+available as they always were. It also means that the NetHack itself
+will contain numerous fixes and UI improvements that should make the play
+much more comfortable (and much more in line with what NetHack public
+servers offer).</p>
+
+<h1>Rules</h1>
+
+<p>The rules for obtaining trophies and clan scoring are made to be as
+similar to the original as possible. Unfortunately, the scoreboard code was
+not made available and the detailed scoring rules were never made public, so
+inevitably, there are going to be some differences.</p>
+
+<p><em>Recognition Trophies</em>: The "Star" trophies work just like they used
+to in the original tournament, the player only keeps the highest achieved
+one. The multi-ascension trophies (from the Birdie to the Full Monty) are
+now tracked slightly differently: As with original, the player only keeps
+his highest achievement. Unlike the original, the "With the Bells On"
+achievements are tracked separately from the plain achievements. Therefore
+achieving higher achievement does no longer nullify your "With the Bells
+On" achievement. That means, by the way of example, getting Grand Slam
+without the bells will not drop your Hat Trick With the Bells On and you
+will not lose the clan points associated with it.</p>
+
+<p>Another difference is that in the original rules, every game must have
+achieved something towards the higher trophy (ie. new race, role etc.) to
+keep the "With the Bells On" epithet. It meant that even ascending game could
+break the required streak. This rule is no longer enforced.</p>
+
+<p><em>Challenge Trophies</em>: It is not clear how were Challenges exactly
+scored. We give one full point to the first player to achieve them and only
+a half point to all subsequent players.</p>
+
+<p><em>Best of 13</em>: Again it is not known with any certainty how exactly
+was this trophy tracked. We track it as most games that qualify within a 13
+game window. There's no requirement for the games to form streak and games
+that duplicate the character combination do not nullify the potential to
+form Best of 13.</p>
+
+<p><em>Ties</em>: As a rule, all ties are broken by "who got there first",
+that is who achieved given trophy earlier.</p>
+
+<h1>Trophies</h1>
+
+<p><span class="trophy">Best of 13</span> – <em>10 pts</em> – Achieved by
+player with most ascensions with different role/race/gender/alignment
+combination within 13 game window.</p>
+
+<p><span class="trophy">Most Ascensions</span> – <em>9 pts</em> – Achieved
+by player with most ascensions during the tournament.</p>
+
+<p><span class="trophy">Fastest Ascension: Gametime</span> – <em>8 pts</em> –
+Achieved by player ascending in the least number of turns.</p>
+
+<p><span class="trophy">Fastest Ascension: Realtime</span> – <em>8 pts</em> –
+Achieved by player ascending in the least amount of real time.</p>
+
+<p><span class="trophy">Lowest Scoring Ascension</span> – <em>7 pts</em> –
+Achieved by player ascending with the smallest score.</p>
+
+<p><span class="trophy">Best Behaved Ascension</span> – <em>7 pts</em> –
+Achieved by player ascending with the highest number of intact conducts.</p>
+
+<p><span class="trophy">First Ascension</span> – <em>6 pts</em> –
+Achieved by player with the first ascension in the tournament.</p>
+
+<p><span class="trophy">Most Unique Death</span> – <em>6 pts</em> –
+Achieved by player with the most different deaths during the tournament.
+What is unique death is decided by a filter list.</p>
+
+<p><span class="trophy">Highest Scoring Ascension</span> – <em>5 pts</em> –
+Achieved by player with the highest score for an ascending game.</p>
+
+<p><span class="trophy">Basic Extinct</span> – <em>5 pts</em> –
+Achieved by player who manages to extinct most monster species within a
+single game (the game does not to be an ascension).</p>
+
+<p><span class="trophy">Who Wants To Be A Killionaire?</span> – <em>5 pts</em> –
+Achieved by player who manages to kill the most monsters within a single
+game (the game does not to be an ascension, number of kills is capped at 120
+per monster species).</p>
+
+<p><span class="trophy">Highest Scoring Ascension For A Role</span> – <em>2 pts</em> –
+Achieved by player with the highest score for an ascending game for given
+role.</p>
+
+<p><span class="trophy">Challenge Trophy</span> – <em>1 pt</em> – Achieved
+by all players who complete a challenge. Only the first player gets the full
+point bonus, the rest of players only get half. It is possible to get points
+for multiple challenges.</p>
+
+<p><span class="trophy">Full Monty</span> – <em>7 pts</em> –
+Achieved by player who manages to ascend all roles, races, genders,
+alignments and conducts. The achieving player is said to have "gone Full
+Monty".</p>
+
+<p><span class="trophy">Grand Slam</span> – <em>6 pts</em> –
+Achieved by player who manages to ascend all roles, races, genders,
+and alignments. The achieving player is said to have "hit the Grand Slam".</p>
+
+<p><span class="trophy">Hat Trick</span> – <em>5 pts</em> –
+Achieved by player who manages to ascend all races, genders,
+and alignments. The achieving player is said to have "pulled the Hat Trick".</p>
+
+<p><span class="trophy">Double Top</span> – <em>4 pts</em> –
+Achieved by player who manages to ascend both genders and all alignments.
+The achieving player is said to have "thrown the Double Top".</p>
+
+<p><span class="trophy">Birdie</span> – <em>3 pts</em> –
+Achieved by player who manages to ascend both genders.
+The achieving player is said to have "shot the Birdie".</p>
+
+<p><span class="trophy">Dilithium Star</span> – <em>1 pts</em> –
+Achieved by player who ascends at least one game.</p>
+
+<p><span class="trophy">Platinum Star</span> – <em>0.9 pts</em> –
+Achieved by player who reaches the Astral Plane in at least one game.</p>
+
+<p><span class="trophy">Gold Star</span> – <em>0.8 pts</em> –
+Achieved by player who reaches the Elemental Planes in at least one game.</p>
+
+<p><span class="trophy">Silver Star</span> – <em>0.7 pts</em> –
+Achieved by player who obtains the Amulet of Yendor in at least one game.</p>
+
+<p><span class="trophy">Bronze Star</span> – <em>0.6 pts</em> –
+Achieved by player who performs the Invocation Ritual in at least one game.</p>
+
+<p><span class="trophy">Steel Star</span> – <em>0.5 pts</em> –
+Achieved by player who obtains the Book of the Dead in at least one game.</p>
+
+<p><span class="trophy">Brass Star</span> – <em>0.4 pts</em> –
+Achieved by player who obtains the Candelabrum of Invocation in at least one game.</p>
+
+<p><span class="trophy">Copper Star</span> – <em>0.3 pts</em> –
+Achieved by player who enters the Gehennom in at least one game.</p>
+
+<p><span class="trophy">Zinc Star</span> – <em>0.2 pts</em> –
+Achieved by player who obtains the Bell of Opening in at least one game.</p>
+
+<p><span class="trophy">Iron Star</span> – <em>0.1 pts</em> –
+Achieved by player who kills Medusa in at least one game.</p>
+
+<p><span class="trophy">Lead Star</span> – <em>0.05 pts</em> –
+Achieved by player who completes Sokoban in at least one game.</p>
+
+<p><span class="trophy">Plastic Star</span> – <em>0.03 pts</em> –
+Achieved by player who obtains the luckstone from Mine's End in at least one game.</p>
 
 </body>
 

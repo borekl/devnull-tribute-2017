@@ -206,3 +206,23 @@ table#plr-challstat td.ignore {
 table.gamelist tr.won {
   color: #ff0;
 }
+
+/*--- the text on the "About" page */
+
+p {
+  margin: auto;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  max-width: 40em;
+  font-size: 133%;
+}
+
+p a:link {
+  text-decoration: underline;
+}
+
+span.trophy {
+  color: #ff0;
+  font-weight: bold;
+  text-transform: uppercase;
+}
