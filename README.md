@@ -139,18 +139,42 @@ and `when`. `games` is a list of qualifying games, `cnt` is their count and
 `when` is `endtime` of the last game.
 
 
-### TROPHIES
+### trophies
 
-%s{**trophies**}{**recognition**}{*trophy*}
-List of players that achieved given trophy.
+`%s`.`trophies`.`unique`  
+List of players ordered by unique deaths (in descending order).
 
-### AUX
+`%s`.`trophies`.`recognition`  
+Gives lists of players who achieved given trophy.
 
-This section contains ancillary data for the benefit of templates.
+`%s`.`trophies`.`best13`  
+List of players ordered by Best of 13 trophy criteria.
 
-%s{**aux**}{**roles**}  
-List of roles
+`%s`.`trophies`.`challenges`  
+For each challenge gives list of players who completed it.
 
-%s{**aux**}{**trophies**}{**recognition**}{**ord**}  
-%s{**aux**}{**trophies**}{**recognition**}{**data**}  
-Definition of order and names of recognition trophies.
+`%s`.`trophies`.`bestinshow`  
+List of clans ordered by their score.
+
+
+### clans
+
+`%s`.`clans`.`CLAN`.`members`  
+`%s`.`clans`.`CLAN`.`admins`  
+List of clan members (including admins) and admins.
+
+`%s`.`clans`.`CLAN`.`cnt_games`  
+Number of clan games.
+
+`%s`.`clans`.`CLAN`.`games`  
+List of clan games.
+
+`%s`.`clans`.`CLAN`.`ascensions`  
+List of clan ascensions.
+
+`%s`.`clans`.`CLAN`.`bestinshow`.`breakdown`  
+Breakdown list of clan scoring. `0` member name, `1` trophy name, `1`
+points, `4` additional info where relevant or undefined
+
+`%s`.`clans`.`CLAN`.`bestinshow`.`score`  
+Total clan score.
