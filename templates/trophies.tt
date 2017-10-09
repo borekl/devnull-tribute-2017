@@ -232,22 +232,26 @@
 
 <table class="recog">
   [% FOR trophy IN cfg.trophies.ord.recognition.reverse %]
-  [% IF trophies.recognition.item(trophy _ '_wbo').size %]
-  <tr>
-    <td>[% cfg.trophies.display.item(trophy) %] WBO</td>
-    <td class="num">[% trophies.recognition.item(trophy _ '_wbo').size %]</td>
-    <td[% IF trophies.recognition.item(trophy _ '_wbo').size > 3 %] class="small"[% END %]> 
-      [% trophies.recognition.item(trophy _ '_wbo').join(' ') %]
-    </td>
-  </tr>
-  [% END %]
-  <tr>
-    <td>[% cfg.trophies.display.item(trophy) %]</td>
-    <td class="num">[% trophies.recognition.item(trophy).size %]</td>
-    <td[% IF trophies.recognition.item(trophy).size > 3 %] class="small"[% END %]> 
-      [% trophies.recognition.item(trophy).join(' ') %]
-    </td>
-  </tr>
+    [% IF trophies.recognition.item(trophy _ '_wbo').size %]
+      <tr>
+        <td>[% cfg.trophies.display.item(trophy) %] WBO</td>
+        <td class="num">[% trophies.recognition.item(trophy _ '_wbo').size %]</td>
+        <td[% IF trophies.recognition.item(trophy _ '_wbo').size > 3 %] class="small"[% END %]>
+          [% FOREACH plr IN trophies.recognition.item(trophy _ '_wbo') %]
+            [% plink(plr) %]
+          [% END %]
+        </td>
+      </tr>
+    [% END %]
+    <tr>
+      <td>[% cfg.trophies.display.item(trophy) %]</td>
+      <td class="num">[% trophies.recognition.item(trophy).size %]</td>
+      <td[% IF trophies.recognition.item(trophy).size > 3 %] class="small"[% END %]>
+        [% FOREACH plr IN trophies.recognition.item(trophy) %]
+          [% plink(plr) %]
+        [% END %]
+      </td>
+    </tr>
   [% END %]
 </table>
 
@@ -305,9 +309,11 @@
   <td>[% cfg.trophies.display.item(trophy) %]</td>
   <td>
     [% IF trophies.challenges.item(trophy) %]
-      <b>[% trophies.challenges.item(trophy).shift %]</b>
+      <b>[% plink(trophies.challenges.item(trophy).shift) %]</b>
       [% IF trophies.challenges.item(trophy).size > 0 %]
-        [% trophies.challenges.item(trophy).join(' ') %]
+        [% FOREACH plr IN trophies.challenges.item(trophy) %]
+          [% plink(plr) %]
+        [% END %]
       [% END %]
     [% END %]
   </td>
