@@ -153,6 +153,12 @@ table.recog td.small {
   font-size: 133%;
 }
 
+/*--- table with space above */
+
+table.spaceout {
+  margin-top: 3em;
+}
+
 /*--- table cell with a trophy title in it */
 
 td.trophy {
@@ -201,10 +207,10 @@ table#plr-challstat td.ignore {
   color: #070;
 }
 
-/*--- table row with a winning game in it */
+/*--- all table rows that show a game have won/lost class */
 
-table.gamelist tr.won {
-  color: #ff0;
+table.gamelist tr.lost {
+  color: #0a0;
 }
 
 /*--- the text on the "About" page */
