@@ -1592,7 +1592,11 @@ for my $list (qw(no yes)) {
 
 #--- read the clan information
 
-if(exists $cfg->{'clandb'} && -f $cfg->{'clandb'}) {
+if(
+  exists $cfg->{'clandb'}
+  && defined $cfg->{'clandb'}
+  && -f $cfg->{'clandb'}
+) {
   my $dbh = DBI->connect(
     'dbi:SQLite:dbname=' . $cfg->{'clandb'},
     undef, undef
