@@ -325,25 +325,26 @@
     ======================================================================
     ====================================================================== %]
 
-[% IF trophies.bestinshow %]
 <h1>Clan Trophies</h2>
 
 <table>
-<tr><td colspan=3 class="trophy">Best In Show</td></tr>
+[% IF clans.size %]
+  <tr><td colspan=3 class="trophy">Best In Show</td></tr>
 
-[% SET i = 0; WHILE i < 3 %]
-  [% LAST IF !trophies.bestinshow.item(i) %]
-  <tr>
-  <td class="num">[% i+1 %]</td>
-  <td>[% SET c = trophies.bestinshow.item(i); clink(c) %]</td>
-  <td class="num">[% clans.item(c).bestinshow.score %]</td>
-  [% SET i = i + 1 %]
-  </tr>
+  [% SET i = 0; WHILE i < 3 %]
+    [% LAST IF !trophies.bestinshow.item(i) %]
+    <tr>
+    <td class="num">[% i+1 %]</td>
+    <td>[% SET c = trophies.bestinshow.item(i); clink(c) %]</td>
+    <td class="num">[% clans.item(c).bestinshow.score %]</td>
+    [% SET i = i + 1 %]
+    </tr>
+  [% END %]
+[% ELSE %]
+  <tr><td class="noasc">No clans exist yet</td></tr>
 [% END %]
 
 </table>
-
-[% END %]
 
 
 </body>
