@@ -1583,7 +1583,7 @@ for my $list (qw(no yes)) {
       || die "Cannot open filter file (death_$list)";
     while(my $l = <F>) {
       chomp $l;
-      push(@{$cfg->{'unique'}{"death_${list}_list"}}, qr/'^$l/);
+      push(@{$cfg->{'unique'}{"death_${list}_list"}}, qr/^$l/);
     }
     close(F);
   }
