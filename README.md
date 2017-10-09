@@ -78,7 +78,11 @@ games ordered by `maxlvl` field. This is for getting list of all players
 in sensible ordering. 
 
 `%s`.`players`.`data`  
-This hash contains all players the scoreboard knows about.
+This hash contains all players the scoreboard knows about. Note, that the
+player listed in this does not need to have any games! If one needs to test
+whether the player has at least one game and the data are fully
+instantiated, checking for existence of keys like `cnt_ascensions` is a good
+idea.
 
 `%s`.`players`.`data`.`PLAYER`.`games`  
 Ordered list of all player's games as they appear in the xlogfile.
@@ -96,7 +100,7 @@ Maximum number of conducts in a single winning game. If the player does not
 have winning game, this field is undefined.
 
 `%s`.`players`.`data`.`PLAYER`.`clanpts`  
-Players clan points. This key always exists and has nothing to do with whether
+Player's clan points. This key always exists and has nothing to do with whether
 the player is a clan member or not.
 
 `%s`.`players`.`data`.`PLAYER`.`maxlvl`  
@@ -119,7 +123,7 @@ by last ascensions's `endtime`.
 Clan points scoring breakdown. This is an ordered list of scoring entries,
 each trophy has one entry of three items: `0` is trophy name, `1` is point
 value and `3` is additional information in the form of a hash for the trophy,
-where relevant. Currently this gives challenge name (key `challenge` for
+where relevant. Currently this gives challenge name (key `challenge`) for
 challenge trophies and role (key `role`) for minor trophies.
 
 `%s`.`players`.`data`.`PLAYER`.`challenges`  
