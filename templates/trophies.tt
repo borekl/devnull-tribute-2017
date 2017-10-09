@@ -5,7 +5,7 @@
 <html>
 
 <head>
-  <title>Test</title>
+  <title>Trophies</title>
   [% INSERT fonts.tt %]
   <link rel="stylesheet" type="text/css" href="main.css">
 </head>
