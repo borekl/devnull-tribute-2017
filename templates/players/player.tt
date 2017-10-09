@@ -1,5 +1,4 @@
-[%- MACRO number(n) GET n.chunk(-3).join(',') -%]
-[%- MACRO row(g) GET games.data.all.item(g) %]
+[%- PROCESS 'macros.tt' -%]
 
 <!doctype html>
 

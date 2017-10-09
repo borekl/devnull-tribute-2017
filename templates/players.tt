@@ -1,4 +1,4 @@
-[%- MACRO number(n) GET n.chunk(-3).join(',') -%]
+[%- PROCESS 'macros.tt' -%]
 [%- USE percent = format("%0.1f%%") -%]
 
 <!doctype html>
@@ -29,9 +29,7 @@
 
 <hr>
 
-<h1>Players</h1>
-
-<table>
+<table class="spaceout">
   <tr class="low">
     <th></th>
     <th>player</th>

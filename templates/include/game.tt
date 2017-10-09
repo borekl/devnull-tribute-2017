@@ -28,7 +28,7 @@
 
   [% IF classarr.size %]<tr class="[% classarr.join(' ') %]">[% ELSE %]<tr>[% END %]
   <td class="num">[% i %]</td>
-  <td>[% row.name %]</td>
+  <td>[% plink(row.name) %]</td>
   <td>[% row.role %]-[% row.race %]-[% row.gender0 %]-[% row.align0 %]</td>
   <td class="num">[% number(row.turns) %]</td>
   <td class="num">[% number(row.points) %]</td>

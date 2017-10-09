@@ -1,4 +1,4 @@
-[%- MACRO number(n) GET n.chunk(-3).join(',') -%]
+[% PROCESS 'macros.tt' %]
 
 <!doctype html>
 
@@ -46,7 +46,7 @@
     [% IF trophies.best13.item(i) %]
       [% plr = trophies.best13.item(i) %]
       <td>[% i + 1 %]</td>
-      <td>[% plr %]</td>
+      <td>[% plink(plr) %]</td>
       <td class="num">[% players.data.item(plr).best13.cnt %]</td>
     [% END %]
     [% SET i = i + 1 %]
@@ -74,7 +74,7 @@
     <tr>
     [% IF players.meta.ord_by_ascs.item(i) %]
       <td>[% i + 1 %]</td>
-      <td>[% SET plr = players.meta.ord_by_ascs.item(i); plr %]</td>
+      <td>[% SET plr = players.meta.ord_by_ascs.item(i) %][% plink(plr) %]</td>
       <td class="num">[% players.data.item(plr).cnt_ascensions %]</td>
     [% END %]
     [% SET i = i + 1 %]
@@ -187,7 +187,7 @@
       <tr>
       <td class="num">[% i + 1 %]</td>
       [% SET plr = trophies.unique.item(i) %]
-      <td>[% plr %]</td>
+      <td><a href="players/[% plr %].html">[% plr %]</a></td>
       <td class="num">[% players.data.item(plr).unique.list.size %]</td>
       </tr>
     [% END %]
@@ -329,7 +329,7 @@
   [% LAST IF !trophies.bestinshow.item(i) %]
   <tr>
   <td class="num">[% i+1 %]</td>
-  <td>[% SET c = trophies.bestinshow.item(i) %][% c %]</td>
+  <td>[% SET c = trophies.bestinshow.item(i); clink(c) %]</td>
   <td class="num">[% clans.item(c).bestinshow.score %]</td>
   [% SET i = i + 1 %]
   </tr>
