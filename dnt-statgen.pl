@@ -651,7 +651,6 @@ push(@row_consumers, sub
     $s{'players'}{'data'}{$plr_name}{'last_asc'} = undef;
     $s{'players'}{'data'}{$plr_name}{'maxlvl'} = 0;
     $s{'players'}{'data'}{$plr_name}{'maxlvl_game'} = undef;
-    $s{'players'}{'data'}{$plr_name}{'maxconduct'} = undef;
     $s{'players'}{'data'}{$plr_name}{'score'} = 0;
   }
 
