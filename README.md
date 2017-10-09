@@ -173,7 +173,7 @@ List of clan games.
 List of clan ascensions.
 
 `%s`.`clans`.`CLAN`.`bestinshow`.`breakdown`  
-Breakdown list of clan scoring. `0` member name, `1` trophy name, `1`
+Breakdown list of clan scoring. `0` member name, `1` trophy name, `2`
 points, `4` additional info where relevant or undefined
 
 `%s`.`clans`.`CLAN`.`bestinshow`.`score`  
