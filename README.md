@@ -113,7 +113,8 @@ The game that achieved players maximum level, useful for breaking ties.
 Player's total score accrued during the tournament.
 
 `%s`.`players`.`data`.`PLAYER`.`unique`  
-FILL ME IN
+Info about player's unique games. Contains `list` that lists rows in the
+accept filter list and `when` with `endtime` of last unique death.
 
 `%s`.`players`.`data`.`PLAYER`.`last_asc`  
 Player's last ascension, undefined if there's none. Useful for breaking ties
