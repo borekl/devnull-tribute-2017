@@ -6,6 +6,7 @@
   <title>/dev/null/nethack Tribute 2017</title>
   [% INSERT fonts.tt %]
   <link rel="stylesheet" type="text/css" href="main.css">
+  <script type="text/javascript" src="js/countdown.js"></script>
 </head>
 
 <body>
@@ -26,7 +27,16 @@
 
 <hr>
 
-<h1>OVERVIEW</h1>
+<p id="countdown">
+  <span class="initial">&nbsp;</span>
+  <span class="before">The tournament starts in</span>
+  <span class="during">The tournament ends in</span>
+  <span class="over">The tournament is over</span>
+  <span class="counter">
+    <span id="counter">countdown"></span>
+    on <span id="when"></span>
+  </span>
+</p>
 
 </body>
 

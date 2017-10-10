@@ -232,3 +232,35 @@ span.trophy {
   font-weight: bold;
   text-transform: uppercase;
 }
+
+/*--- front page counter */
+
+#countdown {
+  font-size: 133%;
+  text-align: center;
+  color: #0a0;
+}
+
+#countdown .before {
+  display: none;
+}
+
+#countdown .during {
+  display: none;
+}
+
+#countdown .over {
+  display: none;
+}
+
+#countdown .counter {
+  display: none;
+}
+
+#countdown .when {
+  display: none;
+}
+
+span#counter, span#when {
+  color: #0f0;
+}
