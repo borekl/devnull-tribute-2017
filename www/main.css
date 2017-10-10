@@ -215,7 +215,7 @@ table.gamelist tr.lost {
 
 /*--- the text on the "About" page */
 
-p {
+p.about {
   margin: auto;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
@@ -223,11 +223,11 @@ p {
   font-size: 133%;
 }
 
-p a:link {
+p.about a:link {
   text-decoration: underline;
 }
 
-span.trophy {
+p.about span.trophy {
   color: #ff0;
   font-weight: bold;
   text-transform: uppercase;
