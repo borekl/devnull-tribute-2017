@@ -30,6 +30,17 @@ wget or similar.  Xlogfiles can use both `:` or `HTAB` as field separator.
 Path to clans database in SQLite format.
 
 
+## COMMAND-LINE OPTIONS
+
+`--debug`  
+This causes the scoreboard script to output file `debug.scoreboard.PID`
+that contains entire `%s` structure in JSON format.
+
+`--trophies[=FILENAME]`  
+This makes the scoreboard script save `%s`.`trophies`.`brief` subtree.
+Default filename is `trophies.json`, but you can specify your own
+
+
 ## HOW IT WORKS
 
 The script reads the xlogfile and other supporting data sources into memory
@@ -156,6 +167,11 @@ For each challenge gives list of players who completed it.
 `%s`.`trophies`.`bestinshow`  
 List of clans ordered by their score.
 
+`%s`.`trophies`.`brief`.`TROPHY`
+This contains terse recapitulation of actual trophy holders. The values are
+either single player name (for Best of 13, Most Ascensions etc.), list
+of player names (for the Recognition Trophies and Challenges) or
+role->player hash for Minor Trophies.
 
 ### clans
 

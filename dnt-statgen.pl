@@ -1540,6 +1540,115 @@ push(@glb_consumers, sub
   }
 });
 
+#============================================================================
+# %s.trophies.brief tree; this contains holder of all trophies in terse way
+# with no extraneous information around; this is intended to support bot
+# announcement
+#============================================================================
+
+push(@glb_consumers, sub
+{
+  #--- auxiliar function for player name retrieval by game id
+
+  my $g = sub {
+    if(!defined $_[0]) {
+      return undef;
+    } else {
+      return get_xrows($_[0])->{'name'};
+    }
+  };
+
+  #--- recognition trophies
+
+  for my $trophy (@{$cfg->{'trophies'}{'ord'}{'recognition'}}) {
+    $s{'trophies'}{'brief'}{$trophy}
+    = $s{'trophies'}{'recognition'}{$trophy} // [];
+    next if $cfg->{'trophies'}{'display'}{$trophy} =~ /star/i;
+    $s{'trophies'}{'brief'}{"${trophy}_wbo"}
+    = $s{'trophies'}{'recognition'}{"${trophy}_wbo"} // [];
+  }
+
+  #--- challenge trophies
+
+  for my $chal (@{$cfg->{'trophies'}{'ord'}{'challenges'}}) {
+    if(exists $s{'trophies'}{'challenges'}{$chal}) {
+      $s{'trophies'}{'brief'}{'challenge'}{$chal}
+      = $s{'trophies'}{'challenges'}{$chal};
+    } else {
+      $s{'trophies'}{'brief'}{'challenge'}{$chal} = [];
+    }
+  }
+
+  #--- minor trophies
+
+  for my $role (@{$cfg->{'roles'}}) {
+    $s{'trophies'}{'brief'}{'minor'}{$role}
+    = $g->($s{'games'}{'data'}{'top_by_role'}{$role}[0] // undef);
+  }
+
+  #--- killionaire
+
+  $s{'trophies'}{'brief'}{'killionaire'}
+  = $g->($s{'games'}{'data'}{'games_by_kills'}[0] // undef);
+
+  #--- basic extinct
+
+  $s{'trophies'}{'brief'}{'extinct'}
+  = $g->($s{'games'}{'data'}{'games_by_exts'}[0] // undef);
+
+  #--- highest scoring ascension
+
+  $s{'trophies'}{'brief'}{'maxscore'}
+  = $g->($s{'games'}{'data'}{'asc_by_maxscore'}[0] // undef);
+
+  #--- unique deaths
+
+  $s{'trophies'}{'brief'}{'unique'}
+  = $s{'trophies'}{'unique'}[0] // undef;
+
+  #--- first ascension
+
+  $s{'trophies'}{'brief'}{'firstasc'}
+  = $g->($s{'games'}{'data'}{'ascended'}[0] // undef);
+
+  #--- best behaved ascension
+
+  $s{'trophies'}{'brief'}{'bestconduct'}
+  = $g->($s{'games'}{'data'}{'asc_by_conducts'}[0] // undef);
+
+  #--- lowest scored ascension
+
+  $s{'trophies'}{'brief'}{'minscore'}
+  = $g->($s{'games'}{'data'}{'asc_by_minscore'}[0] // undef);
+
+  #--- fastest ascension: realtime
+
+  $s{'trophies'}{'brief'}{'minrealtime'}
+  = $g->($s{'games'}{'data'}{'asc_by_duration'}[0] // undef);
+
+  #--- fastest ascension: gametime
+
+  $s{'trophies'}{'brief'}{'mingametime'}
+  = $g->($s{'games'}{'data'}{'asc_by_turns'}[0] // undef);
+
+  #--- most ascensions
+
+  $s{'trophies'}{'brief'}{'mostascs'}
+  = $s{'players'}{'meta'}{'ord_by_ascs'}[0] // undef;
+
+  #--- best of 13
+
+  $s{'trophies'}{'brief'}{'best13'}
+  = $s{'trophies'}{'best13'}[0] // undef;
+
+  #--- best in show
+
+  $s{'trophies'}{'brief'}{'bestinshow'}
+  = $s{'trophies'}{'bestinshow'}[0] // undef;
+
+});
+
+
 
 #============================================================================
 #===================  _  ====================================================
@@ -1554,11 +1663,13 @@ push(@glb_consumers, sub
 #--- process command-line options
 
 my (
-  $cmd_debug
+  $cmd_debug,
+  $cmd_trophies,
 );
 
 if(!GetOptions(
   'debug' => \$cmd_debug,
+  'trophies:s' => \$cmd_trophies,
 )) {
   help();
   exit(1);
@@ -1680,6 +1791,15 @@ if($cmd_debug) {
   open(JS, '>', "debug.scoreboard.$$") or die;
   print JS JSON->new->pretty(1)->encode(\%s), "\n";
   close(JS);
+}
+
+#--- save trophies file
+
+if(defined $cmd_trophies) {
+  if(!$cmd_trophies) { $cmd_trophies = 'trophies.json'; }
+  open(TROPHIES, '>', $cmd_trophies) or die;
+  print TROPHIES JSON->new->pretty(1)->encode($s{'trophies'}{'brief'});
+  close(TROPHIES);
 }
 
 #--- template processing
