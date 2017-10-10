@@ -64,7 +64,7 @@ List of ascended games in different orderings.
 `%s`.`games`.`data`.`games_by_kills`  
 List of top three games by extinctions and kills (not necessarily ascensions!).
 
-`%s`.`games`.`data`.`top_by_roles`    
+`%s`.`games`.`data`.`top_by_role`    
 Top three scores divided by roles (for the minor trophies).
 
 
