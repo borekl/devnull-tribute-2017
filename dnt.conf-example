@@ -147,7 +147,7 @@
   #=== list of roles
 
   "roles" : [
-    "Arc", "Bar", "Cav", "Hea", "Kni", "Mon", "Pri", "Ran", "Rog", "Pri",
+    "Arc", "Bar", "Cav", "Hea", "Kni", "Mon", "Pri", "Ran", "Rog", "Sam",
     "Tou", "Val", "Wiz"
   ],
 }
