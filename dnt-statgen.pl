@@ -1648,6 +1648,39 @@ push(@glb_consumers, sub
 
 });
 
+#============================================================================
+# Information about servers in %s.servers
+#============================================================================
+
+push(@glb_consumers, sub
+{
+  #--- iterate over configured servers
+
+  for my $server (keys %{$cfg->{'sources'}}) {
+    my $r = $s{'servers'}{$server} = {};
+
+  #--- find all games for given server
+
+    my @games = grep {
+      $_->{'_src'} eq $server;
+    } @{$s{'games'}{'data'}{'all'}};
+
+    $r->{'cnt_games'} = @games;
+
+  #--- get count of unique players for given server
+
+    {
+      my %unique_players;
+      for (@games) {
+        $unique_players{ $_->{'name'} } = 0;
+      }
+      $r->{'cnt_players'} = keys %unique_players;
+    }
+
+  }
+
+});
+
 
 
 #============================================================================

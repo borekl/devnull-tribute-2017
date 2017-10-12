@@ -38,6 +38,22 @@
   </span>
 </p>
 
+<table class="front">
+  <thead>
+    <tr><th class="label" colspan=4>SERVERS</th></tr>
+  </thead>
+  <tbody>
+  [% FOREACH srv IN cfg.sources.keys.sort %]
+    <tr>
+      <td>[% srv %]</td>
+      <td>[% cfg.sources.item(srv).display %]</td>
+      <td class="num">[% servers.item(srv).cnt_games %]</td>
+      <td class="num">[% servers.item(srv).cnt_players %]</td>
+    </tr>
+  [% END %]
+  </tbody>
+</table>
+
 </body>
 
 </html>

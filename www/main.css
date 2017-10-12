@@ -264,3 +264,39 @@ p.about span.trophy {
 span#counter, span#when {
   color: #0f0;
 }
+
+/*--- front page tables */
+
+table.front {
+  border: none;
+  font-family: Signika;
+}
+
+table.front thead {
+  background-color: #333;
+  border-left: 1em solid #0f0;
+}
+
+table.front th {
+  font-weight: bold;
+  text-align: left;
+}
+
+table.front th, table.front td {
+  color: #0f0;
+  font-size: 100%;
+  padding: 0.4em 0.5em;
+  border: none;
+  border-bottom: 1pt solid #333;
+}
+
+table.front th.label {
+  font-weight: bold;
+  font-size: 133%;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+table.front td:nth-child(n+2) {
+  border-left: 1pt solid #333;
+}
