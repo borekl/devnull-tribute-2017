@@ -15,7 +15,7 @@
   [% row = games.data.all.item(game) %]
 
   [% # --- if the game is ascended, add class "won", otherwise "lost"
-     classarr = class.split(' ');
+     classarr = classarr.defined ? class.split(' ') : [];
      IF row.item('_asc');
        classarr.push('won');
      ELSE;
