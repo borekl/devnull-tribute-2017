@@ -30,7 +30,11 @@
 <hr>
 
 <table class="spaceout">
-  <tr class="low">
+  <thead>
+    <tr><th class="label" colspan=8>ALL PLAYERS</th><tr>
+  </thead>
+
+  <tr>
     <th></th>
     <th>player</th>
     <th>won</th>
@@ -42,7 +46,7 @@
   </tr>
 [% SET i = 1; FOREACH plr IN players.meta.ord_by_ascs_all %]
   [% SET pdata = players.data.item(plr) %]
-  <tr class="low">
+  <tr>
     <td class="num">[% i %]</td>
     <td>[% plink(plr) %]</td>
     <td class="num">[% pdata.cnt_ascensions %]</td>

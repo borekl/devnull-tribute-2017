@@ -35,9 +35,11 @@
 
 [% IF players.data.item(player).challenges %]
   <table id="plr-challstat">
-    <tr><td colspan=2>CHALLENGES<br>STATUS</td><tr>
+    <thead>
+      <tr><th colspan=2 class="label">CHALLENGES</th><tr>
+    </thead>
     [% FOREACH chal IN players.data.item(player).challenges.keys.sort %]
-      <tr class="low">
+      <tr>
         <td>[% cfg.trophies.display.item(chal) %]</td>
         [% SET challstat = players.data.item(player).challenges.item(chal).status %]
         <td class="status [% challstat %]">[% challstat %]</td>
@@ -50,9 +52,11 @@
 
 [% IF players.data.item(player).scoring %]
   <table id="plr-scoring">
-    <tr><td colspan=2>CLAN POINTS</td></td>
+    <thead>
+      <tr><th colspan=2 class="label">CLAN POINTS</th></td>
+    </thead>
     [% FOREACH scentry IN players.data.item(player).scoring %]
-      <tr class="low">
+      <tr>
         <td>
           [% IF (base = scentry.0.match('^(.*)_wbo$'));
                base = base.0;
@@ -70,7 +74,7 @@
         </td>
         <td class="num">[% scentry.1 %]</td>
     [% END %]
-    <tr class="low">
+    <tr>
       <td>TOTAL</td>
       <td class="num">[% players.data.item(player).clanpts %]</td>
     </tr>
@@ -81,11 +85,13 @@
 
 [% IF players.data.item(player).cnt_ascensions %]
   <table class="gamelist">
-    <tr><td colspan=10>ASCENDED GAMES</td></tr>
-    [% INCLUDE game.tt head=1 aswon=1 class="low" %]
+    <thead>
+      <tr><th colspan=10 class="label">ASCENDED GAMES</th></tr>
+    </thead>
+    [% INCLUDE game.tt head=1 aswon=1 %]
     [% SET i = 1; FOREACH game IN players.data.item(player).games %]
       [% NEXT IF !games.data.all.item(game).item('_asc') %]
-      [% INCLUDE game.tt aswon=1 class="low" %]
+      [% INCLUDE game.tt aswon=1 %]
       [% SET i = i + 1 %]
     [% END %]
   </table>
@@ -94,10 +100,12 @@
 [%# === table of all games ================================================ %]
 
 <table class="gamelist">
-  <tr><td colspan=9>ALL GAMES</td></tr>
-  [% INCLUDE game.tt head=1 class="low" %]
+    <thead>
+      <tr><th colspan=9 class="label">ALL GAMES</th></tr>
+    </thead>
+  [% INCLUDE game.tt head=1 %]
   [% SET i = 1; FOREACH game IN players.data.item(player).games %]
-    [% INCLUDE game.tt class="low" %]
+    [% INCLUDE game.tt %]
     [% SET i = i + 1 %]
   [% END %]
 </table>

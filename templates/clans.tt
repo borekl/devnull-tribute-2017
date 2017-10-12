@@ -28,7 +28,12 @@
 
 <hr>
 
-<table class="spaceout">
+<table class="spaceout bigletter">
+
+  <thead>
+    <tr><th colspan=3 class="label">CLAN LADDER</th></tr>
+  </thead>
+
   [% IF clans.size == 0 %]
   <tr><td colspan=3 class="noasc">No clans exist at this moment</td></tr>
   [% ELSE %]

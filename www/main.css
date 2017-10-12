@@ -5,7 +5,7 @@
 body {
   background : black;
   color : #0f0;
-  font-family: 'Trebuchet MS', sans-serif;
+  font-family: Signika, sans-serif;
   margin: 0;
 }
 
@@ -26,6 +26,12 @@ a:visited {
 
 td.num {
   text-align: right;
+}
+
+/*--- generic h1 */
+
+h1 {
+  text-align: center;
 }
 
 /*--- the big devnull logo at the top */
@@ -50,6 +56,46 @@ hr {
   background: #0f0;
   height : 2px;
   margin : 0;
+}
+
+
+/*===========================================================================*/
+/*=== GENERIC TABLE STYLE ===================================================*/
+/*===========================================================================*/
+
+table {
+  border: none;
+  margin: 0px auto;
+  margin-bottom: 1em;
+  border-collapse: collapse;
+}
+
+table thead {
+  background-color: #333;
+}
+
+table th {
+  font-weight: bold;
+  text-align: left;
+}
+
+th, td {
+  /*color: #0f0;*/
+  font-size: 100%;
+  padding: 0.4em 0.5em;
+  border: none;
+  border-bottom: 1pt solid #333;
+}
+
+th.label {
+  font-weight: bold;
+  font-size: 133%;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+td:nth-child(n+2) {
+  border-left: 1pt solid #333;
 }
 
 /*===========================================================================*/
@@ -94,49 +140,24 @@ a.menu:hover {
 
 /*--- trophy section (grand, major, minor etc. */
 
-h1 {
+h1.trcategory {
   font-family: 'Russo One', sans-serif;
+  padding : 0.2em;
+  text-align: center;
   text-transform: uppercase;
+  letter-spacing: 2;
   font-size: 133%;
   letter-spacing: 0.4em;
-  text-align: center;
-  margin-top: 2em;
-  font-weight: normal;
-}
-
-/*--- major trophies */
-
-table {
-  margin: 0px auto;
-  margin-bottom: 1em;
-  border: 2px solid #0f0;
-  border-collapse: collapse;
-}
-
-th, td {
-  border: 2px solid #0a0;
-  /*padding: 0.5em 2em;*/
-  padding: 10pt 20pt;
-  font-size: 166%;
-}
-
-/*--- low height rows, such as those used to list individual games */
-
-tr.low td {
-  padding: 0.4em 0.3em;
-  font-size: 100%;
-}
-
-tr.low th {
-  padding: 0.4em 0.3em;
-  font-weight: bold;
-  font-size: 100%;
+  margin: 2em auto;
+  border-top: 0.1em solid #0f0;
+  border-bottom: 0.1em solid #0f0;
 }
 
 /*--- recognition trophies table */
 
 table.recog td {
   padding: 10pt 14pt;
+  font-size: 166%;
 }
 
 table.recog td:first-child {
@@ -151,6 +172,12 @@ table.recog td:nth-child(3) {
 
 table.recog td.small {
   font-size: 133%;
+}
+
+/*--- table with big letters */
+
+table.bigletter td {
+  font-size: 166%;
 }
 
 /*--- table with space above */
@@ -183,12 +210,6 @@ td.noasc {
 
 td.center {
   text-align: center;
-}
-
-/*--- player with ascension hilite */
-
-td.plrasc {
-  font-weight: bold;
 }
 
 /*--- player :: challenge status table */
@@ -265,38 +286,3 @@ span#counter, span#when {
   color: #0f0;
 }
 
-/*--- front page tables */
-
-table.front {
-  border: none;
-  font-family: Signika;
-}
-
-table.front thead {
-  background-color: #333;
-  border-left: 1em solid #0f0;
-}
-
-table.front th {
-  font-weight: bold;
-  text-align: left;
-}
-
-table.front th, table.front td {
-  color: #0f0;
-  font-size: 100%;
-  padding: 0.4em 0.5em;
-  border: none;
-  border-bottom: 1pt solid #333;
-}
-
-table.front th.label {
-  font-weight: bold;
-  font-size: 133%;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-table.front td:nth-child(n+2) {
-  border-left: 1pt solid #333;
-}

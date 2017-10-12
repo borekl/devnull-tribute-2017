@@ -32,7 +32,9 @@
 <h1>CLAN: [% clan %]</h1>
 
 <table>
-  <tr><td colspan=3>MEMBERS</td></tr>
+  <thead>
+    <tr><th colspan=3 class="label">MEMBERS</th></tr>
+  </thead>
   [% FOREACH member IN clans.item(clan).members.sort %]
   <tr class="low">
     <td>[% plink(member) %]</a></td>
@@ -47,7 +49,9 @@
 </table>
 
 <table>
-  <tr><td colspan=9>LAST 10 GAMES</td></tr>
+  <thead>
+    <tr><th colspan=9 class="label">LAST 10 GAMES</th></tr>
+  </thead>
   [% IF clans.item(clan).games.size %]
     [% INCLUDE game.tt head=1 class="low" %]
     [% SET i = clans.item(clan).cnt_games; FOREACH game IN clans.item(clan).games %]
@@ -60,7 +64,9 @@
 </table>
 
 <table>
-  <tr><td colspan=10>ASCENDED GAMES</td></tr>
+  <thead>
+    <tr><th colspan=10 class="label">ASCENDED GAMES</th></tr>
+  </thead>
   [% IF clans.item(clan).ascensions.size %]
     [% INCLUDE game.tt head=1 aswon=1 class="low" %]
     [% SET i = clans.item(clan).ascensions.size %]
