@@ -1,5 +1,4 @@
-[%- MACRO number(n) GET n.chunk(-3).join(',') -%]
-[%- MACRO row(g) GET games.data.all.item(g) %]
+[%- PROCESS 'macros.tt' -%]
 
 <!doctype html>
 
@@ -36,7 +35,7 @@
   <tr><td colspan=3>MEMBERS</td></tr>
   [% FOREACH member IN clans.item(clan).members.sort %]
   <tr class="low">
-    <td><a href="players/[% member %].html">[% member %]</a></td>
+    <td>[% plink(member) %]</a></td>
     <td>[% IF clans.item(clan).admins.grep('^' _ member _ '$').size; 'admin'; END %]</td>
     <td class="num">[% players.data.item(member).clanpts %]</td>
   </tr>
