@@ -5,6 +5,8 @@
   "sources" : {
      "tst" : {
        "xlogfile" : "xlogfile",
+       "display" : "test server",
+       "ip" : "127.0.0.1",
      },
   },
 

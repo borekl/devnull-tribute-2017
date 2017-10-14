@@ -1696,13 +1696,17 @@ push(@glb_consumers, sub
 #--- process command-line options
 
 my (
-  $cmd_debug,
-  $cmd_trophies,
+  $cmd_debug,         # --debug
+  $cmd_trophies,      # --trophies[=FILE]
+  $cmd_ping,          # --[no]ping
 );
+
+$cmd_ping = 1;
 
 if(!GetOptions(
   'debug' => \$cmd_debug,
   'trophies:s' => \$cmd_trophies,
+  'ping!' => \$cmd_ping,
 )) {
   help();
   exit(1);
@@ -1811,6 +1815,22 @@ undef @merged_xlog;
 
 for my $consumer (@glb_consumers) {
   $consumer->();
+}
+
+#--- ping scan of servers
+
+for my $server (keys %{$cfg->{'sources'}}) {
+  my $ip = $cfg->{'sources'}{$server}{'ip'} // undef;
+  $s{'servers'}{$server}{'reachable'} = undef;
+
+  next if
+    !$ip
+    || !$cmd_ping
+    || !exists $cfg->{'ping'}
+    || !defined $cfg->{'ping'};
+
+  my $result = system(sprintf($cfg->{'ping'}, $ip)) >> 8;
+  $s{'servers'}{$server}{'reachable'} = $result ? JSON::false : JSON::true;
 }
 
 #--- make configuration available to templates

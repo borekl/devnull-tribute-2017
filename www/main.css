@@ -286,3 +286,16 @@ span#counter, span#when {
   color: #0f0;
 }
 
+/*--- server statuses */
+
+.srvok {
+  background-color: #0f0;
+}
+
+.srvfail {
+  background-color: #f00;
+}
+
+.srvunk {
+  background-color: #333;
+}

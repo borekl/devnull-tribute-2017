@@ -45,7 +45,18 @@
   <tbody>
   [% FOREACH srv IN cfg.sources.keys.sort %]
     <tr>
-      <td>[% srv %]</td>
+      <td>
+        [% IF servers.item(srv).reachable.defined %]
+          [% IF servers.item(srv).reachable %]
+            <span class="srvok">&nbsp;&nbsp;&nbsp;</span>
+          [% ELSE %]
+            <span class="srvfail">&nbsp;&nbsp;&nbsp;</span>
+          [% END %]
+        [% ELSE %]
+          <span class="srvunk">&nbsp;&nbsp;&nbsp;</span>
+        [% END %]
+        &nbsp; [% srv %]
+      </td>
       <td>[% cfg.sources.item(srv).display %]</td>
       <td class="num">[% servers.item(srv).cnt_games %]</td>
       <td class="num">[% servers.item(srv).cnt_players %]</td>
