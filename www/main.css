@@ -264,6 +264,10 @@ p.about span.trophy {
   text-transform: uppercase;
 }
 
+span.hilite {
+  color: #fff;
+}
+
 /*--- front page counter */
 
 #countdown {

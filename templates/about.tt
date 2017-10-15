@@ -49,6 +49,24 @@ will contain numerous fixes and UI improvements that should make the play
 much more comfortable (and much more in line with what NetHack public
 servers offer).</p>
 
+<h1>How To Participate</h1>
+
+<p class="about">To participate in the tournament, you must <span
+class="hilite">create an account</span> on <a
+href="https://www.hardfought.org/nethack/">hardfought.org</a> public server,
+unless you already have one.</p>
+
+<p class="about">Once you have an account set up, you can play on any of the
+tournament servers that are there. Visit the <a href="./">overview page</a>
+to see what servers are available. Please note, that account info is
+synchronized from central server, so allow some time if you decide to play on
+server other than hardfought.org. Also note, that rcfile setup is local
+to each server and is not synchronized.</p>
+
+<p class="about">You can also choose to become a member of a clan or even
+create new one. For this, use the link on the <a href="clans.html">clans
+page</a>.</p>
+
 <h1>Rules</h1>
 
 <p class="about">The rules for obtaining trophies and clan scoring are made to be as
