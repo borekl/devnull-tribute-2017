@@ -29,7 +29,13 @@
   <td>[% row.role %]-[% row.race %]-[% row.gender0 %]-[% row.align0 %]</td>
   <td class="num">[% number(row.turns) %]</td>
   <td class="num">[% number(row.extinctions) %]</td>
-  <td class="num">[% number(row.points) %]</td>
+  <td class="num">
+    [% IF row.item('_dump') %]
+      <a href="[% row.item('_dump') %]">[% number(row.points) %]</a>
+    [% ELSE %]
+      [% number(row.points) %]
+    [% END %]
+  </td>
   <td class="num">[% row.item('_realtime') %]</td>
   <td class="num">[% row.hp %]/[% row.maxhp %]</td>
   <td class="num">[% row.item('_endtime') %]</td>

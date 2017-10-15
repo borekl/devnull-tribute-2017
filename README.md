@@ -19,11 +19,13 @@ required:
 
 `sources`
 
-Paths to tournament xlogfiles an challenge status files, defined as hash
-where keys are (preferably) three-letter server codes. This points to hash
-with keys "xlogfile" and "challenges" that contain actual pathnames.
-It is assumed that remote xlogfiles/challenge files are synced by means of
-wget or similar.  Xlogfiles can use both `:` or `HTAB` as field separator.
+Definition of sources of information fed into the scoreboard. The keys
+supported in this tree are:
+
+* `xlogfile` - required - defines local file as xlogfile, it is supposed to be synced by means of wget etc.
+* `display` - required - display name
+* `ip` - optional - IP address/hostname to be used for determination whether the server is reachable
+* `dumplog` - optional - URL of dumplogs
 
 `clandb`
 

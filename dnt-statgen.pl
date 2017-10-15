@@ -566,6 +566,32 @@ sub format_datetime
 
 
 #============================================================================
+# URL substitution for dumplogs.
+#============================================================================
+
+sub url_substitute
+{
+  my (
+    $xrow,
+    $dump
+  ) = @_;
+
+  croak 'Undefined argument' if !defined $xrow;
+  $xrow = get_xrows($xrow);
+
+  my $r_username = $xrow->{'name'};
+  my $r_uinitial = substr($xrow->{'name'}, 0, 1);
+  my $r_starttime = $xrow->{'starttime'};
+
+  $dump =~ s/%u/$r_username/g;
+  $dump =~ s/%U/$r_uinitial/g;
+  $dump =~ s/%s/$r_starttime/g;
+
+  return $dump;
+}
+
+
+#============================================================================
 # Display usage summary
 #============================================================================
 
@@ -607,6 +633,14 @@ push(@row_consumers, sub
   $xrow->{'_endtime'} = format_datetime($xrow->{'endtime'});
   $xrow->{'_asc'} = is_ascended($xrow) ? JSON::true : JSON::false;
   $xrow->{'_id'} = $game_id;
+
+  #--- link to dumpfile (if defined)
+
+  if($cfg->{'sources'}{$xrow->{'_src'}}{'dumplog'} // undef) {
+    $xrow->{'_dump'} = url_substitute(
+      $xrow, $cfg->{'sources'}{$xrow->{'_src'}}{'dumplog'}
+    );
+  }
 
   #--- insert games into master list of all games
 
