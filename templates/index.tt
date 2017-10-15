@@ -1,3 +1,5 @@
+[% PROCESS 'macros.tt' %]
+
 <!doctype html>
 
 <html>
@@ -38,7 +40,9 @@
   </span>
 </p>
 
-<table class="front centered">
+<div class="flexrow">
+
+<table class="front">
   <thead>
     <tr><th class="label" colspan=4>SERVERS</th></tr>
   </thead>
@@ -64,6 +68,46 @@
   [% END %]
   </tbody>
 </table>
+
+
+<table class="front">
+  <thead>
+    <tr><th class="label" colspan=2>STATISTICS</th><tr>
+  </thead>
+  <tbody>
+    <tr><td>Clans</td><td class="num">[% clans.size %]</td><tr>
+    <tr><td>Players</td><td class="num">[% players.data.size %]</td><tr>
+    <tr><td>Games</td><td class="num">[% games.data.all.size %]</td><tr>
+    <tr><td>Ascensions</td><td class="num">
+      [% games.data.ascended.size %]
+    </td><tr>
+    <tr><td>Ascending players</td><td class="num">
+      [% players.meta.ord_by_ascs.size %]
+    </tr></td>
+  </tbody>
+</table>
+
+</div>
+
+
+<table class="front centered">
+  <thead>
+    <tr><th class="label" colspan=10>RECENT ASCENSIONS</th><tr>
+  </thead>
+  <tbody>
+    [% IF games.data.ascended.size %]
+      [% INCLUDE game.tt head=1 aswon=1 %]
+      [% SET i = games.data.ascended.size %]
+      [% FOREACH game IN games.data.ascended.slice(-5,-1) %]
+        [% INCLUDE game.tt aswon=1 %]
+        [% SET i = i - 1 %]
+        [% LAST IF i < 1 %]
+      [% END %]
+    [% ELSE %]
+      <tr><td colspan=10 class="noasc">No ascensions yet</td></tr>
+    [% END %]
+</table>
+
 
 </body>
 
