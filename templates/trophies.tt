@@ -95,14 +95,14 @@
 <thead>
   <tr><th colspan=10 class="label">Fastest Ascension: Gametime</th></tr>
 </thead>
-[% INCLUDE game.tt head=1 aswon=1 %]
 [% IF games.data.ascended.size > 0 %]
+  [% INCLUDE game.tt head=1 aswon=1 %]
   [% SET i = 1; FOREACH game IN games.data.asc_by_turns %]
     [% INCLUDE game.tt aswon=1 %]
     [% SET i = i + 1; LAST IF i > 3 %]
   [% END %]
 [% ELSE %]
-  <tr><td colspan=3 class="noasc">No ascensions yet</td></tr>
+  <tr><td colspan=10 class="noasc">No ascensions yet</td></tr>
 [% END %]
 </table>
 
@@ -112,14 +112,14 @@
 <thead>
   <tr><th colspan=10 class="label">Fastest Ascension: Realtime</th></tr>
 </thead>
-[% INCLUDE game.tt head=1 aswon=1 %]
 [% IF games.data.ascended.size > 0 %]
+  [% INCLUDE game.tt head=1 aswon=1 %]
   [% SET i = 1; FOREACH game IN games.data.asc_by_duration %]
     [% INCLUDE game.tt aswon=1 %]
     [% SET i = i + 1; LAST IF i > 3 %]
   [% END %]
 [% ELSE %]
-  <tr><td colspan=3 class="noasc">No ascensions yet</td></tr>
+  <tr><td colspan=10 class="noasc">No ascensions yet</td></tr>
 [% END %]
 </table>
 
@@ -129,14 +129,14 @@
 <thead>
   <tr><th colspan=10 class="label">Lowest Scoring Ascension</th></tr>
 </thead>
-[% INCLUDE game.tt head=1 aswon=1 %]
 [% IF games.data.ascended.size > 0 %]
+  [% INCLUDE game.tt head=1 aswon=1 %]
   [% SET i = 1; FOREACH game IN games.data.asc_by_minscore %]
     [% INCLUDE game.tt aswon=1 %]
     [% SET i = i + 1; LAST IF i > 3 %]
   [% END %]
 [% ELSE %]
-  <tr><td colspan=3 class="noasc">No ascensions yet</td></tr>
+  <tr><td colspan=10 class="noasc">No ascensions yet</td></tr>
 [% END %]
 </table>
 
@@ -146,14 +146,14 @@
 <thead>
   <tr><th colspan=10 class="label">Highest Scoring Ascension</th></tr>
 </thead>
-[% INCLUDE game.tt head=1 aswon=1 %]
 [% IF games.data.ascended.size > 0 %]
+  [% INCLUDE game.tt head=1 aswon=1 %]
   [% SET i = 1; FOREACH game IN games.data.asc_by_maxscore %]
     [% INCLUDE game.tt aswon=1 %]
     [% SET i = i + 1; LAST IF i > 3 %]
   [% END %]
 [% ELSE %]
-  <tr><td colspan=3 class="noasc">No ascensions yet</td></tr>
+  <tr><td colspan=10 class="noasc">No ascensions yet</td></tr>
 [% END %]
 </table>
 
@@ -163,14 +163,14 @@
 <thead>
   <tr><th colspan=10 class="label">First Ascension</th></tr>
 </thead>
-[% INCLUDE game.tt head=1 aswon=1 %]
 [% IF games.data.ascended.size > 0 %]
+  [% INCLUDE game.tt head=1 aswon=1 %]
   [% SET i = 1; FOREACH game IN games.data.ascended %]
     [% INCLUDE game.tt aswon=1 %]
     [% SET i = i + 1; LAST IF i > 3 %]
   [% END %]
 [% ELSE %]
-  <tr><td colspan=3 class="noasc">No ascensions yet</td></tr>
+  <tr><td colspan=10 class="noasc">No ascensions yet</td></tr>
 [% END %]
 </table>
 
@@ -180,14 +180,14 @@
 <thead>
   <tr><th colspan=10 class="label">Best Behaved Ascension</th></tr>
 </thead>
-[% INCLUDE game.tt head=1 aswon=1 %]
 [% IF games.data.ascended.size > 0 %]
+  [% INCLUDE game.tt head=1 aswon=1 %]
   [% SET i = 1; FOREACH game IN games.data.asc_by_conducts %]
     [% INCLUDE game.tt aswon=1 %]
     [% SET i = i + 1; LAST IF i > 3 %]
   [% END %]
 [% ELSE %]
-  <tr><td colspan=3 class="noasc">No ascensions yet</td></tr>
+  <tr><td colspan=10 class="noasc">No ascensions yet</td></tr>
 [% END %]
 </table>
 
@@ -239,7 +239,7 @@
   [% ELSE %]
     <tr>
     <td class="center">[% role %]</td>
-    <td colspan=9 class="noasc">No ascensions yet</td>
+    <td colspan=10 class="noasc">No ascensions yet</td>
     </tr>
   [% END %]
   [% SET i = i + 1 %]
@@ -304,7 +304,7 @@
     [% SET i = i + 1 %]
   [% END %]
 [% ELSE %]
-  <tr><td colspan=11 class="noasc">No deaths yet</td></tr>
+  <tr><td colspan=10 class="noasc">No deaths yet</td></tr>
 [% END %]
 
 </table>
@@ -325,7 +325,7 @@
     [% SET i = i + 1 %]
   [% END %]
 [% ELSE %]
-  <tr><td colspan=11 class="noasc">No deaths yet</td></tr>
+  <tr><td colspan=10 class="noasc">No deaths yet</td></tr>
 [% END %]
 
 </table>
