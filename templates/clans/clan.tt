@@ -31,7 +31,7 @@
 
 <h1>CLAN: [% clan %]</h1>
 
-<table>
+<table class="centered">
   <thead>
     <tr><th colspan=3 class="label">MEMBERS</th></tr>
   </thead>
@@ -48,7 +48,7 @@
   </tr>
 </table>
 
-<table>
+<table class="centered">
   <thead>
     <tr><th colspan=9 class="label">LAST 10 GAMES</th></tr>
   </thead>
@@ -63,7 +63,7 @@
   [% END %]
 </table>
 
-<table>
+<table class="centered">
   <thead>
     <tr><th colspan=10 class="label">ASCENDED GAMES</th></tr>
   </thead>

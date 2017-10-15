@@ -34,6 +34,14 @@ h1 {
   text-align: center;
 }
 
+/*--- flex row, centered */
+
+DIV.flexrow {
+  display: flex;
+  justify-content: center;
+  margin: 2em;
+}
+
 /*--- the big devnull logo at the top */
 
 .bighead {
@@ -58,16 +66,18 @@ hr {
   margin : 0;
 }
 
-
 /*===========================================================================*/
 /*=== GENERIC TABLE STYLE ===================================================*/
 /*===========================================================================*/
 
 table {
   border: none;
-  margin: 0px auto;
-  margin-bottom: 1em;
+  margin: 0 2em;
   border-collapse: collapse;
+}
+
+table.centered {
+  margin: 2em auto;
 }
 
 table thead {

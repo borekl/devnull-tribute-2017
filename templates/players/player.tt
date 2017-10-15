@@ -31,6 +31,8 @@
 
 <h1>PLAYER: [% player %]</h1>
 
+<div class="flexrow"> [%# flex container %]
+
 [%# === table of challenge statuses ======================================= %]
 
 [% IF players.data.item(player).challenges %]
@@ -81,10 +83,12 @@
   </table>
 [% END %]
 
+</div> [%# flex container %]
+
 [%# === table of ascensions =============================================== %]
 
 [% IF players.data.item(player).cnt_ascensions %]
-  <table class="gamelist">
+  <table class="gamelist centered">
     <thead>
       <tr><th colspan=10 class="label">ASCENDED GAMES</th></tr>
     </thead>
@@ -99,7 +103,7 @@
 
 [%# === table of all games ================================================ %]
 
-<table class="gamelist">
+<table class="gamelist centered">
     <thead>
       <tr><th colspan=9 class="label">ALL GAMES</th></tr>
     </thead>
