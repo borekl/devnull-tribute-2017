@@ -5,7 +5,6 @@
 <head>
   <meta charset="utf-8">
   <title>About</title>
-  [% INSERT fonts.tt %]
   <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 

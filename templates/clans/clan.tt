@@ -7,7 +7,6 @@
 <head>
   <base href="../">
   <title>Clan :: [% clan %]</title>
-  [% INSERT fonts.tt %]
   <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 
