@@ -27,6 +27,10 @@
 
 <hr>
 
+<div class="biglink flexrow">
+<a href="clanmgmt/">To manage your clan membership or your clan click here</a>
+</div>
+
 <table class="spaceout bigletter centered">
 
   <thead>
@@ -50,7 +54,6 @@
     [% END %]
   [% END %]
 </table>
-
 
 </body>
 

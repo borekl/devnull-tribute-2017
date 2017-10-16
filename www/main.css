@@ -320,3 +320,10 @@ span#counter, span#when {
 .srvunk {
   background-color: #333;
 }
+
+/*--- clan page */
+
+div.biglink {
+  font-size: 133%;
+  margin: 2em;
+}
