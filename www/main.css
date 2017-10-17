@@ -43,7 +43,7 @@ h1 {
 
 /*--- flex row, centered */
 
-DIV.flexrow {
+div.flexrow {
   display: flex;
   justify-content: center;
   margin: 2em;
@@ -269,6 +269,11 @@ p.about span.trophy {
   color: #ff0;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+p.about em {
+  font-weight: bold;
+  font-style: normal;
 }
 
 span.hilite {
