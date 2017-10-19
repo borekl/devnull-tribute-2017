@@ -332,3 +332,16 @@ div.biglink {
   font-size: 133%;
   margin: 2em;
 }
+
+/*--- front page "more" link */
+
+table.front thead th.more {
+  text-align: right;
+}
+
+table.front thead th.more a {
+  display: none;
+}
+table.front thead:hover th.more a {
+  display: inline;
+}

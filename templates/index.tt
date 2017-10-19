@@ -5,6 +5,7 @@
 <html>
 
 <head>
+  <meta charset="utf-8">
   <title>/dev/null/nethack Tribute 2017</title>
   <link rel="stylesheet" type="text/css" href="main.css">
   <script type="text/javascript" src="js/countdown.js"></script>
@@ -91,7 +92,10 @@
 
 <table class="front centered gamelist">
   <thead>
-    <tr><th class="label" colspan=10>RECENT ASCENSIONS</th><tr>
+    <tr>
+      <th class="label" colspan=9>RECENT ASCENSIONS</th>
+      <th class="more"><a href="allascs.html">· · ·</a></th>
+    <tr>
   </thead>
   <tbody>
     [% IF games.data.ascended.size %]
@@ -110,7 +114,10 @@
 
 <table class="front centered gamelist">
   <thead>
-    <tr><th class="label" colspan=10>RECENT GAMES</th><tr>
+    <tr>
+      <th class="label" colspan=8>RECENT GAMES</th>
+      <th class="more"><a href="last100.html">· · ·</a></th>
+    </tr>
   </thead>
   <tbody>
     [% IF games.data.all.size %]
