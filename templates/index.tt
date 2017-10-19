@@ -89,7 +89,7 @@
 </div>
 
 
-<table class="front centered">
+<table class="front centered gamelist">
   <thead>
     <tr><th class="label" colspan=10>RECENT ASCENSIONS</th><tr>
   </thead>
@@ -105,6 +105,27 @@
     [% ELSE %]
       <tr><td colspan=10 class="noasc">No ascensions yet</td></tr>
     [% END %]
+</table>
+
+
+<table class="front centered gamelist">
+  <thead>
+    <tr><th class="label" colspan=10>RECENT GAMES</th><tr>
+  </thead>
+  <tbody>
+    [% IF games.data.all.size %]
+      [% INCLUDE game.tt head=1 %]
+      [% SET i = games.data.all.size %]
+      [% FOREACH row IN games.data.all.slice(-10,-1) %]
+        [% SET game = row.item('_id') %]
+        [% INCLUDE game.tt %]
+        [% SET i = i - 1 %]
+        [% LAST IF i < 1 %]
+      [% END %]
+    [% ELSE %]
+      <tr><td colspan=10 class="noasc">No games yet</td></tr>
+    [% END %]
+  </tbody>
 </table>
 
 
