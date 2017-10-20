@@ -345,16 +345,27 @@
 
 <h1 class="trcategory">Challenge Trophies</h1>
 
-<table class="bigletter centered">
+<table class="bigletter centered chall">
 
 <thead>
-  <tr><th colspan=2></th></tr>
+  <tr><th colspan=3></th></tr>
 </thead>
 
 [% FOREACH trophy IN cfg.trophies.ord.challenges %]
   <tr>
   <td>[% cfg.trophies.display.item(trophy) %]</td>
-  <td>
+  <td class="num">
+    [% IF trophies.challenges.item(trophy) %]
+      [% trophies.challenges.item(trophy).size %]
+    [% ELSE %]
+      0
+    [% END %]
+  </td>
+  <td
+    [% IF trophies.challenges.item(trophy)
+       && trophies.challenges.item(trophy).size > 3
+    %] class="small"[% END %]
+  >
     [% IF trophies.challenges.item(trophy) %]
       <b>[% plink(trophies.challenges.item(trophy).shift) %]</b>
       [% IF trophies.challenges.item(trophy).size > 0 %]

@@ -191,6 +191,17 @@ table.recog td.small {
   font-size: 133%;
 }
 
+/*--- challenge trophies table */
+
+table.chall td:nth-child(3) {
+  max-width: 400pt;
+  min-width: 100pt;
+}
+
+table.chall td.small {
+  font-size: 133%;
+}
+
 /*--- table with big letters */
 
 table.bigletter td {
