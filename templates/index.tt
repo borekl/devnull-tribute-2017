@@ -68,6 +68,13 @@
       <td class="num">[% servers.item(srv).cnt_players %]</td>
     </tr>
   [% END %]
+  <tr>
+    <td colspan=4>
+      <a href="https://voyager.lupomesky.cz/dnt/about.html#howtoconnect">
+        Click here for info on how to connect
+      </a>
+      </td>
+  <tr>
   </tbody>
 </table>
 

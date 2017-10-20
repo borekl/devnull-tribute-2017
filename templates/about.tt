@@ -53,9 +53,10 @@ servers offer).</p>
 <h1>How To Participate</h1>
 
 <p class="about">To participate in the tournament, you must <span
-class="hilite">create an account</span> on <a
-href="https://www.hardfought.org/nethack/">hardfought.org</a> public server,
-unless you already have one.</p>
+class="hilite">create an account</span> in <a
+href="https://www.hardfought.org/nethack/">hardfought.org</a> public
+server, unless you already have one. To create this account you need
+to use ssh—please see the "Game Servers" section below.</p>
 
 <p class="about">Once you have an account set up, you can play on any of the
 tournament servers that are there. Visit the <a href="./">overview page</a>
@@ -67,6 +68,68 @@ to each server and is not synchronized.</p>
 <p class="about">You can also choose to become a member of a clan or even
 create new one. For this, use the link on the <a href="clans.html">clans
 page</a>.</p>
+
+<h1 id="howtoconnect">Game Servers, or How and Where to go</h1>
+
+<p class="about">To connect to a game server you need an ssh client. On
+Linux and MacOS there is always one pre-installed, on Windows you need
+free client like the popular <a href="http://www.putty.org/">PuTTY</a>.
+
+<p class="about">There are three servers ready to host your games in three
+different geographical location. Of these, the hardfought.org is the central
+server you need to have an account on; the other two servers will just copy
+the account information. So even if you want to play on the european server,
+you must create an account on the central server first.</p>
+
+<p class="about">The available servers are:</p>
+
+<table class="centered">
+  <thead>
+  <tr>
+    <th class="label" colspan=3></th>
+  </tr>
+  </thead>
+  <tr>
+    <th>name</th>
+    <th>location</th>
+    <th>how to connect</th>
+  </tr>
+  <tr>
+    <td>hardfought.org</td>
+    <td>US East</td>
+    <td>ssh nethack@hardfought.org</td>
+  </tr>
+  <tr>
+    <td>eu.hardfought.org</td>
+    <td>Europe (London)</td>
+    <td>ssh nethack@eu.hardfought.org</td>
+  </tr>
+  <tr>
+    <td>e6.alt.org</td>
+    <td>US West</td>
+    <td>ssh nethack@e6.alt.org</td>
+  </tr>
+</table>
+
+<h1>Other Sources Of Information</h1>
+
+<p class="about">Apart from this web, there are few useful places to go:</p>
+
+<p class="about">
+<a href="https://webchat.freenode.net/">FreeNode IRC network</a>
+— channels #devnull_nethack and #hardfought.org; players and admins hang on
+these channels, so if you need advice or help with any aspect of the
+tournament, this is the best place to go.</p>
+
+<p class="about">
+<a href="https://twitter.com/DevNullTribute">https://twitter.com/DevNullTribute</a>
+— announcement bot Twitter feed</p>
+
+<p class="about">
+<a href="https://www.hardfought.org/nethack/rcedit/rcedit-dn36/">https://www.hardfought.org/nethack/rcedit/rcedit-dn36/</a>
+—
+Web-based rc file editor, note that this only edits local rcfile, other game
+servers won't see whatever you configure here.</p>
 
 <h1>Rules</h1>
 
