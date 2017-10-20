@@ -50,7 +50,7 @@
   </tr>
 </table>
 
-<table class="centered">
+<table class="centered gamelist">
   <thead>
     <tr><th colspan=9 class="label">LAST 10 GAMES</th></tr>
   </thead>
@@ -65,7 +65,7 @@
   [% END %]
 </table>
 
-<table class="centered">
+<table class="centered gamelist">
   <thead>
     <tr><th colspan=10 class="label">ASCENDED GAMES</th></tr>
   </thead>
