@@ -158,4 +158,38 @@
     "Arc", "Bar", "Cav", "Hea", "Kni", "Mon", "Pri", "Ran", "Rog", "Sam",
     "Tou", "Val", "Wiz"
   ],
+
+  #=== xlogfile fields
+
+  [
+    "version",
+    "points",
+    "deathdnum",
+    "deathlev",
+    "maxlvl",
+    "hp",
+    "maxhp",
+    "deaths",
+    "deathdate",
+    "birthdate",
+    "uid",
+    "role",
+    "race",
+    "gender",
+    "align",
+    "name",
+    "death",
+    "conduct",
+    "turns",
+    "achieve",
+    "realtime",
+    "starttime",
+    "endtime",
+    "gender0",
+    "align0",
+    "flags",
+    "extinctions",
+    "kills120",
+    "_src",
+  ],
 }

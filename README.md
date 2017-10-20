@@ -39,6 +39,11 @@ supported in this tree are:
 
 Path to clans database in SQLite format.
 
+`xlogfile`
+
+List of fields that will be used for coalesced xlogfile (see the
+`--coalesce` command-line option).
+
 
 ## COMMAND-LINE OPTIONS
 
@@ -49,6 +54,12 @@ that contains entire `%s` structure in JSON format.
 `--trophies[=FILENAME]`  
 This makes the scoreboard script save `%s`.`trophies`.`brief` subtree.
 Default filename is `trophies.json`, but you can specify your own
+
+`--coalesce=FILENAME`  
+This makes the scoreboard to write out coalesced xlogfile that combines
+rows from all source. This is useful for makeing single tournament
+xlogfile available in the same way as the original /dev/null/nethack. Fields
+and their order is defined by `xlogfile` configuration key.
 
 
 ## HOW IT WORKS

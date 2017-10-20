@@ -1733,6 +1733,7 @@ my (
   $cmd_debug,         # --debug
   $cmd_trophies,      # --trophies[=FILE]
   $cmd_ping,          # --[no]ping
+  $cmd_coalesce,      # --coalesce=FILE
 );
 
 $cmd_ping = 1;
@@ -1741,6 +1742,7 @@ if(!GetOptions(
   'debug' => \$cmd_debug,
   'trophies:s' => \$cmd_trophies,
   'ping!' => \$cmd_ping,
+  'coalesce=s' => \$cmd_coalesce,
 )) {
   help();
   exit(1);
@@ -1849,13 +1851,36 @@ for my $src (keys %{$cfg->{'sources'}}) {
   close($xlog);
 }
 
-#--- invoke row consumers
+#--- open coalesced xlogfile
+
+my $coalesced;
+if($cmd_coalesce && $cfg->{'xlogfile'}) {
+  open($coalesced, '>', $cmd_coalesce)
+    or die "Failed to open file $cmd_coalesce";
+}
+
+#--- iterate over combined xlogfile rows from all sources
 
 for my $xrow (sort { $a->{'endtime'} <=> $b->{'endtime'} } @merged_xlog) {
+
+#--- invoke row consumers
+
   for my $consumer (@row_consumers) {
     $consumer->($xrow);
   }
+
+#--- write out coalesced xlogfile
+
+  next if !defined($coalesced);
+  print $coalesced join("\t", do {
+    my @j;
+    for (@{$cfg->{'xlogfile'}}) {
+      push(@j, $_ . '=' . ( $xrow->{$_} // ''));
+    }
+    @j;
+  }), "\n";
 }
+close($coalesced) if $coalesced;
 undef @merged_xlog;
 
 #--- invoke global consumers
