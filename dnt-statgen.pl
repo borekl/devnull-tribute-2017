@@ -1830,6 +1830,19 @@ for my $src (keys %{$cfg->{'sources'}}) {
   while(my $l = <$xlog>) {
     chomp($l);
     my $xrow = parse_log($l);
+
+    # enforce time start/end limits
+
+    next if
+      exists $cfg->{'time'}{'starttime'}
+      && defined $cfg->{'time'}{'starttime'}
+      && $xrow->{'starttime'} < $cfg->{'time'}{'starttime'};
+
+    next if
+      exists $cfg->{'time'}{'endtime'}
+      && defined $cfg->{'time'}{'endtime'}
+      && $xrow->{'endtime'} >= $cfg->{'time'}{'endttimetime'};
+
     $xrow->{'_src'} = $src;
     push(@merged_xlog, $xrow);
   }

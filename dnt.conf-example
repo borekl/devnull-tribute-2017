@@ -1,4 +1,10 @@
 {
+  #=== time limits
+
+  "time" : {
+    "starttime" : 1509519600,
+    "endttime" : 1512115200,
+  },
 
   #=== per-server data sources definition
 

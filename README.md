@@ -17,6 +17,14 @@ The statistics generation script is configured using JSON file `dnt.conf`
 that is expected to be in the current directory.  Following keys are
 required:
 
+`time`
+
+This section is used to constrain by time what entries are accepted into
+the scoreboard. The values are in unix epoch format.
+
+* `starttime` - every accepted row must have starttime greater or equal
+* `endtime` - every accepted row must have endtime smaller
+
 `sources`
 
 Definition of sources of information fed into the scoreboard. The keys
