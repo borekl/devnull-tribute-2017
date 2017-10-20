@@ -266,7 +266,9 @@
   [% FOR trophy IN cfg.trophies.ord.recognition.reverse %]
     [% IF trophies.recognition.item(trophy _ '_wbo').size %]
       <tr>
-        <td>[% cfg.trophies.display.item(trophy) %] WBO</td>
+        <td title="[% cfg.trophies.tooltip.item(trophy) %]">
+          [% cfg.trophies.display.item(trophy) %] WBO
+        </td>
         <td class="num">[% trophies.recognition.item(trophy _ '_wbo').size %]</td>
         <td[% IF trophies.recognition.item(trophy _ '_wbo').size > 3 %] class="small"[% END %]>
           [% FOREACH plr IN trophies.recognition.item(trophy _ '_wbo') %]
@@ -276,7 +278,9 @@
       </tr>
     [% END %]
     <tr>
-      <td>[% cfg.trophies.display.item(trophy) %]</td>
+      <td title="[% cfg.trophies.tooltip.item(trophy) %]">
+        [% cfg.trophies.display.item(trophy) %]
+      </td>
       <td class="num">[% trophies.recognition.item(trophy).size %]</td>
       <td[% IF trophies.recognition.item(trophy).size > 3 %] class="small"[% END %]>
         [% FOREACH plr IN trophies.recognition.item(trophy) %]
