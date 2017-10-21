@@ -49,6 +49,12 @@
     <tr><th class="label" colspan=4>SERVERS</th></tr>
   </thead>
   <tbody>
+  <tr>
+    <th>status</th>
+    <th>server name</th>
+    <th>games</th>
+    <th>players</th>
+  </tr>
   [% FOREACH srv IN cfg.sources.keys.sort %]
     <tr>
       <td>
