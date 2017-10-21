@@ -84,15 +84,26 @@
     <tr><th class="label" colspan=2>STATISTICS</th><tr>
   </thead>
   <tbody>
-    <tr><td>Clans</td><td class="num">[% clans.size %]</td><tr>
-    <tr><td>Players</td><td class="num">[% players.data.size %]</td><tr>
-    <tr><td>Games</td><td class="num">[% games.data.all.size %]</td><tr>
-    <tr><td>Ascensions</td><td class="num">
-      [% games.data.ascended.size %]
-    </td><tr>
-    <tr><td>Ascending players</td><td class="num">
-      [% players.meta.ord_by_ascs.size %]
-    </tr></td>
+    <tr>
+      <td><a href="clans.html">Clans</a></td>
+      <td class="num">[% clans.size %]</td>
+    </tr>
+    <tr>
+      <td><a href="players.html">Players</a></td>
+      <td class="num">[% players.data.size %]</td>
+    </tr>
+    <tr>
+      <td><a href="last100.html">Games</a></td>
+      <td class="num">[% games.data.all.size %]</td>
+    </tr>
+    <tr>
+      <td><a href="allascs.html">Ascensions</a></td>
+      <td class="num">[% games.data.ascended.size %]</td>
+    </tr>
+    <tr>
+       <td><a href="players.html">Ascending players</a></td>
+       <td class="num">[% players.meta.ord_by_ascs.size %]</td>
+    </tr>
   </tbody>
 </table>
 
