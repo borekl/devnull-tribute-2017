@@ -16,17 +16,22 @@ body {
   margin: 0;
 }
 
-a:link {
+a {
   color: inherit;
   text-decoration: none;
 }
 
-a:link:hover {
+a:hover {
+  color: #f00;
   text-decoration: underline;
 }
 
 a:visited {
   color: inherit;
+}
+
+a:visited:hover {
+  color: #f00;
 }
 
 /*--- class for numeric table cells */
