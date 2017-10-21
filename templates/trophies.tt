@@ -267,7 +267,7 @@
     [% IF trophies.recognition.item(trophy _ '_wbo').size %]
       <tr>
         <td title="[% cfg.trophies.tooltip.item(trophy) %]">
-          [% cfg.trophies.display.item(trophy) %] WBO
+          [% cfg.trophies.display.item(trophy) %] <div class="wbo"></div>
         </td>
         <td class="num">[% trophies.recognition.item(trophy _ '_wbo').size %]</td>
         <td[% IF trophies.recognition.item(trophy _ '_wbo').size > 3 %] class="small"[% END %]>
