@@ -234,13 +234,13 @@
     <tr><th colspan=10 class="label">Highest Score For Each Role</th></td>
   </thead>
 
-  [% INCLUDE game.tt head=1 aswon=1 %]
+  [% INCLUDE game.tt head=1 %]
 
   [% SET i = 1 %]
   [% FOR role IN cfg.roles %]
   [% SET g = games.data.top_by_role.item(role).0 %]
   [% IF games.data.top_by_role.item(role).size > 0 %]
-    [% INCLUDE game.tt game=games.data.top_by_role.item(role).0 aswon=1 %]
+    [% INCLUDE game.tt game=games.data.top_by_role.item(role).0 %]
   [% ELSE %]
     <tr>
     <td class="center">[% role %]</td>
