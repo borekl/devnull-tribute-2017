@@ -244,7 +244,7 @@
   [% ELSE %]
     <tr>
     <td class="center">[% role %]</td>
-    <td colspan=10 class="noasc">No ascensions yet</td>
+    <td colspan=10 class="noasc">No games yet</td>
     </tr>
   [% END %]
   [% SET i = i + 1 %]
