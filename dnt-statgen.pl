@@ -779,14 +779,14 @@ push(@row_consumers, sub
 
   #--- iterate over rejection regexes, immediately exit on match
 
-  for my $re (@{$cfg->{'unique'}{'death_no_list'}}) {
+  for my $re (@{$cfg->{'unique'}{'compiled'}{'death_no_list'}}) {
     return if $xrow->{'death'} =~ /$re/;
   }
 
   #--- iterate over accept regexes
 
-  for(my $i = 0; $i < scalar(@{$cfg->{'unique'}{'death_yes_list'}}); $i++) {
-    my $re = $cfg->{'unique'}{'death_yes_list'}[$i];
+  for(my $i = 0; $i < scalar(@{$cfg->{'unique'}{'compiled'}{'death_yes_list'}}); $i++) {
+    my $re = $cfg->{'unique'}{'compiled'}{'death_yes_list'}[$i];
     if($xrow->{'death'} =~ /$re/) {
 
   #--- match found, see if we already have this recorded, if not, insert it
@@ -1767,7 +1767,8 @@ for my $list (qw(no yes)) {
       || die "Cannot open filter file (death_$list)";
     while(my $l = <F>) {
       chomp $l;
-      push(@{$cfg->{'unique'}{"death_${list}_list"}}, qr/^$l/);
+      push(@{$cfg->{'unique'}{'compiled'}{"death_${list}_list"}}, qr/^$l/);
+      push(@{$cfg->{'unique'}{'plain'}{"death_${list}_list"}}, $l);
     }
     close(F);
   }
@@ -1907,7 +1908,7 @@ for my $server (keys %{$cfg->{'sources'}}) {
 
 #--- make configuration available to templates
 
-delete $cfg->{'unique'};
+delete $cfg->{'unique'}{'compiled'};
 $s{'cfg'} = $cfg;
 
 #--- debug: save the compiled scoreboard data as JSON

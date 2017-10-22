@@ -85,6 +85,24 @@
   </table>
 [% END %]
 
+<table id="plr-stats">
+  <thead>
+    <tr><th colspan=2 class="label">STATISTICS</th></tr>
+  </thead>
+  <tr>
+    <td>Games</td>
+    <td class="num">[% players.data.item(player).cnt_games %]</td>
+  </tr>
+  <tr>
+    <td>Ascensions</td>
+    <td class="num">[% players.data.item(player).cnt_ascensions %]</td>
+  </tr>
+  <tr>
+    <td><a href="players/[% player %]-player-unique.html">Unique deaths</a></td>
+    <td class="num">[% players.data.item(player).unique.list.size %]</td>
+  </tr>
+</table>
+
 </div> [%# flex container %]
 
 [%# === table of ascensions =============================================== %]
