@@ -920,7 +920,7 @@ push(@glb_consumers, sub
 });
 
 #============================================================================
-# Create list of ascending games ordered by score.
+# Create list of games ordered by score.
 #============================================================================
 
 push(@glb_consumers, sub
@@ -939,12 +939,22 @@ push(@glb_consumers, sub
     $g->[$b]{'points'} <=> $g->[$a]{'points'}
   } @{$s{'games'}{'data'}{'ascended'}};
 
+  my @sorted_games_max =
+    map {
+      $_->{'_id'}
+    } sort {
+      $a->{'points'} == $b->{'points'} ?
+      $a->{'endtime'} == $b->{'endtime'} :
+      $b->{'points'} <=> $a->{'points'}
+    } @{$s{'games'}{'data'}{'all'}};
+
   $s{'games'}{'data'}{'asc_by_minscore'} = \@sorted_min;
   $s{'games'}{'data'}{'asc_by_maxscore'} = \@sorted_max;
+  $s{'games'}{'data'}{'games_by_maxscore'} = \@sorted_games_max;
 });
 
 #============================================================================
-# Create list of ascending games oredered by number of conducts, ties broken
+# Create list of ascending games ordered by number of conducts, ties broken
 # by who got there first.
 #============================================================================
 
@@ -1022,27 +1032,27 @@ push(@glb_consumers, sub
 
 
 #============================================================================
-# Minor trophies, ie. highest scoring ascension for each role.
+# Minor trophies, ie. highest scoring games for each role.
 #============================================================================
 
 push(@glb_consumers, sub
 {
   #--- data sources
 
-  my $ascs = $s{'games'}{'data'}{'asc_by_maxscore'};
+  my $games = $s{'games'}{'data'}{'games_by_maxscore'};
   my $idx = $s{'games'}{'data'}{'all'};
 
   #--- iterate over all roles
 
   for my $role (@{$cfg->{'roles'}}) {
 
-  #--- find three top scoring ascensions per role
+  #--- find three top scoring games per role
 
     my $counter = 0;
     $s{'games'}{'data'}{'top_by_role'}{$role} = [];
-    for my $asc (@$ascs) {
-      if($idx->[$asc]{'role'} eq $role) {
-        push(@{$s{'games'}{'data'}{'top_by_role'}{$role}}, $asc);
+    for my $game (@$games) {
+      if($idx->[$game]{'role'} eq $role) {
+        push(@{$s{'games'}{'data'}{'top_by_role'}{$role}}, $game);
         $counter++;
       }
       last if $counter > 2;
