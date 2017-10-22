@@ -748,8 +748,8 @@ push(@row_consumers, sub
     [   64, 'gold'      ],
     [  128, 'platinum'  ],
     [  256, 'dilithium' ],
-    [  512, 'lead'      ],
-    [ 1024, 'plastic'   ],
+    [  512, 'plastic'   ],
+    [ 1024, 'lead'      ],
     [ 2048, 'zinc'      ],
   );
 
