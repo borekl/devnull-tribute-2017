@@ -390,3 +390,23 @@ table#plr-unique tr.achieve-yes {
 table#plr-unique tr.summary {
   font-size: 133%;
 }
+
+/*--- player page */
+
+h1.player {
+  color: #0a0;
+}
+
+h1.player span.plrhilite {
+  color: #0f0;
+}
+
+/*--- clan page */
+
+h1.clan {
+  color: #0a0;
+}
+
+h1.clan span.clanhilite {
+  color: #0f0;
+}

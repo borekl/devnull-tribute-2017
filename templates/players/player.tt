@@ -31,7 +31,7 @@
 
 <hr>
 
-<h1>PLAYER: [% player %]</h1>
+<h1 class="player">player <span class="plrhilite">[% player %]</span></h1>
 
 <div class="flexrow"> [%# flex container %]
 
@@ -101,6 +101,16 @@
     <td><a href="players/[% player %]-player-unique.html">Unique deaths</a></td>
     <td class="num">[% players.data.item(player).unique.list.size %]</td>
   </tr>
+  <tr>
+    <td>Deepest level</td>
+    <td class="num">[% players.data.item(player).maxlvl %]</td>
+  </tr>
+  [% IF players.data.item(player).maxconducts.defined %]
+  <tr>
+    <td>Best conduct</td>
+    <td class="num">[% players.data.item(player).maxconducts %]</td>
+  </tr>
+  [% END %]
 </table>
 
 </div> [%# flex container %]

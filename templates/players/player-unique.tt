@@ -32,7 +32,7 @@
 
 <hr>
 
-<h1>PLAYER: [% player %]</h1>
+<h1 class="player">player <span class="plrhilite">[% player %]</span></h1>
 
 <table id="plr-unique">
   <thead>
