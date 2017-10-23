@@ -202,3 +202,4 @@ killed by (a|an) (bugbear|owlbear|mimic|small mimic|large mimic|giant mimic|kobo
 killed by (a|an) (Angel|Archon|Aleax|[\w]* naga hatchling|[\w]* naga|couatl|ki-rin|titan)
 killed by (a|an) (imp|succubus|incubus|djinni|[\w]* demon|[\w]* devil|manes|nalfeshnee|pit fiend|vrock|hezrou|marilith)
 killed by a (leocrotta|rothe|disenchanter|zruty)
+killed by a died
