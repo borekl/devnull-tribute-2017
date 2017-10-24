@@ -410,3 +410,7 @@ h1.clan {
 h1.clan span.clanhilite {
   color: #0f0;
 }
+
+table#clan-list td.small {
+  font-size: 133%;
+}
