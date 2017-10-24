@@ -113,6 +113,33 @@
   </tbody>
 </table>
 
+[% IF clans.keys.size > 0 %]
+<table class="front">
+  <thead>
+    <tr><th class="label" colspan=4>CLANS</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th></th>
+      <th>clan</th>
+      <th>members</th>
+      <th>score</th>
+    </tr>
+    [% SET i = 1; FOREACH clan IN trophies.bestinshow %]
+      <tr>
+        <td class="num">[% i; SET i = i + 1 %]</td>
+        <td>[% clink(clan) %]</td>
+        <td class="num">[% clans.item(clan).members.size %]</td>
+        <td class="num">[% clans.item(clan).bestinshow.score %]</td>
+      </tr>
+    [% END %]
+    <tr>
+      <td colspan=4><a href="clanmgmt/">Click here for clan management</a></td>
+    </tr>
+  </tbody>
+</table>
+[% END %]
+
 </div>
 
 
