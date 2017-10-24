@@ -91,20 +91,28 @@
   </thead>
   <tr>
     <td>Games</td>
-    <td class="num">[% players.data.item(player).cnt_games %]</td>
+    <td class="num">[%
+      players.data.item(player).cnt_games
+      ? players.data.item(player).cnt_games : 0
+    %]</td>
   </tr>
   <tr>
     <td>Ascensions</td>
-    <td class="num">[% players.data.item(player).cnt_ascensions %]</td>
+    <td class="num">[%
+      players.data.item(player).cnt_ascensions
+      ? players.data.item(player).cnt_ascensions : 0
+    %]</td>
   </tr>
   <tr>
     <td><a href="players/[% player %]-player-unique.html">Unique deaths</a></td>
     <td class="num">[% players.data.item(player).unique.list.size %]</td>
   </tr>
+  [% IF players.data.item(player).maxlvl.defined %]
   <tr>
     <td>Deepest level</td>
     <td class="num">[% players.data.item(player).maxlvl %]</td>
   </tr>
+  [% END %]
   [% IF players.data.item(player).maxconducts.defined %]
   <tr>
     <td>Best conduct</td>
@@ -133,16 +141,18 @@
 
 [%# === table of all games ================================================ %]
 
-<table class="gamelist centered">
-    <thead>
-      <tr><th colspan=9 class="label">ALL GAMES</th></tr>
-    </thead>
-  [% INCLUDE game.tt head=1 %]
-  [% SET i = 1; FOREACH game IN players.data.item(player).games %]
-    [% INCLUDE game.tt %]
-    [% SET i = i + 1 %]
-  [% END %]
-</table>
+[% IF players.data.item(player).cnt_games %]
+  <table class="gamelist centered">
+      <thead>
+        <tr><th colspan=9 class="label">ALL GAMES</th></tr>
+      </thead>
+    [% INCLUDE game.tt head=1 %]
+    [% SET i = 1; FOREACH game IN players.data.item(player).games %]
+      [% INCLUDE game.tt %]
+      [% SET i = i + 1 %]
+    [% END %]
+  </table>
+[% END %]
 
 </body>
 
