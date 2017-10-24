@@ -411,6 +411,10 @@ h1.clan span.clanhilite {
   color: #0f0;
 }
 
+table#clan-list {
+  max-width: 70em;
+}
+
 table#clan-list td.small {
   font-size: 133%;
 }
