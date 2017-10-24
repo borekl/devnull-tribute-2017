@@ -103,17 +103,19 @@
       ? players.data.item(player).cnt_ascensions : 0
     %]</td>
   </tr>
+  [% IF players.data.item(player).defined('unique') %]
   <tr>
     <td><a href="players/[% player %]-player-unique.html">Unique deaths</a></td>
     <td class="num">[% players.data.item(player).unique.list.size %]</td>
   </tr>
-  [% IF players.data.item(player).maxlvl.defined %]
+  [% END %]
+  [% IF players.data.item(player).defined('maxlvl') %]
   <tr>
     <td>Deepest level</td>
     <td class="num">[% players.data.item(player).maxlvl %]</td>
   </tr>
   [% END %]
-  [% IF players.data.item(player).maxconducts.defined %]
+  [% IF players.data.item(player).defined('maxconducts') %]
   <tr>
     <td>Best conduct</td>
     <td class="num">[% players.data.item(player).maxconducts %]</td>
