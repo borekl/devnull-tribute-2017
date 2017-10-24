@@ -47,12 +47,12 @@
     <th>clan</th>
     <th>members</th>
     <th>points</th>
-  <tr>
+  </tr>
     [% FOREACH clan IN clans.keys.sort %]
       <tr>
         <td>[% clink(clan) %]</td>
         <td class="num">[% clans.item(clan).members.size %]</td>
-        <td class="num">[% clans.item(clan).bestinshow.score %]
+        <td class="num">[% clans.item(clan).bestinshow.score %]</td>
       </tr>
     [% END %]
   [% END %]
