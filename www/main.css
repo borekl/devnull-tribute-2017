@@ -40,6 +40,12 @@ td.num {
   text-align: right;
 }
 
+/*--- class for nowrap table cells */
+
+td.nowrap {
+  white-space: nowrap;
+}
+
 /*--- generic h1 */
 
 h1 {

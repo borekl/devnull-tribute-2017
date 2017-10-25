@@ -29,7 +29,9 @@
   <tr class="[% classarr.join(' ') %]">
   <td class="num">[% i %]</td>
   <td>[% plink(row.name) %]</td>
-  <td>[% row.role %]-[% row.race %]-[% row.gender0 %]-[% row.align0 %]</td>
+  <td class="nowrap">
+    [% row.role %]-[% row.race %]-[% row.gender0 %]-[% row.align0 %]
+  </td>
   <td class="num">[% number(row.turns) %]</td>
   <td class="num">
     [% IF row.item('_dump') %]
