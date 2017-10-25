@@ -204,7 +204,7 @@ List of clan members (including admins) and admins.
 Number of clan games.
 
 `%s`.`clans`.`CLAN`.`games`  
-List of clan games.
+List of last 10 clan games.
 
 `%s`.`clans`.`CLAN`.`ascensions`  
 List of clan ascensions.
