@@ -33,7 +33,9 @@
 
 <h1 class="clan">clan <span class="clanhilite">[% clan %]</span></h1>
 
-<table class="centered">
+<div class="flexrow">
+
+<table>
   <thead>
     <tr><th colspan=3 class="label">MEMBERS</th></tr>
   </thead>
@@ -49,6 +51,34 @@
     <td class="num">[% clans.item(clan).bestinshow.score %]</td>
   </tr>
 </table>
+
+<table>
+  <thead>
+    <tr><th colspan=2 class="label">STATISTICS</th></tr>
+  </thead>
+  <tr>
+    <td>Games</td>
+    <td class="num">[% clans.item(clan).cnt_games %]</td>
+  </tr>
+  <tr>
+    <td>Ascensions</td>
+    <td class="num">[% clans.item(clan).ascensions.size %]</td>
+  </tr>
+  <tr>
+    <td>Ascensions per player</td>
+    <td class="num">
+      [% clans.item(clan).ascensions.size / clans.item(clan).members.size FILTER format("%.2f") %]
+    </td>
+  </tr>
+  <tr>
+    <td>Score per player</td>
+    <td class="num">
+      [% clans.item(clan).bestinshow.score / clans.item(clan).members.size FILTER format("%.2f") %]
+    </td>
+  </tr>
+</table>
+
+</div>
 
 <table class="centered gamelist">
   <thead>
