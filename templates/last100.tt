@@ -42,7 +42,7 @@
     [% IF games.data.all.size %]
       [% INCLUDE game.tt head=1 %]
       [% SET i = games.data.all.size %]
-      [% FOREACH row IN games.data.all.slice(-100,-1) %]
+      [% FOREACH row IN games.data.all.slice(-100,-1).reverse %]
         [% SET game = row.item('_id') %]
         [% INCLUDE game.tt %]
         [% SET i = i - 1 %]
