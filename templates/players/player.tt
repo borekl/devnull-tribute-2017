@@ -133,10 +133,11 @@
       <tr><th colspan=10 class="label">ASCENDED GAMES</th></tr>
     </thead>
     [% INCLUDE game.tt head=1 aswon=1 %]
-    [% SET i = 1; FOREACH game IN players.data.item(player).games %]
+    [% SET i = players.data.item(player).cnt_ascensions %]
+    [% FOREACH game IN players.data.item(player).games.reverse %]
       [% NEXT IF !games.data.all.item(game).item('_asc') %]
       [% INCLUDE game.tt aswon=1 %]
-      [% SET i = i + 1 %]
+      [% SET i = i - 1 %]
     [% END %]
   </table>
 [% END %]
@@ -150,9 +151,13 @@
       </thead>
     [% INCLUDE game.tt head=1 %]
     [% SET games_cnt = players.data.item(player).cnt_games %]
-    [% SET i = 1; FOREACH game IN players.data.item(player).games %]
-      [% IF !games.data.all.item(game).item('_scum') || games_cnt < 10; INCLUDE game.tt; END %]
-      [% SET i = i + 1 %]
+    [% SET i = games_cnt; FOREACH game IN players.data.item(player).games.reverse %]
+      [%
+        IF !games.data.all.item(game).item('_scum') || games_cnt < 10;
+        INCLUDE game.tt;
+        END
+      %]
+      [% SET i = i - 1 %]
     [% END %]
   </table>
 [% END %]
