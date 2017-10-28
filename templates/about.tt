@@ -273,6 +273,37 @@ Achieved by player who completes Sokoban in at least one game.</p>
 <p class="about"><span class="trophy">Plastic Star</span> – <em>0.03 pts</em> –
 Achieved by player who obtains the luckstone from Mine's End in at least one game.</p>
 
+<h1 class="about">Credits</h1>
+
+<p class="about">Following people are responsible for the tournament, listed
+in no particular order:</p>
+
+<p class="about"><em>Krystal</em></p>
+
+<p class="about">Organizer of the original dev/null/nethack tournament since
+1999, author of the original code and trophy structure; the in-game challenges
+are directly reused in the Tribute.</p>
+
+<p class="about"><em>K2</em></p>
+
+<p class="about">Hardfought.org admin who hosts the tournament's US East and
+European servers. He is the person who makes all the code run on real
+hardware in real world.</p>
+
+<p class="about"><em>Tangles</em></p>
+
+<p class="about">The tournament's chief programmer. He ported the original
+devnull game server to NetHack 3.6.0. He replaced the old crufty and
+unavailable central server's cogs and gears with new machinery. He bugfixed
+the challenge code, merged in scores of patches and integrated it all
+together to make for a flawless, smooth player experience.</p>
+
+<p class="about"><em>Mandevil</em></p>
+
+<p class="about">The guy who has written and designed the scoreboard website
+from scratch while trying to replicate the never really published scoring
+rules of the original /dev/null/nethack.</p>
+
 </body>
 
 </html>
