@@ -57,7 +57,7 @@ Default filename is `trophies.json`, but you can specify your own
 
 `--coalesce=FILENAME`  
 This makes the scoreboard to write out coalesced xlogfile that combines
-rows from all source. This is useful for makeing single tournament
+rows from all sources. This is useful for making single tournament
 xlogfile available in the same way as the original /dev/null/nethack. Fields
 and their order is defined by `xlogfile` configuration key.
 
