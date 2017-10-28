@@ -275,6 +275,14 @@ table.gamelist tr.lost {
 
 /*--- the text on the "About" page */
 
+h1.about::before {
+  content: "\2014\2002";
+}
+
+h1.about::after {
+  content: "\2002\2014";
+}
+
 p.about {
   margin: auto;
   margin-top: 0.5em;

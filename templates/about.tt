@@ -28,7 +28,7 @@
 
 <hr>
 
-<h1>About</h1>
+<h1 class="about">About</h1>
 
 <p class="about">On September 14, 2017, mere six weeks before this year's /dev/null/nethack
 tournament was supposed to commence, its organizer Krystal
@@ -50,7 +50,7 @@ will contain numerous fixes and UI improvements that should make the play
 much more comfortable (and much more in line with what NetHack public
 servers offer).</p>
 
-<h1>How To Participate</h1>
+<h1 class="about">How To Participate</h1>
 
 <p class="about">To participate in the tournament, you must <span
 class="hilite">create an account</span> in <a
@@ -69,7 +69,7 @@ to each server and is not synchronized.</p>
 create new one. For this, use the link on the <a href="clans.html">clans
 page</a>.</p>
 
-<h1 id="howtoconnect">Game Servers, or How and Where to go</h1>
+<h1 class="about" id="howtoconnect">Game Servers, or How and Where to go</h1>
 
 <p class="about">To connect to a game server you need an ssh client. On
 Linux and MacOS there is always one pre-installed, on Windows you need
@@ -111,7 +111,7 @@ you must create an account on the central server first.</p>
   </tr>
 </table>
 
-<h1>Other Sources Of Information</h1>
+<h1 class="about">Other Sources Of Information</h1>
 
 <p class="about">Apart from this web, there are few useful places to go:</p>
 
@@ -131,7 +131,7 @@ tournament, this is the best place to go.</p>
 Web-based rc file editor, note that this only edits local rcfile, other game
 servers won't see whatever you configure here.</p>
 
-<h1>Rules</h1>
+<h1 class="about">Rules</h1>
 
 <p class="about">The rules for obtaining trophies and clan scoring are made to be as
 similar to the original as possible. Unfortunately, the scoreboard code was
@@ -167,7 +167,7 @@ form Best of 13.</p>
 <p class="about"><em>Ties</em>: As a rule, all ties are broken by "who got there first",
 that is who achieved given trophy earlier.</p>
 
-<h1>Trophies</h1>
+<h1 class="about">Trophies</h1>
 
 <p class="about"><span class="trophy">Best of 13</span> – <em>10 pts</em> – Achieved by
 player with most ascensions with different role/race/gender/alignment
