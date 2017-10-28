@@ -6,6 +6,13 @@
     "endttime" : 1512115200,
   },
 
+  #=== scum game qualifiers
+
+  "scum" : {
+    "minturns" : 10,
+    "minquitturns": 100,
+  },
+
   #=== per-server data sources definition
 
   "sources" : {

@@ -86,9 +86,9 @@
   </thead>
   [% IF clans.item(clan).games.size %]
     [% INCLUDE game.tt head=1 class="low" %]
-    [% SET i = clans.item(clan).cnt_games; FOREACH game IN clans.item(clan).games %]
+    [% FOREACH game IN clans.item(clan).games %]
+      [% SET i = games.data.all.item(game).item('_cid') + 1 %]
       [% INCLUDE game.tt class="low" %]
-      [% SET i = i - 1 %]
     [% END %]
   [% ELSE %]
     <tr><td colspan=9 class="noasc">No games yet</tr>

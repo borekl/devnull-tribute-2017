@@ -642,6 +642,25 @@ push(@row_consumers, sub
     );
   }
 
+  #--- detect scummed games
+
+  $xrow->{'_scum'} = 0;
+  if(exists $cfg->{'scum'}) {
+    if(exists $cfg->{'scum'}{'minturns'}) {
+      if($xrow->{'turns'} <= $cfg->{'scum'}{'minturns'}) {
+        $xrow->{'_scum'} = 1;
+      }
+    }
+    if(exists $cfg->{'scum'}{'minquitturns'}) {
+      if(
+        $xrow->{'turns'} <= $cfg->{'scum'}{'minquitturns'}
+        && ( $xrow->{'death'} eq 'quit' || $xrow->{'death'} eq 'escape' )
+      ) {
+        $xrow->{'_scum'} = 1;
+      }
+    }
+  }
+
   #--- insert games into master list of all games
 
   $s{'games'}{'data'}{'all'}[$game_id] = $xrow;
@@ -1571,13 +1590,26 @@ push(@glb_consumers, sub
 
     $s{'clans'}{$clan}{'ascensions'} = \@ascs;
 
-  #--- sort the games list by 'endtime' and keep only first 10 entries
+  #--- sort the games list by 'endtime'
 
     if(@games) {
       @games = sort {
         get_xrows($b)->{'endtime'} <=> get_xrows($a)->{'endtime'}
       } @games;
-      splice(@games, 10);
+
+  #--- assign clan sequence numbers
+
+      my $gidx = @games - 1;
+      for my $game (@games) {
+        get_xrows($game)->{'_cid'} = $gidx;
+        $gidx--;
+      }
+
+  #--- keep only first 10 entries
+
+      my $keep = 10;
+      @games = grep { !get_xrows($_)->{'_scum'} && $keep-- > 0; } @games;
+
     }
 
     $s{'clans'}{$clan}{'games'} = \@games;
