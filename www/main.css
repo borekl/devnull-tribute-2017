@@ -109,7 +109,7 @@ table th {
 
 th, td {
   font-size: 100%;
-  padding: 0.4em 0.5em;
+  padding: 0.4em 12pt;
   border: none;
   border-bottom: 1pt solid #333;
 }
