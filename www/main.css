@@ -445,3 +445,10 @@ div.gentime {
 div.gentime span:hover {
   color: #0a0;
 }
+
+/*--- players list blurb */
+
+td.note {
+  border-bottom: none;
+  color: #0a0;
+}

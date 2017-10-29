@@ -33,7 +33,11 @@
 
 <table class="spaceout centered">
   <thead>
-    <tr><th class="label" colspan=8>ALL PLAYERS</th><tr>
+    <tr>
+      <th class="label" colspan=8>
+        ALL PLAYERS<sup><a href="#plrs-note">*</a></sup>
+      </th>
+    <tr>
   </thead>
 
   <tr>
@@ -60,6 +64,11 @@
   </tr>
   [% SET i = i + 1 %]
 [% END %]
+  <tr>
+    <td class="note" colspan=8 id="plrs-note">
+      <sup>*</sup> only players with at least one finished game listed here
+    </td>
+  </tr>
 </table>
 
 
