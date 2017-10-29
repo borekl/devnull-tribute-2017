@@ -138,6 +138,10 @@ have winning game, this field is undefined.
 Player's clan points. This key always exists and has nothing to do with whether
 the player is a clan member or not.
 
+`%s`.`players`.`data`.`PLAYER`.`clantimeref`  
+Time when the player's newest scoring entry was achieved. This key always
+exists, but it is undefined if player has no scoring entries.
+
 `%s`.`players`.`data`.`PLAYER`.`maxlvl`  
 Maximum (that is deepest) achieved player dungeon level.
 

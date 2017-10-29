@@ -1569,12 +1569,19 @@ push(@glb_consumers, sub
     # initialize scoring total
     $s{'players'}{'data'}{$plr}{'clanpts'} = 0;
 
+    # initialize scoring time reference
+    $s{'players'}{'data'}{$plr}{'clantimeref'} = undef;
+
     # exclude players with no scoring entries
     next if !exists $s{'players'}{'data'}{$plr}{'scoring'};
 
-    # generate totals
+    # generate totals + time reference
     for my $scentry (@{$s{'players'}{'data'}{$plr}{'scoring'}}) {
-      $s{'players'}{'data'}{$plr}{'clanpts'} += $scentry->[1];
+      my $pl = $s{'players'}{'data'}{$plr};
+      $pl->{'clanpts'} += $scentry->[1];
+      $pl->{'clantimeref'} = $scentry->[3]
+        if !defined $pl->{'clantimeref'}
+           || $pl->{'clantimeref'} < $scentry->[3];
     }
 
     # do the sorting
