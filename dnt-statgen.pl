@@ -1318,10 +1318,16 @@ push(@glb_consumers, sub
 {
   no integer;
 
-  #--- prepare utility function for pushing scoring info
+  #--- prepare utility function for pushing scoring info --------------------
 
   my $score = sub {
-    my ($plr, $trophy, $data, $adj) = @_;
+    my (
+      $plr,     # 1. player name
+      $trophy,  # 2. trophy name
+      $data,    # 3. (opt) trophy-specific data
+      $adj,     # 4. (opt) score adjustment factor (for challenges)
+      $when     # 5. time reference
+    ) = @_;
     my $sc_trophy = $trophy;
     $sc_trophy =~ s/_wbo$//;
 
@@ -1343,9 +1349,16 @@ push(@glb_consumers, sub
 
     push(
       @{$s{'players'}{'data'}{$plr}{'scoring'}},
-      [ $trophy, $cfg->{'scoring'}{$sc_trophy} * $adj, $data ]
+      [
+        $trophy,                               # 0. trophy name
+        $cfg->{'scoring'}{$sc_trophy} * $adj,  # 1. score
+        $data,                                 # 2. additional data
+        $when                                  # 3. timestamp
+      ]
     );
   };
+
+  #--------------------------------------------------------------------------
 
   #--- ensure the config exists
 
@@ -1362,7 +1375,8 @@ push(@glb_consumers, sub
     && @{$s{'trophies'}{'best13'}}
   ) {
     my $plr = $s{'trophies'}{'best13'}[0];
-    $score->($plr, 'best13');
+    my $when = $s{'players'}{'data'}{$plr}{'best13'}{'when'};
+    $score->($plr, 'best13', undef, undef, $when);
   }
 
   #--- Most Ascensions
@@ -1371,7 +1385,11 @@ push(@glb_consumers, sub
     exists $s{'players'}{'meta'}{'ord_by_ascs'}
     && @{$s{'players'}{'meta'}{'ord_by_ascs'}}
   ) {
-    $score->($s{'players'}{'meta'}{'ord_by_ascs'}[0], 'mostascs');
+    my $plr = $s{'players'}{'meta'}{'ord_by_ascs'}[0];
+    my $when = get_xrows(
+      $s{'players'}{'data'}{$plr}{'last_asc'}
+    )->{'endtime'};
+    $score->($plr, 'mostascs', undef, undef, $when);
   }
 
   #--- Fastest Ascension: Gametime
@@ -1381,7 +1399,9 @@ push(@glb_consumers, sub
     && @{$s{'games'}{'data'}{'asc_by_turns'}}
   ) {
     my $g = get_xrows($s{'games'}{'data'}{'asc_by_turns'}[0]);
-    $score->($g->{'name'}, 'mingametime');
+    my $plr = $g->{'name'};
+    my $when = $g->{'endtime'};
+    $score->($plr, 'mingametime', undef, undef, $when);
   }
 
   #--- Fastest Ascension: Realtime
@@ -1391,7 +1411,9 @@ push(@glb_consumers, sub
     && @{$s{'games'}{'data'}{'asc_by_duration'}}
   ) {
     my $g = get_xrows($s{'games'}{'data'}{'asc_by_duration'}[0]);
-    $score->($g->{'name'}, 'minrealtime');
+    my $plr = $g->{'name'};
+    my $when = $g->{'endtime'};
+    $score->($plr, 'minrealtime', undef, undef, $when);
   }
 
   #--- Lowest Scoring Ascension
@@ -1401,7 +1423,9 @@ push(@glb_consumers, sub
     && @{$s{'games'}{'data'}{'asc_by_minscore'}}
   ) {
     my $g = get_xrows($s{'games'}{'data'}{'asc_by_minscore'}[0]);
-    $score->($g->{'name'}, 'minscore');
+    my $plr = $g->{'name'};
+    my $when = $g->{'endtime'};
+    $score->($plr, 'minscore', undef, undef, $when);
   }
 
   #--- First Ascension
@@ -1411,7 +1435,9 @@ push(@glb_consumers, sub
     && @{$s{'games'}{'data'}{'ascended'}}
   ) {
     my $g = get_xrows($s{'games'}{'data'}{'ascended'}[0]);
-    $score->($g->{'name'}, 'firstasc');
+    my $plr = $g->{'name'};
+    my $when = $g->{'endtime'};
+    $score->($plr, 'firstasc', undef, undef, $when);
   }
 
   #--- Best Behaved Ascension
@@ -1421,7 +1447,9 @@ push(@glb_consumers, sub
     && @{$s{'games'}{'data'}{'asc_by_conducts'}}
   ) {
     my $g = get_xrows($s{'games'}{'data'}{'asc_by_conducts'}[0]);
-    $score->($g->{'name'}, 'bestconduct');
+    my $plr = $g->{'name'};
+    my $when = $g->{'endtime'};
+    $score->($plr, 'bestconduct', undef, undef, $when);
   }
 
   #--- Most Unique Deaths
@@ -1430,7 +1458,9 @@ push(@glb_consumers, sub
     exists $s{'trophies'}{'unique'}
     && @{$s{'trophies'}{'unique'}}
   ) {
-    $score->($s{'trophies'}{'unique'}[0], 'unique');
+    my $plr = $s{'trophies'}{'unique'}[0];
+    my $when = $s{'players'}{'data'}{$plr}{'unique'}{'when'};
+    $score->($plr, 'unique', undef, undef, $when);
   }
 
   #--- Recognition Trophies
@@ -1462,7 +1492,9 @@ push(@glb_consumers, sub
   for my $role (@$roles) {
     if(@{$s{'games'}{'data'}{'top_by_role'}{$role}}) {
       my $g = get_xrows($s{'games'}{'data'}{'top_by_role'}{$role}[0]);
-      $score->($g->{'name'}, 'minor', { 'role' => $role });
+      my $plr = $g->{'name'};
+      my $when = $g->{'endtime'};
+      $score->($plr, 'minor', { 'role' => $role }, undef, $when);
     }
   }
 
@@ -1473,7 +1505,9 @@ push(@glb_consumers, sub
     && @{$s{'games'}{'data'}{'games_by_kills'}}
   ) {
     my $g = get_xrows($s{'games'}{'data'}{'games_by_kills'}[0]);
-    $score->($g->{'name'}, 'killionaire');
+    my $plr = $g->{'name'};
+    my $when = $g->{'endtime'};
+    $score->($plr, 'killionaire', undef, undef, $when);
   }
 
   #--- Basic Extinct
@@ -1483,7 +1517,9 @@ push(@glb_consumers, sub
     && @{$s{'games'}{'data'}{'games_by_exts'}}
   ) {
     my $g = get_xrows($s{'games'}{'data'}{'games_by_exts'}[0]);
-    $score->($g->{'name'}, 'extinct');
+    my $plr = $g->{'name'};
+    my $when = $g->{'endtime'};
+    $score->($plr, 'extinct', undef, undef, $when);
   }
 
   #--- Challenge Trophies (only the first player gets full score,
@@ -1493,7 +1529,8 @@ push(@glb_consumers, sub
     if(@{$s{'trophies'}{'challenges'}{$chal}}) {
       my $adj = 1;
       for my $plr (@{$s{'trophies'}{'challenges'}{$chal}}) {
-        $score->($plr, 'challenge', { challenge => $chal }, $adj);
+        my $when = $s{'players'}{'data'}{$plr}{'challenges'}{$chal}{'when'};
+        $score->($plr, 'challenge', { challenge => $chal }, $adj, $when);
         $adj = 0.5;
       }
     }
