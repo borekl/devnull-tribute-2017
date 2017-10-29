@@ -223,6 +223,10 @@ points, `4` additional info where relevant or undefined
 `%s`.`clans`.`CLAN`.`bestinshow`.`score`  
 Total clan score.
 
+`%s`.`clans`.`CLAN`.`bestinshow`.`scoretimeref`  
+Time when the score was achieved (ie. time of the last scoring entry). This
+can be undefined if the clan has not scored yet.
+
 ### aux
 
 `%s`.`aux`.`time`  

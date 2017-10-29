@@ -1600,29 +1600,61 @@ push(@glb_consumers, sub
 {
   no integer;
 
+  #--- iterate over clans
+
   for my $clan (keys %{$s{'clans'}}) {
-    my $score = 0;
-    my @breakdown;
+
+  #--- following values are what we are compiling as the clan scoring
+  #--- information
+
+    my $score = 0;  # summary clan score
+    my @breakdown;  # breakdown by player: ( player, score )
+    my $timeref;    # when was the score achieved
+
+  #--- iterate over clan members and save breakdown, sum clan points and
+  #--- record the score time reference
+
     for my $plr (@{$s{'clans'}{$clan}{'members'}}) {
       if(exists $s{'players'}{'data'}{$plr}{'scoring'}) {
         for my $e (@{$s{'players'}{'data'}{$plr}{'scoring'}}) {
           $score += $e->[1];
           push(@breakdown, [ $plr, @$e ]);
         }
+        if(($timeref // 0) < $s{'players'}{'data'}{$plr}{'clantimeref'}) {
+          $timeref = $s{'players'}{'data'}{$plr}{'clantimeref'};
+        }
       }
     }
+
+  #--- record the collected data in clans.$CLAN.bestinshow, the scoring
+  #--- breakdown is ordered by achievement time
+
     $s{'clans'}{$clan}{'bestinshow'} = {
       'score' => $score,
+      'scoretimeref' => $timeref,
       'breakdown' => [ sort {
-        if($a->[0] eq $b->[0]) {
+        if($a->[4] == $b->[4]) {
           return $b->[2] <=> $a->[2];
         }
-        $a->[0] cmp $b->[0];
+        $a->[4] <=> $b->[4];
       } @breakdown ]
     };
   }
 
+  #--- sort the Best In Show ladder (by score, ties broken by lower timeref,
+  #--- ie. who got there first)
+
   $s{'trophies'}{'bestinshow'} = [ sort {
+    if(
+      $s{'clans'}{$b}{'bestinshow'}{'score'}
+      ==
+      $s{'clans'}{$a}{'bestinshow'}{'score'}
+    ) {
+      return
+        $s{'clans'}{$a}{'bestinshow'}{'scoretimeref'}
+        <=>
+        $s{'clans'}{$b}{'bestinshow'}{'scoretimeref'};
+    }
     $s{'clans'}{$b}{'bestinshow'}{'score'}
     <=>
     $s{'clans'}{$a}{'bestinshow'}{'score'}
