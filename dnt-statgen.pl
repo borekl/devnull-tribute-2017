@@ -598,7 +598,10 @@ sub url_substitute
 sub help
 {
   print "Command-line options:\n";
-  print "  --debug       debug mode\n";
+  print "  --debug           debug mode\n";
+  print "  --noping          disable pinging source servers\n";
+  print "  --trophies[=FILE] save trophies file (trophies.json by default)\n";
+  print "  --coalesce=FILE   save merged xlogfile\n";
   print "\n";
 }
 

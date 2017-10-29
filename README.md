@@ -51,6 +51,9 @@ List of fields that will be used for coalesced xlogfile (see the
 This causes the scoreboard script to output file `debug.scoreboard.PID`
 that contains entire `%s` structure in JSON format.
 
+`--[no]ping`  
+Disable (default is enabled) the pinging of the source servers.
+
 `--trophies[=FILENAME]`  
 This makes the scoreboard script save `%s`.`trophies`.`brief` subtree.
 Default filename is `trophies.json`, but you can specify your own
