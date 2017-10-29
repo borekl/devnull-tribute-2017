@@ -61,6 +61,12 @@
   </tr>
 </table>
 
+
+<div class="gentime">
+<span>Generated on [% aux.timefmt %]</span>
+</div>
+
+
 </body>
 
 </html>

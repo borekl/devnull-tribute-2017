@@ -1956,6 +1956,11 @@ for my $server (keys %{$cfg->{'sources'}}) {
 delete $cfg->{'unique'}{'compiled'};
 $s{'cfg'} = $cfg;
 
+#--- timestamp
+
+$s{'aux'}{'time'} = time();
+$s{'aux'}{'timefmt'} = format_datetime($s{'aux'}{'time'});
+
 #--- debug: save the compiled scoreboard data as JSON
 
 if($cmd_debug) {

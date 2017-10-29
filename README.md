@@ -218,3 +218,10 @@ points, `4` additional info where relevant or undefined
 
 `%s`.`clans`.`CLAN`.`bestinshow`.`score`  
 Total clan score.
+
+### aux
+
+`%s`.`aux`.`time`  
+`%s`.`aux`.`timefmt`  
+Time when the scoreboard finished compiling in epoch format and as a
+formatted human-readable string.

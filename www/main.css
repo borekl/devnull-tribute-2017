@@ -431,3 +431,17 @@ table#clan-list {
 table#clan-list td.small {
   font-size: 133%;
 }
+
+/*--- page generation time */
+
+div.gentime {
+  text-align: center;
+  color: black;
+  font-size: 66%;
+  margin: 1em;
+  cursor: default;
+}
+
+div.gentime span:hover {
+  color: #0a0;
+}

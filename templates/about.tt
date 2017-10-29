@@ -304,6 +304,12 @@ together to make for a flawless, smooth player experience.</p>
 from scratch while trying to replicate the never really published scoring
 rules of the original /dev/null/nethack.</p>
 
+
+<div class="gentime">
+<span>Generated on [% aux.timefmt %]</span>
+</div>
+
+
 </body>
 
 </html>
