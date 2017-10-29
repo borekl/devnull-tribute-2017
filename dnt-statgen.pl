@@ -775,8 +775,13 @@ push(@row_consumers, sub
     [ 2048, 'zinc'      ],
   );
 
+  #--- iterate over above trophies
+
   for my $trophy (@trophies) {
     if(eval($xrow->{'achieve'}) & $trophy->[0]) {
+
+  #--- add player to trophies.recognition.$TROPHY
+
       if(!exists($t->{$trophy->[1]})) {
         $t->{$trophy->[1]} = [ $plr_name ];
       } else {
@@ -784,6 +789,16 @@ push(@row_consumers, sub
           push(@{$t->{$trophy->[1]}}, $plr_name);
         }
       }
+
+  #--- save trophy time reference
+
+      if(
+        !exists $s{'players'}{'data'}{$plr_name}{'recognition'}{$trophy->[1]}
+      ) {
+        $s{'players'}{'data'}{$plr_name}{'recognition'}{$trophy->[1]}
+        = $xrow->{'endtime'};
+      }
+
     }
   }
 
@@ -1144,6 +1159,15 @@ push(@glb_consumers, sub
 
   }
 
+  #--- save trophies' time references into player data
+
+  for my $tr (keys %temp) {
+    for my $entry (@{$temp{$tr}}) {
+      $s{'players'}{'data'}{$entry->{'name'}}{'recognition'}{$tr}
+      = get_xrows($entry->{'ord'})->{'endtime'};
+    }
+  }
+
 });
 
 
@@ -1473,14 +1497,16 @@ push(@glb_consumers, sub
       if(
         grep { $_ eq $plr } @{$s{'trophies'}{'recognition'}{$trophy}}
       ) {
-        $score->($plr, $trophy);
+        my $when = $s{'players'}{'data'}{$plr}{'recognition'}{$trophy};
+        $score->($plr, $trophy, undef, undef, $when);
       }
       # with bells on
       if(
         exists $s{'trophies'}{'recognition'}{$trophy . '_wbo'}
         && grep { $_ eq $plr } @{$s{'trophies'}{'recognition'}{$trophy . '_wbo'}}
       ) {
-        $score->($plr, $trophy . '_wbo');
+        my $when = $s{'players'}{'data'}{$plr}{'recognition'}{$trophy . '_wbo'};
+        $score->($plr, $trophy . '_wbo', undef, undef, $when);
       }
     }
   }
