@@ -1645,19 +1645,29 @@ push(@glb_consumers, sub
   #--- ie. who got there first)
 
   $s{'trophies'}{'bestinshow'} = [ sort {
+
+    if(
+      $s{'clans'}{$b}{'bestinshow'}{'score'} == 0
+      && $s{'clans'}{$a}{'bestinshow'}{'score'} == 0
+    ) {
+      return $a cmp $b;
+    }
+
     if(
       $s{'clans'}{$b}{'bestinshow'}{'score'}
       ==
       $s{'clans'}{$a}{'bestinshow'}{'score'}
     ) {
       return
-        $s{'clans'}{$a}{'bestinshow'}{'scoretimeref'}
+        ($s{'clans'}{$a}{'bestinshow'}{'scoretimeref'} // 0)
         <=>
-        $s{'clans'}{$b}{'bestinshow'}{'scoretimeref'};
+        ($s{'clans'}{$b}{'bestinshow'}{'scoretimeref'} // 0);
     }
+
     $s{'clans'}{$b}{'bestinshow'}{'score'}
     <=>
     $s{'clans'}{$a}{'bestinshow'}{'score'}
+
   } keys %{$s{'clans'}} ];
 });
 
