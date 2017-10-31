@@ -1834,8 +1834,17 @@ push(@glb_consumers, sub
 
   #--- best in show
 
-  $s{'trophies'}{'brief'}{'bestinshow'}
-  = $s{'trophies'}{'bestinshow'}[0] // undef;
+  # this following code ensure that only clans with non-zero score can
+  # get reported as having got Best In Show
+
+  $s{'trophies'}{'brief'}{'bestinshow'} = undef;
+  if(
+    @{$s{'trophies'}{'bestinshow'}}
+    && $s{'clans'}{ $s{'trophies'}{'bestinshow'}[0] }{'bestinshow'}{'score'}
+  ) {
+    $s{'trophies'}{'brief'}{'bestinshow'}
+    = $s{'trophies'}{'bestinshow'}[0];
+  }
 
 });
 
