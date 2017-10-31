@@ -401,14 +401,21 @@
 
 [% IF clans.size %]
 
-  [% SET i = 0; WHILE i < 3 %]
+  [% SET i = 0; SET empty = 1; WHILE i < 3 %]
     [% LAST IF !trophies.bestinshow.item(i) %]
-    <tr>
-    <td class="num">[% i+1 %]</td>
-    <td>[% SET c = trophies.bestinshow.item(i); clink(c) %]</td>
-    <td class="num">[% clans.item(c).bestinshow.score %]</td>
+    [% SET c = trophies.bestinshow.item(i) %]
+    [% IF clans.item(c).bestinshow.score > 0 %]
+      <tr>
+      <td class="num">[% i+1 %]</td>
+      <td>[% clink(c) %]</td>
+      <td class="num">[% clans.item(c).bestinshow.score %]</td>
+      [% SET empty = 0 %]
+      </tr>
+    [% END %]
     [% SET i = i + 1 %]
-    </tr>
+  [% END %]
+  [% IF empty %]
+    <tr><td class="noasc">No scoring clans yet</td><tr>
   [% END %]
 [% ELSE %]
   <tr><td class="noasc">No clans exist yet</td></tr>
