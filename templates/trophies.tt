@@ -240,7 +240,7 @@
   [% FOR role IN cfg.roles %]
   [% SET g = games.data.top_by_role.item(role).0 %]
   [% IF games.data.top_by_role.item(role).size > 0 %]
-    [% INCLUDE game.tt game=games.data.top_by_role.item(role).0 %]
+    [% INCLUDE 'game-minor.tt' game=games.data.top_by_role.item(role).0 %]
   [% ELSE %]
     <tr>
     <td class="center">[% role %]</td>
