@@ -1669,6 +1669,15 @@ push(@glb_consumers, sub
     $s{'clans'}{$a}{'bestinshow'}{'score'}
 
   } keys %{$s{'clans'}} ];
+
+  #--- record clan's rank (ie. position on the ladder)
+
+  my $rank = 1;
+  for my $clan (@{$s{'trophies'}{'bestinshow'}}) {
+    last if $s{'clans'}{$clan}{'bestinshow'}{'score'} == 0;
+    $s{'clans'}{$clan}{'bestinshow'}{'rank'} = $rank++;
+  }
+
 });
 
 #============================================================================

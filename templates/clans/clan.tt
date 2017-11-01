@@ -56,6 +56,12 @@
   <thead>
     <tr><th colspan=2 class="label">STATISTICS</th></tr>
   </thead>
+  [% IF clans.item(clan).bestinshow.exists('rank') %]
+    <tr>
+      <td>Rank</td>
+      <td class="num">[% clans.item(clan).bestinshow.rank %]</td>
+    </tr>
+  [% END %]
   <tr>
     <td>Games</td>
     <td class="num">[% clans.item(clan).cnt_games %]</td>

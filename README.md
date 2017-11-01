@@ -227,6 +227,10 @@ Total clan score.
 Time when the score was achieved (ie. time of the last scoring entry). This
 can be undefined if the clan has not scored yet.
 
+`%s`.`clans`.`CLAN`.`bestinshow`.`rank`  
+Clans ranking on the Best In Show ladder. This key only exist for scoring
+clans.
+
 ### aux
 
 `%s`.`aux`.`time`  
