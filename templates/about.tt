@@ -105,6 +105,11 @@ you must create an account on the central server first.</p>
     <td>ssh nethack@eu.hardfought.org</td>
   </tr>
   <tr>
+    <td>au.hardfought.org</td>
+    <td>Australia (Sydney)</td>
+    <td>ssh nethack@au.hardfought.org</td>
+  </tr>
+  <tr>
     <td>e6.alt.org</td>
     <td>US West</td>
     <td>ssh nethack@e6.alt.org</td>
