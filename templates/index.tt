@@ -57,7 +57,7 @@
   </tr>
   [% FOREACH srv IN cfg.sources.keys.sort %]
     <tr>
-      <td>
+      <td class="nowrap">
         [% IF servers.item(srv).reachable.defined %]
           [% IF servers.item(srv).reachable %]
             <span class="srvok">&nbsp;&nbsp;&nbsp;</span>
