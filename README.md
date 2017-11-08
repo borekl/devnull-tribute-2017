@@ -237,3 +237,8 @@ clans.
 `%s`.`aux`.`timefmt`  
 Time when the scoreboard finished compiling in epoch format and as a
 formatted human-readable string.
+
+`%s`.`aux`.`phase`  
+If time constraints are configured in config, this gives `before`, `during`
+or `after` depending on current time. Useful in templates to conditonally
+hide some link after the tournament ends etc.

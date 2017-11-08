@@ -2091,6 +2091,19 @@ $s{'cfg'} = $cfg;
 $s{'aux'}{'time'} = time();
 $s{'aux'}{'timefmt'} = format_datetime($s{'aux'}{'time'});
 
+if(
+  exists $cfg->{'time'}{'starttime'}
+  && exists $cfg->{'time'}{'endtime'}
+) {
+  if($s{'aux'}{'time'} < $cfg->{'time'}{'starttime'}) {
+    $s{'aux'}{'phase'} = 'before';
+  } elsif($s{'aux'}{'time'} >= $cfg->{'time'}{'endtime'}) {
+    $s{'aux'}{'phase'} = 'after';
+  } else {
+    $s{'aux'}{'phase'} = 'during';
+  }
+}
+
 #--- debug: save the compiled scoreboard data as JSON
 
 if($cmd_debug) {
