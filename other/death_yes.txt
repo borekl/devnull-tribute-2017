@@ -183,6 +183,7 @@ killed by the Minion of Huhetotl
 killed by (a|an) [\w\-\ ]* of Moloch
 killed by a (caveman|tourist|valkyrie|knight|samurai|barbarian)
 killed by a (grid bug|wumpus|Keystone Kop|Kop Sergeant|Kop Lieutenant|Kop Kaptain|nurse)
+killed by (a|an) (Angel|Archon|Aleax|[\w]* naga hatchling|[\w]* naga|couatl|ki-rin|titan)
 killed by (a|an) (acolyte|student|guard|soldier|warrior|sergeant|lieutenant|captain|watchman|watch captain)
 killed by a (newt|garter snake|woodchuck)
 killed by a (titanothere|mastodon|baluchitherium)
@@ -199,7 +200,6 @@ killed by (a|an) (tengu|gremlin|gargoyle|winged gargoyle|baby [\w]* dragon|[\w]*
 killed by (a|an) (hobbit|dwarf|dwarf lord|dwarf king|[\w]*-elf|elf-lord|Elvenking|warg|hill orc|mumak|Uruk\-hai|Olog\-hai|Mordor orc|orc shaman|orc\-captain|barrow wight|jabberwock|balrog)
 killed by (a|an) (vampire bat|vampire|vampire lord|[\w]* mummy|[\w]* zombie|cadaver|skeleton|lich|master lich|arch-lich|wraith|ghoul)
 killed by (a|an) (bugbear|owlbear|mimic|small mimic|large mimic|giant mimic|kobold|large kobold|kobold shaman|kobold lord|mind flayer|master mind flayer|[\w]* worm|baby [\w]* worm|rock piercer|iron piercer|trapper|quasit|xorn|umber hulk|gelatinous cube)
-killed by (a|an) (Angel|Archon|Aleax|[\w]* naga hatchling|[\w]* naga|couatl|ki-rin|titan)
 killed by (a|an) (imp|succubus|incubus|djinni|[\w]* demon|[\w]* devil|manes|nalfeshnee|pit fiend|vrock|hezrou|marilith)
 killed by a (leocrotta|rothe|disenchanter|zruty)
 killed by a died
