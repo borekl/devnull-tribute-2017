@@ -2019,7 +2019,7 @@ for my $src (keys %{$cfg->{'sources'}}) {
     next if
       exists $cfg->{'time'}{'endtime'}
       && defined $cfg->{'time'}{'endtime'}
-      && $xrow->{'endtime'} >= $cfg->{'time'}{'endttimetime'};
+      && $xrow->{'endtime'} >= $cfg->{'time'}{'endtime'};
 
     $xrow->{'_src'} = $src;
     push(@merged_xlog, $xrow);
