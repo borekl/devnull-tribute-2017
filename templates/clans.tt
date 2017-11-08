@@ -30,9 +30,11 @@
 
 <hr>
 
+[% IF aux.phase != 'after' %]
 <div class="biglink flexrow">
 <a href="clanmgmt/">For clan management (incl. checking your invites) click here</a>
 </div>
+[% END %]
 
 <table class="spaceout bigletter centered" id="clan-list">
 

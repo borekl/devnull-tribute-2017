@@ -74,13 +74,15 @@
       <td class="num">[% servers.item(srv).cnt_players %]</td>
     </tr>
   [% END %]
+  [% IF aux.phase != 'after' %]
   <tr>
     <td colspan=4>
       <a href="about.html#howtoconnect">
         Click here for info on how to connect
       </a>
-      </td>
-  <tr>
+    </td>
+  </tr>
+  [% END %]
   </tbody>
 </table>
 
@@ -133,9 +135,11 @@
         <td class="num">[% clans.item(clan).bestinshow.score %]</td>
       </tr>
     [% END %]
+    [% IF aux.phase != 'after' %]
     <tr>
       <td colspan=4><a href="clanmgmt/">Click here for clan management</a></td>
     </tr>
+    [% END %]
   </tbody>
 </table>
 [% END %]
