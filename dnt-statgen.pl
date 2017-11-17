@@ -700,16 +700,25 @@ push(@row_consumers, sub
     !exists $s{'players'}{'data'}{$plr_name}
     || !exists $s{'players'}{'data'}{$plr_name}{'games'}
   ) {
-    $s{'players'}{'data'}{$plr_name}{'games'} = [];
-    $s{'players'}{'data'}{$plr_name}{'cnt_games'} = 0;
-    $s{'players'}{'data'}{$plr_name}{'cnt_ascensions'} = 0;
-    $s{'players'}{'data'}{$plr_name}{'cnt_asc_turns'} = 0;
-    $s{'players'}{'data'}{$plr_name}{'unique'}{'list'} = [];
-    $s{'players'}{'data'}{$plr_name}{'unique'}{'when'} = undef;
-    $s{'players'}{'data'}{$plr_name}{'last_asc'} = undef;
-    $s{'players'}{'data'}{$plr_name}{'maxlvl'} = 0;
-    $s{'players'}{'data'}{$plr_name}{'maxlvl_game'} = undef;
-    $s{'players'}{'data'}{$plr_name}{'score'} = 0;
+    $s{'players'}{'data'}{$plr_name} = {
+      'games'          => [],
+      'cnt_games'      => 0,
+      'cnt_ascensions' => 0,
+      'cnt_asc_turns'  => 0,
+      'unique'         => { 'list' => [], 'when' => undef },
+      'last_asc'       => undef,
+      'maxlvl'         => 0,
+      'maxlvl_game'    => undef,
+      'score'          => 0,
+      'clan'           => do {
+                            my ($clan) = grep {
+                              grep {
+                                $_ eq $plr_name;
+                              } @{$s{'clans'}{$_}{'members'}};
+                            } keys %{$s{'clans'}};
+                            $clan;
+                          },
+    };
   }
 
   #--- push new game into the list

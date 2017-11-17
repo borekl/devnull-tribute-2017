@@ -31,7 +31,13 @@
 
 <hr>
 
-<h1 class="player">player <span class="plrhilite">[% player %]</span></h1>
+<h1 class="player">
+  player
+  <span class="plrhilite">[% player %]</span>
+  [% IF players.data.item(player).clan %]
+  of <span class="plrhilite">[% players.data.item(player).clan %]</span>
+  [% END %]
+</h1>
 
 <div class="flexrow"> [%# flex container %]
 
