@@ -18,6 +18,7 @@ use Carp;
 use Getopt::Long;
 use JSON;
 use Template;
+use Template::Directive;
 use DBI;
 
 
@@ -459,6 +460,7 @@ sub process_templates
     'RELATIVE' => 1
   );
   if(!ref($tt)) { die 'Failed to initialize Template Toolkit'; }
+  $Template::Directive::WHILE_MAX = 100000;
 
   #--- find the templates
 
