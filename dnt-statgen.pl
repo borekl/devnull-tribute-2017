@@ -701,6 +701,7 @@ push(@row_consumers, sub
     || !exists $s{'players'}{'data'}{$plr_name}{'games'}
   ) {
     $s{'players'}{'data'}{$plr_name} = {
+      'challenges'     => $s{'players'}{'data'}{$plr_name}{'challenges'} // undef,
       'games'          => [],
       'cnt_games'      => 0,
       'cnt_ascensions' => 0,
