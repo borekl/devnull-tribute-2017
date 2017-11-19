@@ -1214,8 +1214,8 @@ push(@glb_consumers, sub
   #--- otherwise we need to iterate
 
     my $best_of_13 = { cnt => 0, games => [], when => undef };
-    for(my $i = 0; $i < scalar(@$games)-13; $i++) {
-      my $cur_13 = combo_ascends_nrepeat(@$games[$i..$i+13]);
+    for(my $i = 0; $i <= scalar(@$games)-13; $i++) {
+      my $cur_13 = combo_ascends_nrepeat(@$games[$i..$i+12]);
       if($cur_13->{'cnt'} > $best_of_13->{'cnt'}) {
         $best_of_13 = $cur_13;
       }
