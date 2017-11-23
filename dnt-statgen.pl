@@ -1464,6 +1464,18 @@ push(@glb_consumers, sub
     $score->($plr, 'minscore', undef, undef, $when);
   }
 
+  #--- Highest Scoring Ascension
+
+  if(
+    exists $s{'games'}{'data'}{'asc_by_maxscore'}
+    && @{$s{'games'}{'data'}{'asc_by_maxscore'}}
+  ) {
+    my $g = get_xrows($s{'games'}{'data'}{'asc_by_maxscore'}[0]);
+    my $plr = $g->{'name'};
+    my $when = $g->{'endtime'};
+    $score->($plr, 'maxscore', undef, undef, $when);
+  }
+
   #--- First Ascension
 
   if(
