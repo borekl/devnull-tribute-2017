@@ -2015,6 +2015,15 @@ if($cfg->{'challenges'}{'status'}) {
   while(my $l = <F>) {
     chomp($l);
     my @chal = split(/:/, $l);
+
+    # enfore end limit (we are not enforcing the start bound because we expect
+    # the challenges to be reset at the start of the tournament)
+
+    next if
+      exists $cfg->{'time'}{'endtime'}
+      && defined $cfg->{'time'}{'endtime'}
+      && $chal[0] >= $cfg->{'time'}{'endtime'};
+
     $s{'players'}{'data'}{$chal[2]}{'challenges'}{lc($chal[1])} = {
       'when' => $chal[0],
       'status' => lc($chal[3])
