@@ -9,6 +9,9 @@ in November 2017 as a quick way to have a replacement tournament.  This
 code implements scoreboard that is supposed to imitiate the structure of
 the original tournament.
 
+**Note: This tournament was an one off event and this code is therefore
+no longer maintained.**
+
 ---
 
 ## CONFIGURATION
